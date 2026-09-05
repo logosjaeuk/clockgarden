@@ -1,0 +1,10 @@
+---
+import GenericToolPage from '../components/GenericToolPage.astro';
+import { toolPages, type ToolKey } from '../content/toolPages';
+export function getStaticPaths() {
+  return Object.keys(toolPages.en).map((tool) => ({ params: { tool }, props: { tool } }));
+}
+const { tool } = Astro.props as { tool: ToolKey };
+---
+
+<GenericToolPage locale="en" tool={tool} />

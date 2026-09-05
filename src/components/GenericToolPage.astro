@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ClockTool from './ClockTool.astro';
+import StopwatchTool from './StopwatchTool.astro';
+import TimerTool from './TimerTool.astro';
+import AlarmTool from './AlarmTool.astro';
+import WorldClockTool from './WorldClockTool.astro';
+import ConverterTool from './ConverterTool.astro';
+import AdSlot from './AdSlot.astro';
+import { toolPages, type ToolKey } from '../content/toolPages';
+import type { Locale } from '../config';
+const { locale, tool } = Astro.props as { locale: Locale; tool: ToolKey };
+const page = toolPages[locale][tool];
+const components = {
+  clock: ClockTool,
+  stopwatch: StopwatchTool,
+  timer: TimerTool,
+  alarm: AlarmTool,
+  'world-clock': WorldClockTool,
+  'time-zone-converter': ConverterTool,
+};
+const Tool = components[tool];
+---
+
+<BaseLayout title={page.title} description={page.meta} locale={locale} path={`/${tool}/`} tool>
+  <article class="tool-page">
+    <header class="tool-heading">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.heading}</h1>
+    </header>
+    <Tool locale={locale} />
+    <p class="tool-summary">{page.intro}</p>
+    <div class="supporting-copy">
+      {
+        page.sections.map((section) => (
+          <section>
+            <>
+              <h2>{section.heading}</h2>
+              <p>{section.body}</p>
+            </>
+          </section>
+        ))
+      }
+    </div>
+    <AdSlot locale={locale} />
+  </article>
+  <script>
+    import '../scripts/tools';
+  </script>
+</BaseLayout>

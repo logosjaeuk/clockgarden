@@ -1,0 +1,12 @@
+{
+  "name": "Clock Garden Time Utilities",
+  "short_name": "Clock Garden",
+  "description": "Private clocks and time tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f4ef",
+  "theme_color": "#426344",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

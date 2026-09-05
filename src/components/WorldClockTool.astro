@@ -1,0 +1,31 @@
+---
+import type { Locale } from '../config';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+---
+
+<section class="instrument" data-tool="world-clock" data-locale={locale}>
+  <form class="zone-add-form" data-zone-form>
+    <label class="grow"
+      ><span>{ko ? '도시 또는 시간대 검색' : 'Search city or time zone'}</span><input
+        name="zone"
+        type="search"
+        list="timezones"
+        autocomplete="off"
+        placeholder={ko ? '서울, 뉴욕, London…' : 'Seoul, New York, London…'}
+        required
+      /></label
+    >
+    <datalist id="timezones" data-zone-options></datalist>
+    <button class="button primary" type="submit">{ko ? '추가' : 'Add'}</button>
+  </form>
+  <p class="status-line" data-status aria-live="polite"></p>
+  <p class="tool-note">
+    {
+      ko
+        ? '도시와 순서를 기억합니다. 첫 번째 도시를 기준으로 날짜를 비교합니다.'
+        : 'Your cities and their order are remembered. Dates are compared with the first city.'
+    }
+  </p>
+  <ul class="world-list" data-world-list></ul>
+</section>

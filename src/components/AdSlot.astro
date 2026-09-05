@@ -1,0 +1,17 @@
+---
+import { adsConfig, type Locale } from '../config';
+
+const { locale = 'en' } = Astro.props as { locale?: Locale };
+const label = locale === 'ko' ? '광고' : 'Advertisements';
+---
+
+{
+  adsConfig.placements.toolContentFooter && (
+    <aside class="ad-region" data-ad-placement="tool-content-footer" aria-label={label}>
+      <span class="ad-label">{label}</span>
+      <div class="ad-reserved-space">
+        <slot />
+      </div>
+    </aside>
+  )
+}

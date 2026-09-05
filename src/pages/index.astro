@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ClockTool from '../components/ClockTool.astro';
+import ToolCards from '../components/ToolCards.astro';
+---
+
+<BaseLayout
+  title="Current Time and Online Time Tools"
+  description="See your current local time instantly, then use a private stopwatch, timer, alarm, world clock, or time zone converter."
+  path="/"
+  tool
+>
+  <div class="hero-section">
+    <ClockTool locale="en" heading="Current local time" />
+    <ToolCards locale="en" />
+  </div>
+  <script>
+    import '../scripts/tools';
+  </script>
+</BaseLayout>

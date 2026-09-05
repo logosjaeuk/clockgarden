@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
+---
+
+<BaseLayout
+  title="Privacy"
+  description={`How ${siteConfig.name} handles preferences, alarms, analytics configuration, and browser permissions.`}
+  path="/privacy/"
+>
+  <article class="content-page">
+    <p class="eyebrow">Plain-language policy</p><h1>Privacy</h1><p>
+      {siteConfig.name} does not require an account. Clock preferences, saved timer presets, converter
+      zones, alarms, and world-clock locations are stored in your browser using local storage. They are
+      not synchronized between devices. Running countdowns use session storage for this tab and survive
+      a refresh. Your browser may restore that tab data when restoring a browsing session.
+    </p><h2>Network requests</h2><p>
+      The tools calculate time in your browser. This build sends no analytics events and loads no
+      advertising scripts. The hosting provider receives normal page requests, which can include
+      your IP address and requested URL. Timer and converter links can contain the duration, time
+      zones and dates you choose; anyone you give a link to can read those values.
+    </p><h2>Offline pages</h2><p>
+      Previously visited pages and their assets can be cached by a service worker. Clearing site
+      data removes those cached files as well as your saved settings.
+    </p><h2>Permissions</h2><p>
+      Notification and screen wake-lock permissions are requested only after you choose the relevant
+      control. You can revoke them in browser settings. Alarm labels are included in local
+      notifications but are not uploaded by the core app.
+    </p><h2>Data removal</h2><p>
+      Delete individual alarms or locations in the app, or clear this site’s storage in your browser
+      to remove all saved preferences.
+    </p>
+  </article>
+</BaseLayout>

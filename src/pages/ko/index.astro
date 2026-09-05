@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ClockTool from '../../components/ClockTool.astro';
+import ToolCards from '../../components/ToolCards.astro';
+---
+
+<BaseLayout
+  title="현재 시간과 온라인 시간 도구"
+  description="현재 현지 시간을 바로 확인하고 개인정보 친화적인 스톱워치, 타이머, 알람, 세계 시계, 시간대 변환기를 사용하세요."
+  locale="ko"
+  path="/"
+  tool
+>
+  <div class="hero-section">
+    <ClockTool locale="ko" heading="현재 현지 시간" />
+    <ToolCards locale="ko" />
+  </div>
+  <script>
+    import '../../scripts/tools';
+  </script>
+</BaseLayout>

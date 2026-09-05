@@ -1,0 +1,82 @@
+---
+import type { Locale } from '../config';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+---
+
+<section class="instrument" data-tool="converter" data-locale={locale}>
+  <form class="converter-form" data-converter-form>
+    <div class="converter-grid">
+      <label
+        ><span>{ko ? '기준 시간대' : 'From time zone'}</span><input
+          name="source"
+          list="converter-zones"
+          value="UTC"
+          required
+        /></label
+      >
+      <label
+        ><span>{ko ? '날짜' : 'Date'}</span><input
+          name="date"
+          type="date"
+          min="0100-01-01"
+          max="9999-12-31"
+          required
+        /></label
+      >
+      <label
+        ><span>{ko ? '시간' : 'Time'}</span><input
+          name="time"
+          type="time"
+          value="12:00"
+          required
+        /></label
+      >
+      <button
+        class="icon-button swap-button"
+        type="button"
+        data-action="swap"
+        title={ko ? '첫 번째 목적지와 교환' : 'Swap with first destination'}
+        aria-label={ko ? '첫 번째 목적지와 교환' : 'Swap with first destination'}>⇄</button
+      >
+      <label class="grow"
+        ><span>{ko ? '변환할 시간대' : 'To time zones'}</span><input
+          name="destination"
+          list="converter-zones"
+          placeholder="Asia/Seoul"
+        /></label
+      >
+      <button class="button" type="button" data-action="add-zone"
+        >{ko ? '목적지 추가' : 'Add destination'}</button
+      >
+    </div>
+    <datalist id="converter-zones" data-zone-options></datalist>
+    <div class="destination-chips" data-destinations></div>
+    <label class="dst-choice" data-dst-choice hidden
+      ><span
+        >{
+          ko
+            ? '이 시각은 두 번 발생합니다. UTC 오프셋을 선택하세요.'
+            : 'This time occurs twice. Choose the UTC offset.'
+        }</span
+      ><select name="occurrence" aria-label={ko ? '중복 시각 선택' : 'Choose occurrence'}
+      ></select></label
+    >
+    <div class="primary-controls">
+      <button class="button primary" type="submit">{ko ? '시간 변환' : 'Convert time'}</button>
+      <button class="text-button" type="button" data-action="now">{ko ? '지금' : 'Now'}</button>
+      <button class="text-button" type="button" data-action="share-conversion" disabled
+        >{ko ? '결과 링크 복사' : 'Copy result link'}</button
+      >
+    </div>
+  </form>
+  <p class="tool-note">
+    {
+      ko
+        ? '서울, 뉴욕, London 또는 IANA 시간대로 검색하세요. 시간대 조합은 이 브라우저에 저장됩니다.'
+        : 'Search by city, such as Seoul or London, or an IANA zone. Your zone combination is remembered in this browser.'
+    }
+  </p>
+  <p class="status-line" data-status aria-live="polite"></p>
+  <div class="conversion-results" data-results></div>
+</section>

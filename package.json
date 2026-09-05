@@ -1,0 +1,27 @@
+{
+  "name": "clock-garden",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "typecheck": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "build:release": "node scripts/check-release.mjs && npm run build && node scripts/verify-build.mjs",
+    "verify:build": "node scripts/verify-build.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "astro": "^7.3.1",
+    "cross-env": "^10.0.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

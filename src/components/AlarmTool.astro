@@ -1,0 +1,69 @@
+---
+import type { Locale } from '../config';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+const days = ko
+  ? ['일', '월', '화', '수', '목', '금', '토']
+  : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+---
+
+<section class="instrument" data-tool="alarm" data-locale={locale}>
+  <p class="tool-note">
+    {
+      ko
+        ? '알람을 받으려면 이 페이지를 열어 두세요. 기기가 잠기거나 절전 상태가 되면 울리지 않을 수 있습니다.'
+        : 'Keep this page open for alarms. Alerts may not sound when your device is locked or asleep.'
+    }
+  </p>
+  <div class="next-alarm" data-next-alarm>{ko ? '활성 알람 없음' : 'No active alarms'}</div>
+  <form class="alarm-form" data-alarm-form>
+    <label
+      ><span>{ko ? '시간' : 'Time'}</span><input
+        name="time"
+        type="time"
+        required
+        value="07:30"
+      /></label
+    >
+    <label class="grow"
+      ><span>{ko ? '라벨' : 'Label'}</span><input
+        name="label"
+        type="text"
+        maxlength="40"
+        placeholder={ko ? '아침 알람' : 'Morning alarm'}
+      /></label
+    >
+    <label
+      ><span>{ko ? '소리' : 'Sound'}</span><select name="sound"
+        ><option value="chime">{ko ? '차임' : 'Chime'}</option><option value="pulse"
+          >{ko ? '펄스' : 'Pulse'}</option
+        ><option value="bright">{ko ? '브라이트' : 'Bright'}</option></select
+      ></label
+    >
+    <fieldset class="weekday-picker">
+      <legend>{ko ? '반복 요일 (선택하지 않으면 1회)' : 'Repeat days (none means once)'}</legend>{
+        days.map((day, index) => (
+          <label>
+            <>
+              <input type="checkbox" name="weekday" value={index} />
+              <span>{day}</span>
+            </>
+          </label>
+        ))
+      }
+    </fieldset>
+    <button class="button primary" type="submit">{ko ? '알람 추가' : 'Add alarm'}</button>
+    <button class="text-button" type="button" data-action="notifications"
+      >{ko ? '알림 사용' : 'Enable notifications'}</button
+    >
+  </form>
+  <p class="status-line" data-status aria-live="polite"></p>
+  <div class="alarm-ringing" data-ringing hidden role="alert">
+    <strong data-ringing-label>{ko ? '알람' : 'Alarm'}</strong>
+    <button class="button primary" type="button" data-action="snooze"
+      >{ko ? '5분 스누즈' : 'Snooze 5 min'}</button
+    >
+    <button class="button" type="button" data-action="dismiss">{ko ? '해제' : 'Dismiss'}</button>
+  </div>
+  <ul class="alarm-list" data-alarm-list></ul>
+</section>
