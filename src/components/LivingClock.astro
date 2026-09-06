@@ -7,15 +7,12 @@ const ko = locale === 'ko';
 <div class="living-world" data-living-world hidden>
   <canvas data-living-canvas aria-hidden="true"></canvas>
   <div class="word-clock" hidden data-word-clock>
-    <svg viewBox="0 0 400 400" aria-hidden="true"
-      ><circle cx="200" cy="200" r="190" class="word-track"></circle><circle
-        cx="200"
-        cy="200"
-        r="190"
-        pathLength="60"
-        class="word-progress"></circle></svg
-    >
     <div class="word-face">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <rect x="2" y="2" width="396" height="396" rx="22" class="word-track"></rect>
+        <rect x="2" y="2" width="396" height="396" rx="22" pathLength="60" class="word-progress"
+        ></rect>
+      </svg>
       <span data-word-period></span><strong data-word-hour></strong><span data-word-minute
       ></span><small>{ko ? '지금, 이 순간' : 'HERE, NOW'}</small>
     </div>

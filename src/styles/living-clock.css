@@ -369,293 +369,193 @@
     right: 10px;
   }
 }
+/* A light instrument inside the shared Living Clock scene shell. */
 .word-clock {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  container-type: size;
   background:
-    radial-gradient(ellipse at 50% 46%, #28444a 0%, #17262b 46%, #10191d 82%),
-    linear-gradient(180deg, #18323b 0%, #10191d 64%, #0b1419 100%);
-  color: #f1ebdf;
+    radial-gradient(ellipse at 50% 52%, #42646755, transparent 60%),
+    linear-gradient(180deg, #193747, #17343d 48%, #091d2e);
+  color: #fff2d8;
 }
-.word-clock::before,
-.word-clock::after {
-  content: '';
-  position: absolute;
-  pointer-events: none;
-}
-.word-clock::before {
-  left: 8%;
-  right: 8%;
-  top: 25%;
-  height: 58%;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse at 50% 48%, #ead19617 0 28%, transparent 54%),
-    radial-gradient(ellipse at 50% 82%, #07101485 0 34%, transparent 35%);
-  opacity: 0.9;
-}
-.word-clock::after {
-  left: 50%;
-  bottom: 121px;
-  width: min(72%, 660px);
-  height: 54px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background:
-    repeating-linear-gradient(90deg, #f6dda7 0 4px, transparent 4px 13px),
-    linear-gradient(90deg, transparent, #f6dda752 15% 85%, transparent);
-  mask-image: radial-gradient(ellipse at center, #000 0 58%, transparent 72%);
-  opacity: 0.38;
-  filter: drop-shadow(0 0 12px #f4cf8b38);
-}
-.word-clock svg {
-  position: absolute;
-  width: min(78%, 440px);
-  height: auto;
-  max-height: calc(100% - 170px);
-  aspect-ratio: 1;
-  left: 50%;
-  top: 45%;
-  transform: translate(-50%, -50%);
-  overflow: visible;
-}
-.word-track,
-.word-progress {
-  fill: none;
-  stroke: #e8dfcc18;
-  stroke-width: 1;
-}
-.word-progress {
-  stroke: #c5ad82;
-  stroke-width: 1.5;
-  transform: rotate(-90deg);
-  transform-origin: 200px 200px;
-  stroke-linecap: round;
-}
-.word-face {
-  position: absolute;
-  left: 7%;
-  right: 7%;
-  top: 52%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  gap: 17px;
-}
-.word-face [data-word-period] {
-  font-size: 0.75rem;
-  letter-spacing: 0.24em;
-  color: #b9ac96;
-}
-.word-face strong {
-  font-family: Georgia, 'Malgun Gothic', serif;
-  font-weight: 400;
-  font-size: clamp(2rem, 7vw, 4.5rem);
-  letter-spacing: 0.04em;
-  line-height: 1.3;
-}
-.word-face [data-word-minute] {
-  font-size: clamp(0.9rem, 2.8vw, 1.5rem);
-  font-weight: 300;
-  letter-spacing: 0.12em;
-}
-.word-face small {
-  margin-top: 20px;
-  font-size: 0.58rem;
-  letter-spacing: 0.25em;
-  color: #b0aba1;
-}
-.is-words .living-world canvas,
-.is-words .clock-readout {
-  display: none !important;
-}
-.is-words .living-bottom {
-  justify-content: space-between;
-}
-.is-words .living-scenes {
-  top: auto;
-  bottom: 235px;
-}
-.is-words .living-preview-state {
-  top: auto;
-  bottom: 175px;
-}
-@media (max-width: 580px) {
-  .word-face {
-    gap: 12px;
-  }
-  .is-words .living-scenes {
-    top: auto;
-    bottom: 230px;
-  }
-}
-/* Letter matrix: dim engraved characters, illuminated current-time characters. */
-.word-clock svg {
+.is-living.is-words .living-world canvas {
   display: none;
 }
+.is-living.is-words .clock-readout {
+  top: 58px;
+}
+.is-living.is-words .clock-readout .hero-time {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  letter-spacing: -0.04em;
+}
+.is-living.is-words .hero-date {
+  margin-top: 5px;
+  font-size: 0.78rem;
+}
+.is-living.is-words .zone-line {
+  font-size: 0.67rem;
+}
 .word-face {
-  top: 48%;
+  --face-size: min(390px, 60cqw, calc(100cqh - 300px));
+  position: absolute;
+  inset: 165px 0 135px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
 }
+.word-face [data-word-period] {
+  position: absolute;
+  top: -26px;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: #b6ceca;
+}
 .word-face [data-word-hour],
-.word-face [data-word-minute] {
+.word-face [data-word-minute],
+.word-face small {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
 }
-.word-face small {
-  display: none;
-}
 .word-grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  width: min(72vw, 350px);
-  aspect-ratio: 1;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: var(--face-size);
+  height: var(--face-size);
+  flex-shrink: 0;
   padding: 18px;
-  border: 7px solid #a98d63;
-  outline: 1px solid #e5d09f;
-  border-radius: 3px;
+  border: 1px solid #c9dfce40;
+  border-radius: 18px;
+  background: #0b233280;
   box-shadow:
-    inset 0 0 20px #0008,
-    0 18px 45px #02090d8a,
-    0 0 80px #e9c77c1c;
-  background:
-    linear-gradient(180deg, #20282a, #14191b),
-    radial-gradient(circle at 50% 40%, #314145, #151a1c 70%);
+    0 16px 40px #03131f30,
+    inset 0 1px #efffe80d;
 }
 .word-grid span {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #44494b;
+  color: #74908e;
   font-family: 'Malgun Gothic', sans-serif;
-  font-size: clamp(1.25rem, 4.5vw, 2.3rem);
-  font-weight: 300;
+  font-size: calc(var(--face-size) / 13);
+  font-weight: 400;
 }
 .word-grid span.lit {
-  color: #fff5e1;
-  text-shadow:
-    0 0 10px #fff0c566,
-    0 0 22px #e5bd6b3d;
-}
-.word-grid-en {
-  grid-template-columns: repeat(5, 1fr);
-  width: min(78vw, 440px);
-  gap: 5px;
-  padding: 12px;
-}
-.word-grid-en span {
-  font-family: Arial, sans-serif;
-  font-size: clamp(0.45rem, 1.2vw, 0.7rem);
-  letter-spacing: 0.02em;
-}
-@media (max-height: 600px) and (orientation: landscape) {
-  .word-grid {
-    width: 220px;
-    padding: 10px;
-  }
-  .word-grid span {
-    font-size: 1.3rem;
-  }
-  .word-grid-en span {
-    font-size: 0.45rem;
-  }
+  color: #fff2cf;
+  text-shadow: 0 0 12px #ffe2a580;
 }
 .word-grid-en {
   grid-template-columns: repeat(18, minmax(0, 1fr));
   grid-template-rows: repeat(16, minmax(0, 1fr));
-  width: min(58vw, 470px);
-  gap: 0;
-  padding: clamp(10px, 1.7vw, 18px);
 }
 .word-grid-en span {
   font-family: ui-monospace, Consolas, monospace;
-  font-size: clamp(0.55rem, 1.18vw, 0.95rem);
+  font-size: calc(var(--face-size) / 27);
   font-weight: 500;
-  letter-spacing: 0;
 }
-.word-grid-en::after {
+.word-grid::after {
   content: attr(data-phrase);
   position: absolute;
-  left: 50%;
-  bottom: -44px;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: min(72vw, 480px);
-  color: #f3dfb1;
-  font-family: inherit;
-  font-size: 0.66rem;
-  font-weight: 650;
-  letter-spacing: 0.18em;
+  top: calc(100% + 18px);
+  left: -20px;
+  right: -20px;
   text-align: center;
-  text-shadow: 0 2px 16px #000;
+  color: #eddfc1;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
 }
-@media (max-height: 600px) and (orientation: landscape) {
-  .word-grid-en {
-    width: 240px;
-    padding: 8px;
-  }
-  .word-grid-en span {
-    font-size: 0.55rem;
-  }
+.word-face svg {
+  position: absolute;
+  width: calc(var(--face-size) + 12px);
+  height: calc(var(--face-size) + 12px);
+  pointer-events: none;
+  overflow: visible;
 }
-@media (max-width: 900px) {
-  .word-grid-en {
-    width: min(70vw, 430px);
-  }
-  .is-words .living-scenes {
-    bottom: 205px;
-  }
+.word-track,
+.word-progress {
+  fill: none;
+  stroke: #c9dfce18;
+  stroke-width: 1;
+}
+.word-progress {
+  stroke: #f1dbab;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.is-living.is-words .living-preview-state {
+  top: 105px;
+}
+.living-presets button[aria-pressed='true'] {
+  background: #f1dbab;
+  color: #253442;
+}
+.living-explore summary:hover,
+.living-scenes summary:hover {
+  background: #29475de6;
 }
 @media (max-width: 580px) {
-  .word-clock::before {
-    left: -18%;
-    right: -18%;
-    top: 25%;
+  .clock-instrument.is-living.is-words {
+    height: 650px;
   }
-  .word-clock::after {
-    bottom: 202px;
-    width: 88%;
+  .is-living.is-words .clock-readout {
+    top: 60px;
+  }
+  .is-words .living-heading {
+    align-items: flex-start;
+  }
+  .is-words .living-phase {
+    max-width: 46%;
+    text-align: right;
   }
   .word-face {
-    top: 43%;
-    left: 10px;
-    right: 10px;
-  }
-  .word-grid {
-    width: min(84vw, 330px);
-  }
-  .word-grid-en {
-    width: min(88vw, 360px);
-    padding: 10px;
-  }
-  .word-grid-en span {
-    font-size: clamp(0.45rem, 2.25vw, 0.62rem);
-  }
-  .word-grid-en::after {
-    bottom: -36px;
-    max-width: 86vw;
-    font-size: 0.55rem;
-    letter-spacing: 0.1em;
-  }
-  .is-words .living-bottom {
-    bottom: 76px;
-  }
-  .is-words .living-legend {
-    justify-content: center;
-    width: 100%;
+    --face-size: min(280px, calc(100cqw - 44px), calc(100cqh - 390px));
+    inset: 180px 0 215px;
   }
   .is-words .living-scenes {
-    right: 10px;
-    bottom: 250px;
+    top: 123px;
   }
-  .is-words .living-preview-state {
-    bottom: 198px;
+  .is-words .living-legend {
+    gap: 12px;
   }
+  .is-words .living-legend small {
+    font-size: 0.58rem;
+  }
+  .is-living.is-words .living-preview-state {
+    top: 104px;
+    left: 12px;
+    transform: none;
+    max-width: calc(100% - 112px);
+  }
+  .is-words .living-preview-state > span {
+    max-width: 130px;
+  }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .clock-instrument.is-living.is-words:fullscreen .word-face {
+    --face-size: min(300px, calc(100cqh - 155px), 40cqw);
+    inset: 50px 0 105px;
+  }
+  .clock-instrument.is-living.is-words:fullscreen .clock-readout {
+    top: 55px;
+    left: 20px;
+    width: 24%;
+    align-items: flex-start;
+  }
+  .clock-instrument.is-living.is-words:fullscreen .hero-time {
+    font-size: 1.5rem;
+  }
+  .clock-instrument.is-living.is-words:fullscreen .living-preview-state {
+    top: 155px;
+  }
+}
+
+.clock-instrument.is-living.is-words:fullscreen {
+  height: 100dvh;
 }

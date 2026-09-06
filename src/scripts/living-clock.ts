@@ -83,12 +83,20 @@ export function createLivingClock(root: HTMLElement, ko: boolean) {
             : ['Water', 'Coral lights', 'Clownfish']
           : scene === 'words'
             ? ko
-              ? ['문장', '분', '초']
-              : ['Phrase', 'Minutes', 'Seconds']
+              ? ['글자', '분', '초']
+              : ['Letters', 'Minutes', 'Seconds']
             : ko
               ? ['하늘', '등불', '작은 배']
               : ['Sky', 'Lanterns', 'Little ferry'];
         world.querySelectorAll('.living-legend b').forEach((el, i) => (el.textContent = names[i]!));
+        world.querySelector('.living-legend small')!.textContent =
+          scene === 'words'
+            ? ko
+              ? '빛으로 읽는 시간'
+              : 'illuminated time'
+            : ko
+              ? '하루 24시간'
+              : 'a 24-hour day';
         world.querySelector('.living-explore summary')!.textContent = ko
           ? '하루 둘러보기'
           : 'Explore a day';

@@ -112,8 +112,11 @@ export function renderWords(world: HTMLElement, date: Date, ko: boolean) {
   } else {
     matrix.active.forEach((i) => active.add(i));
   }
-  grid.setAttribute('data-phrase', ko ? '' : matrix.phrase);
+  grid.setAttribute(
+    'data-phrase',
+    ko ? `${hours[hour % 12]} 시 ${minute === 0 ? '정각' : koreanMinute}` : matrix.phrase,
+  );
   Array.from(grid.children).forEach((cell, i) => cell.classList.toggle('lit', active.has(i)));
-  const progress = world.querySelector<SVGCircleElement>('.word-progress')!;
+  const progress = world.querySelector<SVGRectElement>('.word-progress')!;
   progress.style.strokeDasharray = `${date.getSeconds()} 60`;
 }
