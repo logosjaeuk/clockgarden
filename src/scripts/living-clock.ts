@@ -76,17 +76,18 @@ export function createLivingClock(root: HTMLElement, ko: boolean) {
         world.querySelector('.living-wordmark')!.textContent = water
           ? 'DEEP AQUARIUM'
           : 'LANTERN ISLE';
-        if (scene === 'words')
-          world.querySelector('.living-wordmark')!.textContent = ko
-            ? '글자 / WORD CLOCK'
-            : 'WORD CLOCK';
+        if (scene === 'words') world.querySelector('.living-wordmark')!.textContent = 'WORD CLOCK';
         const names = water
           ? ko
             ? ['물빛', '빛 산호', '흰동가리']
             : ['Water', 'Coral lights', 'Clownfish']
-          : ko
-            ? ['하늘', '등불', '작은 배']
-            : ['Sky', 'Lanterns', 'Little ferry'];
+          : scene === 'words'
+            ? ko
+              ? ['문장', '분', '초']
+              : ['Phrase', 'Minutes', 'Seconds']
+            : ko
+              ? ['하늘', '등불', '작은 배']
+              : ['Sky', 'Lanterns', 'Little ferry'];
         world.querySelectorAll('.living-legend b').forEach((el, i) => (el.textContent = names[i]!));
         world.querySelector('.living-explore summary')!.textContent = ko
           ? '하루 둘러보기'
@@ -221,6 +222,12 @@ export function createLivingClock(root: HTMLElement, ko: boolean) {
     if (scene === 'words' && words) {
       words(world, now, ko);
       phase.textContent = ko ? '빛나는 글자로 읽는 시간' : 'Read the illuminated words';
+      minuteLabel.textContent = ko
+        ? `${now.getMinutes()}분의 단어`
+        : `${now.getMinutes()} min in words`;
+      secondLabel.textContent = ko
+        ? `가장자리 빛 · ${now.getSeconds()}초`
+        : `edge glow · ${now.getSeconds()}s`;
       return;
     }
     if (scene === 'aquarium' && aquarium) {
