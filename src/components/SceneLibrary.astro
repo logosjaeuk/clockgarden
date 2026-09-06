@@ -1,0 +1,110 @@
+---
+import { scenes, sceneCategories } from '../lib/scene-catalog';
+import type { Locale } from '../config';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+---
+
+<button type="button" class="scene-library-trigger" data-library-open aria-haspopup="dialog">
+  <span aria-hidden="true">▦</span>
+  {ko ? '씬 둘러보기' : 'Browse scenes'}
+  <span class="scene-total">{scenes.length}</span>
+</button>
+<dialog class="scene-library" data-scene-library aria-labelledby="scene-library-title">
+  <header class="scene-library-heading">
+    <div>
+      <p>THE LIVING COLLECTION</p><h2 id="scene-library-title">
+        {ko ? '지금 머물고 싶은 곳' : 'Find your moment'}
+      </h2>
+    </div>
+    <button
+      type="button"
+      data-library-close
+      aria-label={ko ? '씬 라이브러리 닫기' : 'Close scene library'}>✕</button
+    >
+  </header>
+  <p class="scene-library-intro">
+    {
+      ko
+        ? '마음에 드는 풍경을 골라보세요. 시간은 그 안에서 흐릅니다.'
+        : 'Choose a place to settle into. Let time unfold around you.'
+    }
+  </p>
+  <label class="scene-search"
+    ><span>{ko ? '씬 검색' : 'Search scenes'}</span><input
+      type="search"
+      data-scene-search
+      placeholder={ko ? '이름이나 분위기로 검색' : 'Search by name or mood'}
+      autocomplete="off"
+    /></label
+  >
+  <nav class="scene-categories" aria-label={ko ? '씬 카테고리' : 'Scene categories'}>
+    {
+      sceneCategories.map((category) => (
+        <button
+          type="button"
+          data-scene-category={category.id}
+          aria-pressed={category.id === 'all'}
+        >
+          {category.name[locale]}
+        </button>
+      ))
+    }
+  </nav>
+  <p class="scene-results" data-scene-results role="status" aria-live="polite"></p>
+  <div class="scene-cards" data-scene-cards>
+    {
+      scenes.map((scene) => (
+        <article class="scene-card" data-scene-card={scene.id}>
+          <button
+            type="button"
+            class="scene-card-select"
+            data-scene={scene.id}
+            aria-pressed="false"
+          >
+            <span
+              class:list={['scene-artwork', `scene-artwork-${scene.artwork}`]}
+              aria-hidden="true"
+            >
+              <span>{scene.symbol}</span>
+            </span>
+            <span class="scene-card-copy">
+              <>
+                <strong>{scene.name[locale]}</strong>
+                <span>{scene.description[locale]}</span>
+                <small data-scene-selection>{ko ? '이 씬에서 쉬기 →' : 'Settle in →'}</small>
+              </>
+            </span>
+          </button>
+          <button
+            type="button"
+            class="scene-favorite"
+            data-scene-favorite={scene.id}
+            aria-pressed="false"
+            aria-label={`${scene.name[locale]} · ${ko ? '즐겨찾기' : 'Favorite'}`}
+          >
+            ☆
+          </button>
+        </article>
+      ))
+    }
+  </div>
+  <div class="scene-empty" data-scene-empty hidden>
+    <strong>{ko ? '아직 찾은 풍경이 없어요' : 'No scenes here yet'}</strong><p>
+      {
+        ko
+          ? '다른 검색어를 입력하거나 별을 눌러 즐겨찾기를 추가하세요.'
+          : 'Try another search, or save a favorite with the star.'
+      }
+    </p><button type="button" data-scene-reset>{ko ? '전체 씬 보기' : 'Show all scenes'}</button>
+  </div>
+  <footer class="scene-library-footer">
+    <span
+      >{
+        ko
+          ? '마지막 씬과 즐겨찾기는 이 기기에 저장됩니다.'
+          : 'Your last scene and favorites stay on this device.'
+      }</span
+    ><button type="button" data-scene-more hidden>{ko ? '더 보기' : 'Show more'}</button>
+  </footer>
+</dialog>

@@ -114,7 +114,9 @@ export function renderWords(world: HTMLElement, date: Date, ko: boolean) {
   }
   grid.setAttribute(
     'data-phrase',
-    ko ? `${hours[hour % 12]} 시 ${minute === 0 ? '정각' : koreanMinute}` : matrix.phrase,
+    ko
+      ? `${hour < 12 ? '오전' : '오후'} ${hours[hour % 12]} 시 ${minute === 0 ? '정각' : koreanMinute}`
+      : `${matrix.phrase} · ${hour < 12 ? 'AM' : 'PM'}`,
   );
   Array.from(grid.children).forEach((cell, i) => cell.classList.toggle('lit', active.has(i)));
   const progress = world.querySelector<SVGRectElement>('.word-progress')!;

@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../config';
+import SceneLibrary from './SceneLibrary.astro';
 const { locale } = Astro.props as { locale: Locale };
 const ko = locale === 'ko';
 ---
@@ -17,18 +18,7 @@ const ko = locale === 'ko';
       ></span><small>{ko ? '지금, 이 순간' : 'HERE, NOW'}</small>
     </div>
   </div>
-  <details class="living-scenes">
-    <summary>{ko ? '풍경 선택' : 'Scenes'}</summary>
-    <div>
-      <button type="button" data-scene="words" aria-pressed="false"
-        >{ko ? '격자 시계' : 'Word Clock'}</button
-      >
-      <button type="button" data-scene="isle" aria-pressed="true">Lantern Isle</button>
-      <button type="button" data-scene="aquarium" aria-pressed="false"
-        >{ko ? '심해 수족관' : 'Deep Aquarium'}</button
-      >
-    </div>
-  </details>
+  <SceneLibrary locale={locale} />
   <div class="living-heading">
     <span class="living-wordmark">LANTERN ISLE</span>
     <span class="living-phase" data-living-phase></span>
@@ -55,7 +45,7 @@ const ko = locale === 'ko';
       >
     </div>
     <details class="living-explore">
-      <summary>{ko ? '섬의 하루 둘러보기' : 'Explore a day on the island'}</summary>
+      <summary>{ko ? '하루 둘러보기' : 'Explore a day'}</summary>
       <div class="living-presets">
         <button type="button" data-living-hour="6">{ko ? '새벽' : 'Dawn'}</button>
         <button type="button" data-living-hour="12">{ko ? '한낮' : 'Noon'}</button>
