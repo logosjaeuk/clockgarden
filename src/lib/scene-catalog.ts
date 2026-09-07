@@ -42,6 +42,25 @@ const landscapeDetails = (d: Date, ko: boolean): [string, string, string] => [
 // One registration creates the library card, search entry, labels and lazy loader.
 export const scenes: SceneDefinition[] = [
   {
+    id: 'chrono-garden',
+    name: l('Chrono Garden', '시간의 정원'),
+    description: l('A garden that blossoms with time.', '시간에 맞춰 피고 지는 원형 꽃의 정원.'),
+    category: 'nature',
+    keywords: 'chrono garden flower bloom firefly 정원 꽃 개화 반딧불 시간',
+    artwork: 'garden',
+    symbol: '✿',
+    presentation: 'landscape',
+    legend: [l('24 beds', '24구역'), l('Bloom', '개화'), l('Firefly', '반딧불')],
+    details: (d, ko) => [
+      ko ? `${d.getHours()}시 구역` : `hour ${d.getHours()} of 24`,
+      ko
+        ? `${d.getMinutes()}분 · ${d.getMinutes() + 1}/60단계`
+        : `${d.getMinutes()} min · ${d.getMinutes() + 1}/60`,
+      ko ? `60초 한 바퀴 · ${d.getSeconds()}초` : `60s orbit · ${d.getSeconds()}s`,
+    ],
+    load: async () => (await import('../scripts/living-garden')).renderChronoGarden,
+  },
+  {
     id: 'isle',
     name: l('Lantern Isle', '등불섬'),
     description: l('A little island. An unhurried day.', '등불과 작은 배가 시간을 전하는 섬.'),

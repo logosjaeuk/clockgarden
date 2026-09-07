@@ -921,3 +921,15 @@
   overflow: hidden;
   clip-path: inset(50%);
 }
+.scene-artwork-garden {
+  background:
+    radial-gradient(
+      ellipse at 50% 62%,
+      #e5c6eb 0 5%,
+      #99c6b7 6% 9%,
+      #234c4a 10% 26%,
+      #609380 27% 30%,
+      transparent 31%
+    ),
+    linear-gradient(#192e4c, #406474);
+}
