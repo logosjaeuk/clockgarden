@@ -92,7 +92,12 @@ export function createLivingClock(root: HTMLElement, ko: boolean) {
     button.addEventListener('click', () => {
       const now = new Date(),
         selected = new Date(now);
-      selected.setHours(Number(button.dataset.livingHour), now.getMinutes(), now.getSeconds(), 0);
+      selected.setHours(
+        Number(button.dataset.livingHour),
+        Math.floor(Math.random() * 60),
+        Math.floor(Math.random() * 60),
+        0,
+      );
       previewOffset = selected.getTime() - now.getTime();
       previewUntil = performance.now() + 20_000;
       preview.hidden = false;

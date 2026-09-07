@@ -113,7 +113,7 @@ export const renderRainWindow: SceneRenderer = ({
 
 1. 모든 시계와 움직임은 전달된 `date`를 사용한다. renderer 안에서 `Date.now()`/`new Date()`로 현재 시간을 따로 읽거나 frame 누적으로 위치를 계산하지 않는다.
 2. `livingTime(date)`의 daylight/phase는 예술적인 하루의 밝기다. 실제 기상/천문 API가 아니다. 별도 서버나 위치 권한이 필요 없다.
-3. 상단 숫자, 단어 격자, 탁상시계, 창밖은 동일한 실제/preview date를 따른다. preset은 시만 바꾸고 분·초를 유지한다. 20초 뒤 자동 복귀하며 사용자가 즉시 현재 시간으로 돌아갈 수도 있다.
+3. 상단 숫자, 단어 격자, 탁상시계, 창밖은 동일한 실제/preview date를 따른다. preset은 선택한 시를 적용하고, 누를 때마다 분과 초를 각각 0–59에서 독립적으로 무작위 선택한다. 20초 뒤 자동 복귀하며 사용자가 즉시 현재 시간으로 돌아갈 수도 있다.
 4. RAF는 controller 한 개만 사용한다. 탭 숨김/뷰포트 밖에서는 정지, 다시 보이면 현재 date에서 재개한다. desktop 최대 30fps, 작은 화면 최대 20fps, reduced motion 1fps다.
 5. reduced motion이면 장식적 움직임의 time을 0으로 고정한다. 실제 초/분/하루 변화는 유지한다. 별도 CSS animation이나 setInterval을 만들지 않는다.
 6. canvas backing pixels는 최대 240만, DPR 최대 1.5다. canvas 크기를 renderer가 직접 변경하지 않는다. 매 프레임 화면을 채우고 `setTransform`으로 좌표계를 시작한다.
