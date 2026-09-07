@@ -937,3 +937,7 @@
 .scene-artwork-rainlight {
   background: #233c47 url('/scenes/rainlight/thumbnail.webp') center / cover;
 }
+
+.scene-artwork-conservatory {
+  background: #1b343b url('/scenes/moonlit-conservatory/thumbnail.webp') center / cover;
+}

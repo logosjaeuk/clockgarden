@@ -42,6 +42,26 @@ const landscapeDetails = (d: Date, ko: boolean): [string, string, string] => [
 // One registration creates the library card, search entry, labels and lazy loader.
 export const scenes: SceneDefinition[] = [
   {
+    id: 'moonlit-conservatory',
+    name: l('Moonlit Conservatory', '달빛 온실'),
+    description: l(
+      'A little glasshouse, a still pond, a slower evening.',
+      '작은 유리 온실과 연못에 내려앉는 고요한 저녁.',
+    ),
+    category: 'nature',
+    keywords: 'blender 3d greenhouse glass garden pond firefly 온실 정원 연못 달빛 반딧불',
+    artwork: 'conservatory',
+    symbol: '⌂',
+    presentation: 'illustration',
+    legend: [l('Glasshouse', '온실'), l('Pond', '연못'), l('Fireflies', '반딧불')],
+    details: (_d, ko) => [
+      ko ? '하루를 따르는 조명' : 'light follows your day',
+      ko ? '잔잔히 번지는 물결' : 'quiet ripples',
+      ko ? '어둠 속 작은 빛' : 'little lights after dusk',
+    ],
+    load: async () => (await import('../scripts/living-conservatory')).loadConservatory(),
+  },
+  {
     id: 'rainlight',
     name: l('Rainlight', '비 오는 창가'),
     description: l(
