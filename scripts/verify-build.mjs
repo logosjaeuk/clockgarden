@@ -7,6 +7,8 @@ const tools = ['clock', 'timer', 'stopwatch', 'alarm', 'world-clock', 'time-zone
 const sitemap = readFileSync('dist/sitemap.xml', 'utf8');
 const titles = new Set();
 const expectedOrigin = process.env.PUBLIC_SITE_URL || 'https://clockgarden.com';
+const adsenseSrc =
+  'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227';
 for (const locale of ['en', 'ko']) {
   for (const route of ['', ...tools, 'privacy']) {
     const path = (locale === 'en' ? '' : 'ko/') + (route ? `${route}/` : '');
@@ -28,10 +30,18 @@ for (const locale of ['en', 'ko']) {
     assert.ok(sitemap.includes(canonical), path + ' sitemap');
     for (const lang of ['en', 'ko', 'x-default'])
       assert.ok(html.includes(`hreflang="${lang}"`), path + ' alternate');
-    assert.ok(
-      !html.includes('adsbygoogle') && !html.includes('data-ad-placement='),
-      path + ' ads disabled',
+    const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? '';
+    const adsense = (head.match(/<script\b[^>]*>/gi) ?? []).filter(
+      (tag) => tag.match(/\ssrc\s*=\s*(["'])(.*?)\1/i)?.[2] === adsenseSrc,
     );
+    assert.equal(adsense.length, 1, path + ' one intended AdSense loader in head');
+    assert.match(adsense[0], /\sasync(?:\s|=|>)/i, path + ' async AdSense loader');
+    assert.match(
+      adsense[0],
+      /\scrossorigin\s*=\s*(["'])anonymous\1/i,
+      path + ' anonymous AdSense loader',
+    );
+    assert.ok(!html.includes('data-ad-placement='), path + ' no visible ad placements');
     assert.ok(!html.includes('googletagmanager.com'), path + ' no vendor tracking');
     if (tools.includes(route)) {
       const json = html.match(/type="application\/ld\+json">(.*?)<\/script>/s)?.[1];

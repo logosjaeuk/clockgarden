@@ -52,23 +52,14 @@ const structuredData = tool
       is:inline
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 
-    <meta
-      name="theme-color"
-      content="#f4f4ef"
-      media="(prefers-color-scheme: light)"
-    />
+    <meta name="theme-color" content="#f4f4ef" media="(prefers-color-scheme: light)" />
 
-    <meta
-      name="theme-color"
-      content="#10110f"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#10110f" media="(prefers-color-scheme: dark)" />
 
     <meta name="description" content={description} />
 
@@ -89,10 +80,7 @@ const structuredData = tool
 
     {
       siteConfig.searchConsoleVerification && (
-        <meta
-          name="google-site-verification"
-          content={siteConfig.searchConsoleVerification}
-        />
+        <meta name="google-site-verification" content={siteConfig.searchConsoleVerification} />
       )
     }
 
@@ -109,13 +97,7 @@ const structuredData = tool
         ))
     }
 
-    {!noindex && (
-      <link
-        rel="alternate"
-        hreflang="x-default"
-        href={english}
-      />
-    )}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={english} />}
 
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -124,11 +106,7 @@ const structuredData = tool
 
     {
       structuredData && (
-        <script
-          is:inline
-          type="application/ld+json"
-          set:html={JSON.stringify(structuredData)}
-        />
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
       )
     }
   </head>
@@ -149,10 +127,7 @@ const structuredData = tool
       </a>
 
       <nav aria-label={locale === 'ko' ? '기본 메뉴' : 'Primary navigation'}>
-        <a
-          href={pathFor(locale, '/clock/')}
-          aria-current={path === '/clock/' ? 'page' : undefined}
-        >
+        <a href={pathFor(locale, '/clock/')} aria-current={path === '/clock/' ? 'page' : undefined}>
           {text.nav.clock}
         </a>
 
@@ -163,17 +138,11 @@ const structuredData = tool
           {text.nav.stopwatch}
         </a>
 
-        <a
-          href={pathFor(locale, '/timer/')}
-          aria-current={path === '/timer/' ? 'page' : undefined}
-        >
+        <a href={pathFor(locale, '/timer/')} aria-current={path === '/timer/' ? 'page' : undefined}>
           {text.nav.timer}
         </a>
 
-        <a
-          href={pathFor(locale, '/alarm/')}
-          aria-current={path === '/alarm/' ? 'page' : undefined}
-        >
+        <a href={pathFor(locale, '/alarm/')} aria-current={path === '/alarm/' ? 'page' : undefined}>
           {text.nav.alarm}
         </a>
 
@@ -203,11 +172,7 @@ const structuredData = tool
           ◐
         </button>
 
-        <a
-          class="language-link"
-          href={alternatePath}
-          hreflang={alternateLocale}
-        >
+        <a class="language-link" href={alternatePath} hreflang={alternateLocale}>
           {text.language}
         </a>
       </div>
@@ -238,7 +203,8 @@ const structuredData = tool
         <span aria-hidden="true"> · </span>
 
         <span>
-          © {new Date().getFullYear()} {siteConfig.name}
+          © {new Date().getFullYear()}
+          {siteConfig.name}
         </span>
       </div>
     </footer>
