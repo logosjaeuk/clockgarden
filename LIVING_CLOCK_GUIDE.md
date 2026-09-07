@@ -133,14 +133,16 @@ export const renderRainWindow: SceneRenderer = ({
 - 매우 낮은 가로 전체 화면에서도 숫자/피사체/하단 버튼 겹침을 검사한다. 단순히 세로 모바일 스타일을 재사용하지 않는다.
 - nav 버튼은 공통 상단 오른쪽을 유지한다. 씬 안으로 떠다니는 개별 Scenes 버튼은 이전 방식이며 재도입하지 않는다.
 
-## 현재 5개 씬의 의미와 주의점
+## 현재 6개 씬의 의미와 주의점
 
-| ID            | 표현                   | 시간 의미 / 유지할 기능                                                                                                                                                                               |
-| ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isle`        | Canvas 자연 풍경       | 하늘·해/달=하루, 등불 60개=분, 배 한 바퀴=초. 배/물결을 섬 건물보다 먼저 그려 지붕 위를 지나지 않게 한다.                                                                                             |
-| `aquarium`    | Canvas 수족관          | 물빛=하루, 산호 빛=분, 흰동가리 공전=60초. 장식 물고기는 외곽에서만 wrap하고 산호/전경과 경로를 구분한다.                                                                                             |
-| `words`       | DOM/SVG 격자           | 영어 18×16/한국어 6열. 모든 단어/분 기능, 캡션, AM/PM, 상단 시간·날짜·시간대, 초 진행 테두리를 유지한다. 영어 중복 단어의 위치는 별도다. `word-matrix.test.ts`가 1,440개 시각을 검사한다.             |
-| `quiet-study` | 일러스트 + Canvas 합성 | 그림 속 탁상시계는 실제 시·분·초, 날짜. 창밖 하늘/달/별/도시 불빛과 방 밝기는 하루에 따라 변한다. 김·구름·별의 빛은 장식 애니메이션. 인물 자체는 정지 일러스트이며 프레임 애니메이션 캐릭터가 아니다. |
+| ID              | 표현                   | 시간 의미 / 유지할 기능                                                                                                                                                                               |
+| --------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `isle`          | Canvas 자연 풍경       | 하늘·해/달=하루, 등불 60개=분, 배 한 바퀴=초. 배/물결을 섬 건물보다 먼저 그려 지붕 위를 지나지 않게 한다.                                                                                             |
+| `rainlight`     | 일러스트 + Canvas 합성 | 창밖 밝기와 스탠드 온기는 하루를 따른다. 빗방울은 장식이며 분·초를 세는 장치가 아니다. 실제 시간은 공통 상단 시계로 읽는다.                                                                           |
+| `chrono-garden` | Canvas 꽃 정원         | 24구역=시, 중앙 꽃 개화=분, 반딧불 공전=초. 정각 폐화는 아래 설명 참조.                                                                                                                               |
+| `aquarium`      | Canvas 수족관          | 물빛=하루, 산호 빛=분, 흰동가리 공전=60초. 장식 물고기는 외곽에서만 wrap하고 산호/전경과 경로를 구분한다.                                                                                             |
+| `words`         | DOM/SVG 격자           | 영어 18×16/한국어 6열. 모든 단어/분 기능, 캡션, AM/PM, 상단 시간·날짜·시간대, 초 진행 테두리를 유지한다. 영어 중복 단어의 위치는 별도다. `word-matrix.test.ts`가 1,440개 시각을 검사한다.             |
+| `quiet-study`   | 일러스트 + Canvas 합성 | 그림 속 탁상시계는 실제 시·분·초, 날짜. 창밖 하늘/달/별/도시 불빛과 방 밝기는 하루에 따라 변한다. 김·구름·별의 빛은 장식 애니메이션. 인물 자체는 정지 일러스트이며 프레임 애니메이션 캐릭터가 아니다. |
 
 ## Quiet Study 자산과 재생성
 
@@ -168,6 +170,16 @@ export const renderRainWindow: SceneRenderer = ({
 9. 최종 결과에 실제 검증 범위와 제한을 적는다. 실제 iOS/Safari/배터리나 프로덕션 배포를 확인하지 않았다면 통과했다고 쓰지 않는다.
 
 앞으로 사용자에게는 “`LIVING_CLOCK_GUIDE.md`를 읽고 [새 씬 설명]을 추가해줘”만 요청하면 된다. 새로운 공통 계약을 바꿨다면 반드시 이 문서도 같은 커밋에서 갱신한다.
+
+## Rainlight — 비 오는 창가
+
+`src/scripts/living-rainlight.ts`는 선택 시 이미지를 decode하고 공유 renderer를 반환한다. `public/scenes/rainlight/window.webp`는 1536×1024, `thumbnail.webp`는 너비 480px다. 새 원화를 내장 image_gen으로 생성하고 sharp로 WebP 인코딩했다. 외부 서비스나 추가 키는 필요 없다.
+
+창유리 mask는 원본 좌표에 고정된다. 왼쪽 `(368, 0)`–`(880, 724)`, 오른쪽은 `(916, 0)`부터 식물을 피하는 다각형이다. 구도 변경 시 mask도 수정한다. 64개 빗방울은 고정 seed와 supplied date로 위치를 계산하며, 창 밖에서 재순환하고 reduced motion에서는 멈춘다. 밝기는 livingTime을 따르며 실제 날씨가 아니다. 모바일은 상단 140px와 하단 컨트롤 공간을 확보하고 중앙 창가를 보여준다. 공유 preview의 무작위 분·초 동작은 그대로 유지한다.
+
+원화 생성 프롬프트:
+
+> Create a finished original hand-painted anime background illustration for a quiet ambient clock website, landscape 1536x1024. Rainlight: viewed from inside a cozy small apartment toward a large straight rectangular window, rainy blue-gray city rooftops and softly blurred amber apartment lights outside. Exquisite painterly detail, restrained cinematic color, tactile wood and glass, atmospheric soft edges, no people. Window glass occupies x360..1400 y100..720, divided by one thin vertical wooden mullion at x880. Warm brass reading lamp at far left x240 y570, small ivory ceramic tea cup on wooden sill near x1050 y820, closed book and soft linen lower left. Broad calm blue-gray upper center negative space for runtime clock overlay. Dark wood sill at y750, warm dim interior foreground bottom. Beautiful asymmetrical composition, strong quiet sense of place, muted teal outside and honey light inside. Light fine rain texture and sparse stationary droplets on glass, no large streaks: animated rain will be added in code. No text, letters, numbers, clocks, interface, borders or watermark. Avoid neon, vector shapes, glossy 3D, heavy outlines. The central window and cup should survive a narrow center crop.
 
 ## Chrono Garden — 시간의 정원
 

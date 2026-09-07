@@ -933,3 +933,7 @@
     ),
     linear-gradient(#192e4c, #406474);
 }
+
+.scene-artwork-rainlight {
+  background: #233c47 url('/scenes/rainlight/thumbnail.webp') center / cover;
+}

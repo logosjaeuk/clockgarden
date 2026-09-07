@@ -42,6 +42,26 @@ const landscapeDetails = (d: Date, ko: boolean): [string, string, string] => [
 // One registration creates the library card, search entry, labels and lazy loader.
 export const scenes: SceneDefinition[] = [
   {
+    id: 'rainlight',
+    name: l('Rainlight', '비 오는 창가'),
+    description: l(
+      'Rain on the glass. Somewhere warm to stay.',
+      '비 내리는 도시와 따뜻한 불빛, 잠시 머무는 창가.',
+    ),
+    category: 'focus',
+    keywords: 'rain window lamp cozy city illustration 비 창문 조명 도시 일러스트 휴식',
+    artwork: 'rainlight',
+    symbol: '☂',
+    presentation: 'illustration',
+    legend: [l('Outside', '창밖'), l('Rain', '빗방울'), l('Lamplight', '스탠드')],
+    details: (_d, ko) => [
+      ko ? '하루를 따라 변하는 빛' : 'light follows the day',
+      ko ? '유리 위를 흐르는 비' : 'gently down the glass',
+      ko ? '밤이면 더 따뜻하게' : 'warmer after dusk',
+    ],
+    load: async () => (await import('../scripts/living-rainlight')).loadRainlight(),
+  },
+  {
     id: 'chrono-garden',
     name: l('Chrono Garden', '시간의 정원'),
     description: l('A garden that blossoms with time.', '시간에 맞춰 피고 지는 원형 꽃의 정원.'),
