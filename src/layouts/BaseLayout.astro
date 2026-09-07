@@ -20,6 +20,7 @@ const canonical = new URL(canonicalPath, Astro.site);
 const english = new URL(pathFor('en', path), Astro.site);
 const alternateLocale = locale === 'en' ? 'ko' : 'en';
 const alternatePath = pathFor(alternateLocale, noindex ? '/' : path);
+
 const structuredData = tool
   ? {
       '@context': 'https://schema.org',
@@ -40,32 +41,63 @@ const structuredData = tool
     <script is:inline>
       try {
         const theme = JSON.parse(localStorage.getItem('mg-theme') || 'null');
-        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+        }
       } catch {}
     </script>
+
+    <!-- Google AdSense -->
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227"
+      crossorigin="anonymous"
+    ></script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <meta name="theme-color" content="#f4f4ef" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#10110f" media="(prefers-color-scheme: dark)" />
+
+    <meta
+      name="theme-color"
+      content="#f4f4ef"
+      media="(prefers-color-scheme: light)"
+    />
+
+    <meta
+      name="theme-color"
+      content="#10110f"
+      media="(prefers-color-scheme: dark)"
+    />
+
     <meta name="description" content={description} />
+
     <meta
       name="robots"
       content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'}
     />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
+
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+
     {
       siteConfig.searchConsoleVerification && (
-        <meta name="google-site-verification" content={siteConfig.searchConsoleVerification} />
+        <meta
+          name="google-site-verification"
+          content={siteConfig.searchConsoleVerification}
+        />
       )
     }
+
     <link rel="canonical" href={canonical} />
+
     {
       !noindex &&
         supportedLocales.map((language) => (
@@ -76,81 +108,141 @@ const structuredData = tool
           />
         ))
     }
-    {!noindex && <link rel="alternate" hreflang="x-default" href={english} />}
+
+    {!noindex && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={english}
+      />
+    )}
+
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
+
     <title>{fullTitle}</title>
+
     {
       structuredData && (
-        <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData)}
+        />
       )
     }
   </head>
+
   <body>
-    <a class="skip-link" href="#main">{locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}</a
-    >
+    <a class="skip-link" href="#main">
+      {locale === 'ko' ? '본문으로 건너뛰기' : 'Skip to content'}
+    </a>
+
     <header class="site-header">
       <a
         class="wordmark"
         href={pathFor(locale, '/')}
         aria-label={`${siteConfig.name} ${locale === 'ko' ? '홈' : 'home'}`}
       >
-        <span class="brand-mark" aria-hidden="true"></span>{siteConfig.name}
+        <span class="brand-mark" aria-hidden="true"></span>
+        {siteConfig.name}
       </a>
+
       <nav aria-label={locale === 'ko' ? '기본 메뉴' : 'Primary navigation'}>
-        <a href={pathFor(locale, '/clock/')} aria-current={path === '/clock/' ? 'page' : undefined}
-          >{text.nav.clock}</a
+        <a
+          href={pathFor(locale, '/clock/')}
+          aria-current={path === '/clock/' ? 'page' : undefined}
         >
+          {text.nav.clock}
+        </a>
+
         <a
           href={pathFor(locale, '/stopwatch/')}
-          aria-current={path === '/stopwatch/' ? 'page' : undefined}>{text.nav.stopwatch}</a
+          aria-current={path === '/stopwatch/' ? 'page' : undefined}
         >
-        <a href={pathFor(locale, '/timer/')} aria-current={path === '/timer/' ? 'page' : undefined}
-          >{text.nav.timer}</a
+          {text.nav.stopwatch}
+        </a>
+
+        <a
+          href={pathFor(locale, '/timer/')}
+          aria-current={path === '/timer/' ? 'page' : undefined}
         >
-        <a href={pathFor(locale, '/alarm/')} aria-current={path === '/alarm/' ? 'page' : undefined}
-          >{text.nav.alarm}</a
+          {text.nav.timer}
+        </a>
+
+        <a
+          href={pathFor(locale, '/alarm/')}
+          aria-current={path === '/alarm/' ? 'page' : undefined}
         >
+          {text.nav.alarm}
+        </a>
+
         <a
           href={pathFor(locale, '/world-clock/')}
-          aria-current={path === '/world-clock/' ? 'page' : undefined}>{text.nav.world}</a
+          aria-current={path === '/world-clock/' ? 'page' : undefined}
         >
+          {text.nav.world}
+        </a>
+
         <a
           href={pathFor(locale, '/time-zone-converter/')}
           aria-current={path === '/time-zone-converter/' ? 'page' : undefined}
-          >{text.nav.converter}</a
         >
+          {text.nav.converter}
+        </a>
       </nav>
+
       <div class="header-actions">
         <button
           class="icon-button"
           id="theme-toggle"
           type="button"
           aria-label={text.theme}
-          title={text.theme}>◐</button
+          title={text.theme}
         >
-        <a class="language-link" href={alternatePath} hreflang={alternateLocale}>{text.language}</a>
+          ◐
+        </button>
+
+        <a
+          class="language-link"
+          href={alternatePath}
+          hreflang={alternateLocale}
+        >
+          {text.language}
+        </a>
       </div>
     </header>
+
     <main id="main">
-      <noscript
-        ><p class="tool-note">
+      <noscript>
+        <p class="tool-note">
           {
             locale === 'ko'
               ? '시간 도구를 실행하려면 JavaScript를 켜세요. 사용 안내는 아래에서 읽을 수 있습니다.'
               : 'Enable JavaScript to run the time tools. You can still read the guides below.'
           }
-        </p></noscript
-      ><slot />
+        </p>
+      </noscript>
+
+      <slot />
     </main>
+
     <footer class="site-footer">
       <p>{text.footer}</p>
+
       <div>
-        <a href={pathFor(locale, '/privacy/')}>{text.privacy}</a><span aria-hidden="true">
-          ·
-        </span><span>© {new Date().getFullYear()} {siteConfig.name}</span>
+        <a href={pathFor(locale, '/privacy/')}>
+          {text.privacy}
+        </a>
+
+        <span aria-hidden="true"> · </span>
+
+        <span>
+          © {new Date().getFullYear()} {siteConfig.name}
+        </span>
       </div>
     </footer>
+
     <script>
       import '../scripts/global';
     </script>
