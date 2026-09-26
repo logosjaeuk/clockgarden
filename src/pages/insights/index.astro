@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articles, articleSlugs } from '../../content/insights';
+
+const list = articleSlugs.map((slug) => articles.en[slug]);
+---
+
+<BaseLayout
+  title="Time & Focus Insights – Research, Chronobiology & Engineering"
+  description="In-depth technical research and guides on chronobiology, circadian rhythms, high-precision timers, distributed timezones, and ambient computing."
+  path="/insights/"
+>
+  <div class="insights-page">
+    <header class="insights-header">
+      <p class="eyebrow">Research & Engineering</p>
+      <h1>Time & Focus Insights</h1>
+      <p class="insights-lead">
+        In-depth technical guides, chronobiological research, and engineering reflections on timekeeping, human attention, and digital minimalism.
+      </p>
+    </header>
+
+    <div class="insights-grid">
+      {
+        list.map((art) => (
+          <article class="insight-card">
+            <div class="insight-badge-row">
+              <span class="insight-badge">{art.category}</span>
+              <span class="insight-time">{art.readTimeMinutes} min read</span>
+            </div>
+            <h2>
+              <a href={`/insights/${art.slug}/`}>{art.title}</a>
+            </h2>
+            <p class="insight-desc">{art.description}</p>
+            <div class="insight-footer">
+              <time class="insight-date" datetime={art.publishedDate}>
+                {art.publishedDate}
+              </time>
+              <a class="insight-cta" href={`/insights/${art.slug}/`}>
+                Read guide <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
