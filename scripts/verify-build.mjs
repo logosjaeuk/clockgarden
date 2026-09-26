@@ -9,8 +9,9 @@ const titles = new Set();
 const expectedOrigin = process.env.PUBLIC_SITE_URL || 'https://clockgarden.com';
 const adsenseSrc =
   'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227';
+const contentPages = ['privacy', 'about', 'contact', 'terms'];
 for (const locale of ['en', 'ko']) {
-  for (const route of ['', ...tools, 'privacy']) {
+  for (const route of ['', ...tools, ...contentPages]) {
     const path = (locale === 'en' ? '' : 'ko/') + (route ? `${route}/` : '');
     const html = readFileSync(join('dist', path, 'index.html'), 'utf8');
     assert.equal((html.match(/<h1[ >]/g) ?? []).length, 1, path + ' H1');
@@ -44,8 +45,12 @@ for (const locale of ['en', 'ko']) {
     assert.ok(!html.includes('data-ad-placement='), path + ' no visible ad placements');
     assert.ok(!html.includes('googletagmanager.com'), path + ' no vendor tracking');
     if (tools.includes(route)) {
-      const json = html.match(/type="application\/ld\+json">(.*?)<\/script>/s)?.[1];
-      assert.equal(JSON.parse(json)['@type'], 'WebApplication');
+      const jsonScripts = [
+        ...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi),
+      ].map((m) => JSON.parse(m[1]));
+      const types = jsonScripts.map((s) => s['@type']);
+      assert.ok(types.includes('WebApplication'), path + ' WebApplication schema');
+      assert.ok(types.includes('FAQPage'), path + ' FAQPage schema');
     }
   }
 }
