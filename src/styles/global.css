@@ -863,6 +863,123 @@ select {
 .faq-answer p {
   margin: 0;
 }
+.home-showcase {
+  max-width: 960px;
+  margin: 64px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.home-feature-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+@media (min-width: 768px) {
+  .home-feature-card {
+    padding: 44px 40px;
+  }
+}
+.home-feature-badge {
+  align-self: flex-start;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+}
+.home-feature-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.25;
+}
+.home-feature-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.68;
+  max-width: 760px;
+}
+.home-feature-footer {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.home-feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.home-feature-cta:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+:root[data-theme='dark'] .home-feature-cta {
+  color: #10110f;
+}
+.home-feature-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.home-grid-three {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.home-mini-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.home-mini-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.home-mini-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.home-mini-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
 .ad-region {
   width: min(728px, 100%);
   margin: 64px auto 0;

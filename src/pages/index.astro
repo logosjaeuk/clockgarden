@@ -14,6 +14,43 @@ import ToolCards from '../components/ToolCards.astro';
     <ClockTool locale="en" heading="Current local time" />
     <ToolCards locale="en" />
   </div>
+
+  <section class="home-showcase" aria-labelledby="craft-showcase-title">
+    <div class="home-feature-card">
+      <span class="home-feature-badge">Handcrafted Experience</span>
+      <h2 id="craft-showcase-title" class="home-feature-title">Living Clock: Handcrafted Ambient Scenes in Real Time</h2>
+      <p class="home-feature-desc">
+        Clock Garden is not another low-effort widget or AI-generated copycat. We pair precision timekeeping with original handcrafted 3D models and procedural canvas artwork. From soothing rain patterns in <em>Rainlight</em> to the serene architecture of <em>Moonlit Conservatory</em>, experience time as a mindful, atmospheric companion on your desktop.
+      </p>
+      <div class="home-feature-footer">
+        <a href="/clock/" class="home-feature-cta">
+          Explore Living Clock Scenes &rarr;
+        </a>
+        <span class="home-feature-note">Zero installation &bull; GPU-accelerated &bull; Fullscreen ready</span>
+      </div>
+    </div>
+
+    <div class="home-grid-three">
+      <div class="home-mini-card">
+        <span class="home-mini-icon" aria-hidden="true">&#x1F6E1;&#xFE0F;</span>
+        <h3>100% Client-Side Privacy</h3>
+        <p>Your timers, alarms, and custom time zones remain strictly within your browser's local memory. No keystroke logging, no telemetry tracking, and no remote server synchronization.</p>
+      </div>
+
+      <div class="home-mini-card">
+        <span class="home-mini-icon" aria-hidden="true">&#x23F1;&#xFE0F;</span>
+        <h3>Hardware-Level Precision</h3>
+        <p>Engineered using high-resolution monotonic clocks (<code>performance.now()</code>) and drift compensation, guaranteeing millisecond accuracy even across long operational sessions.</p>
+      </div>
+
+      <div class="home-mini-card">
+        <span class="home-mini-icon" aria-hidden="true">&#x1F5A5;&#xFE0F;</span>
+        <h3>Distraction-Free Ergonomics</h3>
+        <p>Built for professionals and deep-work sessions with full keyboard shortcuts, distraction-free ambient fullscreen, Screen Wake Lock support, and true OLED-black dark mode.</p>
+      </div>
+    </div>
+  </section>
+
   <script>
     import '../scripts/tools';
   </script>
