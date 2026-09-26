@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { toolPages } from '../content/toolPages';
+import { articleSlugs } from '../content/insights';
 import { supportedLocales } from '../config';
 import { pathFor } from '../i18n';
 
@@ -12,6 +13,8 @@ export const GET: APIRoute = ({ site }) => {
       '/contact/',
       '/terms/',
       '/privacy/',
+      '/insights/',
+      ...articleSlugs.map((slug) => `/insights/${slug}/`),
       ...Object.keys(toolPages[locale]).map((tool) => `/${tool}/`),
     ].map((path) => pathFor(locale, path)),
   );

@@ -161,6 +161,13 @@ const structuredData = tool
         >
           {text.nav.converter}
         </a>
+
+        <a
+          href={pathFor(locale, '/insights/')}
+          aria-current={path.startsWith('/insights/') ? 'page' : undefined}
+        >
+          {text.nav.insights}
+        </a>
       </nav>
 
       <div class="header-actions">
@@ -226,6 +233,7 @@ const structuredData = tool
         <div class="footer-col">
           <p class="footer-heading">{text.legalLabel}</p>
           <ul class="footer-links">
+            <li><a href={pathFor(locale, '/insights/')}>{text.insights}</a></li>
             <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
             <li><a href={pathFor(locale, '/contact/')}>{text.contact}</a></li>
             <li><a href={pathFor(locale, '/terms/')}>{text.terms}</a></li>
