@@ -49,6 +49,16 @@ describe('return-visit data', () => {
         expect(faq.question.length).toBeGreaterThan(10);
         expect(faq.answer.length).toBeGreaterThan(30);
       }
+      expect(toolPages[lang].clock.faqs.length).toBeGreaterThanOrEqual(4);
+      expect(toolPages[lang].alarm.faqs.length).toBeGreaterThanOrEqual(4);
+      for (const faq of toolPages[lang].clock.faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
+      for (const faq of toolPages[lang].alarm.faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
     }
   });
 });

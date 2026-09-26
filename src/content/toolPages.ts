@@ -26,23 +26,68 @@ export interface ToolPageCopy {
 export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
   en: {
     clock: {
-      title: 'Clock with Seconds – Current Local Time',
-      meta: 'See your current device time with seconds, optional milliseconds, 12/24-hour mode, analog view, fullscreen, and wake lock.',
-      eyebrow: 'Live device clock',
-      heading: 'Clock with seconds',
+      title: 'Clock with Seconds – Live Current Local Time',
+      meta: 'See your current device time with seconds, milliseconds, 12/24-hour mode, analog display, fullscreen ambient mode, and Living Clock art.',
+      eyebrow: 'Precision Device Time & Ambient Living Clock',
+      heading: 'Clock with seconds and live art',
       intro:
-        'Read your device time at a glance, or enter Living Clock: a little island where the sky follows the hour, lanterns count the minutes, and a ferry traces the seconds.',
+        'Read your exact device time with sub-second precision, or enter Living Clock: handcrafted atmospheric environments where lighting, lanterns, and scenery shift with the hour.',
+      shortcuts: [
+        { key: 'F', action: 'Toggle fullscreen ambient desk clock' },
+        { key: '12 / 24', action: 'Switch between 12-hour and 24-hour time' },
+        { key: 'Seconds', action: 'Show or hide live second counter' },
+        { key: 'Milliseconds', action: 'Toggle millisecond precision' },
+      ],
       sections: [
         {
-          heading: 'About this clock',
-          body: 'The display is calculated from your device clock on every update, so a delayed browser frame does not make it drift. It follows your device settings; if that clock is wrong, this display is too.',
+          heading: 'Hardware Clock Synchronization vs. NTP Atomic Standard',
+          body: 'Clock Garden reads your computer or mobile hardware clock directly on every animation frame with zero calculation lag. To ensure your display matches atomic standard time down to the exact millisecond, ensure your operating system has automatic network time synchronization (NTP) enabled.',
+          list: [
+            'Time-sensitive events: Essential for university course registrations, concert ticketing, and flash sales.',
+            'Drift-free rendering: Calculated from hardware timestamps rather than naive interval loops.',
+            'Offline reliability: Functions smoothly even when disconnected from the internet.',
+          ],
         },
         {
-          heading: 'Display options',
-          body: 'Turn seconds or milliseconds on, switch between 12- and 24-hour time, show an analog face, or enter fullscreen. Wake lock is offered only where the browser supports it and only after you enable it.',
+          heading: 'Ambient Fullscreen Mode for Focus & Study Desks',
+          body: 'Turn your tablet, laptop, or secondary monitor into an elegant desktop clock. Press F or click the fullscreen icon to hide browser chrome, displaying crisp minimalist typography designed for viewing from across the room. Combined with our Screen Wake Lock feature, your display stays awake without requiring permanent changes to your operating system power settings.',
+        },
+        {
+          heading: 'Living Clock: Handcrafted Artwork Driven by Solar Time',
+          body: 'Time in nature is never static—it breathes with light, weather, and the cycle of the sun. Clock Garden features Living Clock: an art collection built using 3D modeling in Blender and procedural canvas shaders. From dawn twilight and midday sun to golden hour dusk and starlit night, the scenery transitions seamlessly to mirror your local hour.',
+        },
+        {
+          heading: '12-Hour vs. 24-Hour (Military) Time & Millisecond Precision',
+          body: 'Switch effortlessly between 12-hour civil time and 24-hour military time to avoid AM/PM ambiguities in international communication, aviation, and software scheduling. For performance testing or high-speed visual measurement, enable milliseconds to view 1/1000th-of-a-second increments.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: 'Is this online clock synchronized with official atomic time?',
+          answer:
+            'Clock Garden reflects your device’s internal hardware clock with zero calculation latency. To match official atomic time down to the millisecond, ensure your operating system has automatic time synchronization enabled using an NTP server (such as pool.ntp.org or time.apple.com).',
+        },
+        {
+          question: 'How does the Screen Wake Lock feature work?',
+          answer:
+            'When you toggle Keep screen awake, Clock Garden requests a temporary wake lock from your browser. This keeps the display illuminated for study or desk clock use without permanently modifying your computer’s system sleep settings.',
+        },
+        {
+          question: 'What is Living Clock, and how do I access it?',
+          answer:
+            'Living Clock is our signature animated art installation. Click the Living Clock button on the clock page or choose a scene from the Scene Library to view handcrafted environments that breathe, illuminate, and shift with the time of day.',
+        },
+        {
+          question: 'Does this clock consume significant battery or CPU in the background?',
+          answer:
+            'No. Clock Garden uses lightweight requestAnimationFrame rendering that automatically pauses or throttles when the tab is hidden or minimized, preserving your laptop or mobile battery life.',
+        },
+        {
+          question: 'Can I use this clock completely offline without an internet connection?',
+          answer:
+            'Yes. Once the page is loaded, Clock Garden’s service worker caches all static assets. You can open and run the clock without Wi-Fi or cellular data, reading your local device hardware time.',
+        },
+      ],
     },
     stopwatch: {
       title: 'Online Stopwatch with Laps – High-Precision Split Timer',
@@ -178,23 +223,68 @@ export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
       ],
     },
     alarm: {
-      title: 'Online Alarm Clock with Multiple Alarms',
-      meta: 'Create multiple browser alarms with labels, weekday repeats, sounds, snooze, local persistence and optional notifications.',
-      eyebrow: 'Locally saved alarms',
-      heading: 'Online alarm clock',
+      title: 'Online Alarm Clock – Multiple Alarms & Sleep Cycles',
+      meta: 'Set multiple custom browser alarms with repeat schedules, sleep cycle guides, custom labels, snooze, and local storage.',
+      eyebrow: 'Morning Wakeups, Daily Routines & Sleep Cycles',
+      heading: 'Online alarm clock with multiple alarms',
       intro:
-        'Create multiple labeled alarms, choose repeat days and sounds, and keep them saved in this browser.',
+        'Create multiple custom alarms with weekday repeats and audio chimes. Save your daily schedules locally in this browser without accounts or tracking.',
+      shortcuts: [
+        { key: 'New Alarm', action: 'Create a custom scheduled alarm' },
+        { key: 'Toggle', action: 'Activate or silence existing alarm' },
+        { key: 'Snooze', action: 'Delay ringing alarm by 5 minutes' },
+        { key: 'Delete', action: 'Remove alarm from local browser storage' },
+      ],
       sections: [
         {
-          heading: 'Important browser limitation',
-          body: 'A normal web page cannot guarantee an alarm after the browser, tab, device, or operating system suspends or closes it. Keep this page active for the most reliable result; use your device alarm for critical reminders.',
+          heading: 'Sleep Hygiene & The 90-Minute REM Sleep Cycle',
+          body: 'Human sleep architecture alternates between non-REM deep sleep and REM (dream) sleep in cycles lasting roughly 90 minutes. Waking up during deep slow-wave sleep triggers sleep inertia, leaving you feeling groggy and exhausted for hours.',
+          list: [
+            '4 Sleep Cycles (6 Hours): Ideal for short rest nights while still waking during lighter sleep stages.',
+            '5 Sleep Cycles (7.5 Hours): The optimal restorative target for most healthy adults.',
+            '6 Sleep Cycles (9 Hours): Recommended after intense physical exertion or during recovery.',
+          ],
         },
         {
-          heading: 'Private local storage',
-          body: 'Alarm settings are stored locally in this browser. There is no account or server database, so alarms do not sync between devices.',
+          heading: 'Structuring Recurring Daily Routines & Medication Alarms',
+          body: 'Beyond morning wakeups, recurring alarms serve as powerful cognitive anchors throughout the workday. Set distinct alarms for morning hydration, mid-afternoon posture stretching, critical medication schedules, or an evening shutdown routine to signal your brain that the workday is officially over.',
+        },
+        {
+          heading: 'Critical Browser Limitations & Operating System Sleep Notice',
+          body: 'Standard web browsers operate inside sandboxed environments and cannot force your computer hardware to wake up from deep sleep or hibernation. If you close your laptop lid or your device enters low-power standby, browser timer scripts are paused by the operating system. For critical morning appointments, always set your phone’s hardware alarm as a primary backup.',
+        },
+        {
+          heading: 'Private Local Storage & Zero Server Telemetry',
+          body: 'Your alarm times, day schedules, and personalized labels are stored exclusively in your browser’s localStorage. There is no user tracking, no third-party cloud database, and no synchronization between devices, guaranteeing total privacy for your personal sleep and work habits.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: 'Will the online alarm ring if my laptop screen turns off or the computer goes to sleep?',
+          answer:
+            'If your computer enters deep operating system sleep or hibernation, the browser cannot run audio scripts. To ensure the alarm rings, keep your device awake or use the Keep screen awake toggle on the clock page. For critical wakeups, always set a native phone alarm.',
+        },
+        {
+          question: 'Do I need to keep this browser tab open for the alarm to sound?',
+          answer:
+            'Yes. Web browser security sandboxes prevent closed tabs from executing background code. Keep the tab open in your browser; you can minimize the window or work in other applications.',
+        },
+        {
+          question: 'Can I set multiple alarms with different repeat days?',
+          answer:
+            'Yes. You can create multiple custom alarms, name them with personalized labels, choose distinct weekday repeat patterns (e.g., Monday through Friday), and pick your preferred chime.',
+        },
+        {
+          question: 'Why is there no sound when the alarm triggers?',
+          answer:
+            'Web browsers require a user interaction (such as clicking on the page) before permitting audio autoplay. If you just opened the tab, click anywhere on the page or test the alarm sound to ensure audio permissions are active.',
+        },
+        {
+          question: 'Are my alarm labels and times kept private?',
+          answer:
+            'Yes. All alarm entries are saved purely in your browser’s local storage. There is no account system and no remote database—your daily routines remain 100% private to your device.',
+        },
+      ],
     },
     'world-clock': {
       title: 'World Clock – Current Time Around the World',
@@ -237,23 +327,68 @@ export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
   },
   ko: {
     clock: {
-      title: '초 단위 현재 시간 시계',
-      meta: '현재 기기 시간을 초와 선택적 밀리초, 12/24시간제, 아날로그 보기, 전체 화면으로 확인하세요.',
-      eyebrow: '실시간 기기 시계',
-      heading: '초 단위 시계',
+      title: '초 단위 현재 시간 시계 – 실시간 표준시 및 아트 시계',
+      meta: '현재 기기 시간을 초, 밀리초, 12/24시간제, 전체 화면 데스크테리어 시계 및 Living Clock 아트워크와 함께 확인하세요.',
+      eyebrow: '정밀 기기 시계 및 감성 앰비언트 Living Clock',
+      heading: '초 단위 시계와 살아있는 시계',
       intro:
-        '기기 시간을 숫자로 확인하거나 Living Clock의 등불섬으로 들어가세요. 하늘은 시를, 등불은 분을, 항구를 도는 배는 초를 보여 줍니다.',
+        '지연 없는 하드웨어 정밀 시간으로 현재 시각을 확인하거나, 태양의 궤적에 따라 빛과 분위기가 실시간으로 변화하는 감성적인 Living Clock 씬을 감상하세요.',
+      shortcuts: [
+        { key: 'F', action: '전체 화면 탁상시계 모드 전환' },
+        { key: '12 / 24', action: '12시간제 및 24시간제 전환' },
+        { key: '초 단위', action: '초 단위 표시 켜기 / 끄기' },
+        { key: '밀리초', action: '1/1000초 정밀 표시 전환' },
+      ],
       sections: [
         {
-          heading: '이 시계의 기준',
-          body: '매 화면 갱신마다 기기 시계에서 시간을 계산하므로 브라우저 렌더링이 지연되어도 누적 오차가 생기지 않습니다. 기기 시간이 틀리면 이 시계도 틀립니다. 표준시 서버와 동기화하는 기능은 없습니다.',
+          heading: '기기 하드웨어 동기화와 인터넷 표준시(NTP) 확인법',
+          body: 'Clock Garden은 브라우저의 렌더링 프레임마다 사용자의 컴퓨터 또는 스마트폰 기기 내부 하드웨어 시계를 직접 읽어냅니다. 수강신청, 기차표 예매, 콘서트 티켓팅처럼 1초의 찰나가 중요한 순간에 대비하려면, 운영체제 설정에서 네트워크 시간 프로토콜(NTP) 자동 동기화가 활성화되어 있는지 확인하세요.',
+          list: [
+            '티켓팅 및 수강신청: 서버 시각과의 오차를 줄이기 위해 기기 시각을 최신 상태로 유지.',
+            '누적 오차 없는 렌더링: 단순 타이머 루프가 아닌 하드웨어 타임스탬프 기반 계산.',
+            '오프라인 독립성: 인터넷 연결이 끊겨도 기기 시계를 바탕으로 정상 작동.',
+          ],
         },
         {
-          heading: '표시 옵션',
-          body: '초와 밀리초, 12/24시간제, 아날로그 보기, 전체 화면을 선택할 수 있습니다. 화면 켜두기는 지원되는 브라우저에서 사용자가 직접 켠 경우에만 동작합니다.',
+          heading: '데스크테리어 및 몰입을 위한 전체 화면 앰비언트 모드',
+          body: '남는 태블릿이나 노트북, 보조 모니터를 미니멀한 감성 탁상시계로 활용해 보세요. F 키를 누르거나 전체 화면 아이콘을 클릭하면 불필요한 브라우저 UI가 모두 숨겨지고, 방 건너편에서도 시원하게 읽히는 정갈한 타이포그래피가 펼쳐집니다. 화면 켜두기(Wake Lock) 옵션과 함께 사용하면 운영체제의 절전 설정을 영구적으로 바꾸지 않고도 작업 내내 디스플레이를 밝게 유지할 수 있습니다.',
+        },
+        {
+          heading: 'Living Clock: 태양의 궤적과 함께 호흡하는 살아있는 시계',
+          body: '자연의 시간은 멈추어 있는 숫자가 아닙니다. 시간의 흐름은 빛의 각도와 계절의 공기로 전해집니다. Clock Garden의 Living Clock은 3D Blender 모델링과 절차적 캔버스 셰이더로 제작된 독창적인 디지털 아트입니다. 새벽의 여명, 한낮의 푸른 채광, 해질녘의 붉은 노을, 밤하늘의 고요한 별빛까지 사용자의 실제 시간에 맞춰 배경의 빛과 그림자가 부드럽게 변화합니다.',
+        },
+        {
+          heading: '12시간제 vs 24시간제와 밀리초 정밀도',
+          body: '글로벌 화상 회의나 항공, 의료, IT 시스템 관리에서 오전(AM)과 오후(PM)의 혼선을 방지하려면 24시간제를 사용하세요. 또한 브라우저 프레임 렌더링 성능이나 반응 속도를 계측하고 싶다면 밀리초 토글을 켜서 1/1000초 단위의 정밀한 흐름을 눈으로 확인할 수 있습니다.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: '이 온라인 시계는 원자시계 표준시와 정확히 일치하나요?',
+          answer:
+            'Clock Garden은 사용자의 컴퓨터 또는 스마트폰 기기 내부 하드웨어 시계를 딜레이 없이 정밀 렌더링합니다. 공식 표준시와 밀리초 단위까지 정확히 일치시키려면 기기 설정에서 [시간 자동 설정(NTP 동기화)]을 켜두시기 바랍니다.',
+        },
+        {
+          question: '화면 켜두기(Wake Lock) 기능은 안전한가요?',
+          answer:
+            '네, 완전히 안전합니다. 브라우저의 표준 Screen Wake Lock API를 사용하여 해당 탭이 활성화되어 있는 동안에만 디스플레이 절전을 일시 차단하며, 탭을 닫거나 다른 창으로 이동하면 자동으로 해제됩니다.',
+        },
+        {
+          question: 'Living Clock(살아있는 시계)은 어떻게 이용하나요?',
+          answer:
+            '시계 화면의 [Living Clock] 버튼을 클릭하거나 씬 라이브러리에서 원하는 배경을 선택하면, 실제 시각의 흐름에 따라 햇살과 등불의 밝기가 실시간으로 변화하는 감성적인 3D 아트 시계로 전환됩니다.',
+        },
+        {
+          question: '배터리나 CPU 소모량이 크지 않나요?',
+          answer:
+            'Clock Garden은 브라우저의 최적화된 requestAnimationFrame 엔진을 사용하며, 다른 탭으로 이동하거나 창을 최소화하면 렌더링 주기를 자동으로 낮춰 배터리와 시스템 자원 낭비를 완벽히 방지합니다.',
+        },
+        {
+          question: '인터넷이 끊긴 오프라인 상태에서도 작동하나요?',
+          answer:
+            '네. 서비스 워커를 통해 핵심 정적 에셋이 캐시되므로 비행기 모드나 오프라인 환경에서도 브라우저를 열어 기기 시계를 정상적으로 확인할 수 있습니다.',
+        },
+      ],
     },
     stopwatch: {
       title: '온라인 스톱워치 – 밀리초 랩 기록 및 구간 측정',
@@ -389,22 +524,68 @@ export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
       ],
     },
     alarm: {
-      title: '여러 알람을 지원하는 온라인 알람 시계',
-      meta: '라벨, 요일 반복, 소리, 스누즈, 로컬 저장, 선택적 알림을 지원하는 브라우저 알람입니다.',
-      eyebrow: '브라우저에 저장되는 알람',
-      heading: '온라인 알람 시계',
-      intro: '여러 알람을 만들고 반복 요일과 소리를 선택해 이 브라우저에 저장합니다.',
+      title: '온라인 알람 시계 – 다중 알람 및 90분 수면 주기 기상기',
+      meta: '요일별 반복 알람, 90분 REM 수면 주기 가이드, 맞춤형 라벨 메모, 스누즈 및 로컬 저장을 지원하는 온라인 알람 시계입니다.',
+      eyebrow: '개운한 아침 기상, 일상 루틴 및 건강한 수면 관리',
+      heading: '온라인 알람 시계 (다중 알람)',
+      intro:
+        '여러 개의 맞춤형 알람을 생성하고 원하는 요일과 알림음을 선택하세요. 회원가입이나 추적 없이 모든 일정은 현재 브라우저에만 안전하게 보관됩니다.',
+      shortcuts: [
+        { key: '새 알람', action: '원하는 시간의 맞춤 알람 생성' },
+        { key: '토글', action: '등록된 알람 켜기 / 끄기' },
+        { key: '스누즈', action: '울리는 알람 5분 뒤 다시 울리기' },
+        { key: '삭제', action: '브라우저 로컬 저장소에서 알람 제거' },
+      ],
       sections: [
         {
-          heading: '중요한 브라우저 제한',
-          body: '일반 웹페이지는 브라우저, 탭, 기기 또는 운영체제가 페이지를 중단하거나 종료한 뒤 알람 실행을 보장할 수 없습니다. 중요한 알림에는 기기의 기본 알람을 사용하세요.',
+          heading: '수면 위생과 90분 생체 주기(REM) 기상법',
+          body: '사람의 수면은 얕은 수면, 깊은 서파 수면, 그리고 꿈을 꾸는 렘(REM) 수면이 약 90분 주기로 순환합니다. 깊은 숙면 단계에서 강제로 깨어나면 수면 관성(Sleep Inertia)으로 인해 뇌가 쉽게 각성하지 못하고 온종일 무기력해질 수 있습니다.',
+          list: [
+            '4회 수면 주기 (6시간): 비교적 짧게 자더라도 얕은 수면 타이밍에 맞춰 상쾌하게 일어나는 루틴.',
+            '5회 수면 주기 (7시간 30분): 성인에게 가장 이상적인 면역력 회복과 뇌 휴식 권장 시간.',
+            '6회 수면 주기 (9시간): 격렬한 육체 운동 후나 피로 누적 시 권장되는 충분한 숙면 주기.',
+          ],
         },
         {
-          heading: '로컬 저장',
-          body: '알람 설정은 이 브라우저에만 저장됩니다. 계정이나 서버 데이터베이스가 없으므로 다른 기기와 동기화되지 않습니다.',
+          heading: '다중 알람을 활용한 일상 루틴 및 복약 시간 관리',
+          body: '단순한 아침 기상 외에도, 요일별 반복 알람은 일상의 강력한 행동 트리거가 됩니다. 기상 후 미온수 마시기, 오후 3시 거북목 스트레칭, 필수 영양제 복약 시간, 그리고 퇴근 무렵 하루 업무를 정리하는 리추얼 알람으로 하루의 리듬을 체계화하세요.',
+        },
+        {
+          heading: '브라우저의 기술적 한계와 컴퓨터 절전 모드 주의사항',
+          body: '웹 브라우저는 샌드박스 보안 정책상 컴퓨터의 메인보드 전원을 직접 켜거나 절전 모드를 해제할 권한이 없습니다. 노트북 덮개를 닫거나 컴퓨터가 시스템 절전(Sleep) 상태에 진입하면 브라우저의 오디오 및 타이머 실행이 운영체제에 의해 일시 중단됩니다. 중요한 시험, 비행기 탑승 등 필수 일정에는 스마트폰의 하드웨어 알람을 메인으로 병행하시기 바랍니다.',
+        },
+        {
+          heading: '외부 서버 전송 없는 100% 로컬 개인정보 보호',
+          body: '설정한 알람 시간, 반복 요일, 라벨 이름은 전적으로 사용자의 브라우저 로컬 저장소(localStorage)에만 기록됩니다. 중앙 서버나 클라우드로 전송되지 않으므로 개인의 사적인 생활 패턴과 수면 데이터가 철저히 보호됩니다.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: '노트북 덮개를 닫거나 컴퓨터가 절전 모드에 들어가도 알람이 울리나요?',
+          answer:
+            '운영체제가 하드웨어 절전(Sleep) 상태에 진입하면 브라우저의 코드 실행이 중단되므로 알람이 울리지 않습니다. 밤새 알람을 켜두시려면 전원을 연결하고 화면 켜두기 옵션을 활용하시거나, 중요한 기상에는 스마트폰의 하드웨어 기본 알람을 병행해 주세요.',
+        },
+        {
+          question: '브라우저 탭을 닫아도 알람이 울리나요?',
+          answer:
+            '웹 브라우저의 보안 정책상 탭이 닫히면 해당 페이지의 코드는 완전히 종료됩니다. 알람이 동작하려면 탭이 브라우저 창에 열려 있어야 합니다(창을 최소화하거나 다른 작업을 하는 것은 가능합니다).',
+        },
+        {
+          question: '요일별로 다른 알람을 여러 개 등록할 수 있나요?',
+          answer:
+            '네. 평일(월~금) 출근 알람, 주말 기상 알람, 매일 오후 물 마시기 알람 등 원하는 요일과 라벨을 지정하여 여러 개의 알람을 자유롭게 추가하고 관리할 수 있습니다.',
+        },
+        {
+          question: '알람 시간이 되었는데 소리가 나지 않는 이유는 무엇인가요?',
+          answer:
+            '현대 브라우저는 페이지 방문 후 사용자의 클릭이나 키보드 입력이 한 번도 없었던 경우 배경 탭의 오디오 자동 재생을 차단합니다. 탭을 열었을 때 알람 테스트 버튼을 누르거나 화면을 한 번 클릭해 두시면 오디오 권한이 정상 유지됩니다.',
+        },
+        {
+          question: '알람에 설정한 이름과 시간은 안전하게 보호되나요?',
+          answer:
+            '네. 설정한 모든 알람 데이터는 귀하의 컴퓨터 브라우저 내부 로컬 저장소에만 보관됩니다. 계정 가입이 필요 없고 외부 서버로 전송되지 않으므로 개인의 수면 습관과 루틴이 완벽히 보호됩니다.',
+        },
+      ],
     },
     'world-clock': {
       title: '세계 시계 – 세계 현재 시간',
