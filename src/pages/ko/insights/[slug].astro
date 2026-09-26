@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { articles, articleSlugs, type ArticleCopy } from '../../../content/insights';
+
+export function getStaticPaths() {
+  return articleSlugs.map((slug) => ({
+    params: { slug },
+    props: { article: articles.ko[slug] },
+  }));
+}
+
+interface Props {
+  article: ArticleCopy;
+}
+
+const { article } = Astro.props;
+
+const toolNames: Record<string, string> = {
+  clock: '온라인 시계 및 앰비언트 모드',
+  stopwatch: '온라인 고정밀 스톱워치',
+  timer: '카운트다운 및 집중 타이머',
+  alarm: '온라인 알람 시계',
+  'world-clock': '세계 시계 및 글로벌 플래너',
+  'time-zone-converter': '시간대 변환기 및 시차 계산기',
+};
+
+const toolName = toolNames[article.relatedTool] || 'Clock Garden 도구';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.description,
+  datePublished: article.publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Clock Garden 리서치 팀',
+    url: 'https://clockgarden.com/ko/about/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Clock Garden',
+    url: 'https://clockgarden.com',
+  },
+};
+---
+
+<BaseLayout
+  title={article.title}
+  description={article.description}
+  locale="ko"
+  path={`/insights/${article.slug}/`}
+>
+  <script
+    slot="head"
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(articleSchema)}
+  />
+
+  <article class="article-page">
+    <a class="article-nav-back" href="/ko/insights/">
+      <span aria-hidden="true">&larr;</span> 지식 허브 목록으로 돌아가기
+    </a>
+
+    <header class="article-header">
+      <div class="insight-badge-row">
+        <span class="insight-badge">{article.category}</span>
+        <span class="insight-time">{article.readTimeMinutes}분 분량</span>
+      </div>
+      <h1>{article.title}</h1>
+      <div class="article-meta-row">
+        <span>작성: Clock Garden Research</span>
+        <span aria-hidden="true">&bull;</span>
+        <time datetime={article.publishedDate}>{article.publishedDate}</time>
+      </div>
+    </header>
+
+    <div class="article-lead">
+      {article.heroLead}
+    </div>
+
+    <div class="article-body">
+      {
+        article.sections.map((section) => (
+          <section class="article-section">
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+            {section.callout && (
+              <aside class="article-callout" role="note">
+                <strong>핵심 시사점: </strong> {section.callout}
+              </aside>
+            )}
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="article-takeaways" aria-labelledby="takeaways-title-ko">
+      <h3 id="takeaways-title-ko">핵심 요약 및 실천 가이드</h3>
+      <ul>
+        {article.takeaways.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <aside class="article-tool-cta">
+      <div class="article-tool-cta-text">
+        <h4>직접 사용해보기: {toolName}</h4>
+        <p>서버 통신 없이 100% 브라우저 메모리에서 안전하게 실행되는 고정밀 도구를 사용해보세요.</p>
+      </div>
+      <a class="article-tool-btn" href={`/ko/${article.relatedTool}/`}>
+        {toolName} 열기 &rarr;
+      </a>
+    </aside>
+  </article>
+</BaseLayout>
