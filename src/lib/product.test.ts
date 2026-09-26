@@ -35,4 +35,20 @@ describe('return-visit data', () => {
       expect(copy[lang].privacy).toBeDefined();
     }
   });
+
+  it('provides substantive FAQs for timer and stopwatch in en and ko', async () => {
+    const { toolPages } = await import('../content/toolPages');
+    for (const lang of ['en', 'ko'] as const) {
+      expect(toolPages[lang].timer.faqs.length).toBeGreaterThanOrEqual(4);
+      expect(toolPages[lang].stopwatch.faqs.length).toBeGreaterThanOrEqual(4);
+      for (const faq of toolPages[lang].timer.faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
+      for (const faq of toolPages[lang].stopwatch.faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
+    }
+  });
 });
