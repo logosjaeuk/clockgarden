@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
+---
+
+<BaseLayout
+  title="Terms of Service – Usage Guidelines"
+  description={`Terms and conditions governing the use of ${siteConfig.name}, including browser technical limitations and disclaimers.`}
+  path="/terms/"
+>
+  <article class="content-page">
+    <p class="eyebrow">Legal & Operating Guidelines</p>
+    <h1>Terms of Service</h1>
+
+    <p>
+      Last updated: September 2026. By accessing and using {siteConfig.name} (the "Service"),
+      you agree to be bound by the following terms and conditions.
+    </p>
+
+    <h2>1. Nature of the Service</h2>
+    <p>
+      {siteConfig.name} provides free, client-side browser utilities, including a digital and analog clock,
+      stopwatch with lap tracking, countdown timer, alarm clock, world clock, and time zone converter.
+      All calculations and state management execute directly within your web browser.
+    </p>
+
+    <h2>2. Technical Limitations & Browser Sleep Notice</h2>
+    <p>
+      Because our instruments run in client-side web browser tabs without native operating system privileges:
+    </p>
+    <ul>
+      <li>
+        <strong>Device Sleep & Screen Off:</strong> When your device enters system sleep, standby, or battery-saver
+        mode, the browser engine may throttle or entirely pause JavaScript timers and audio execution.
+      </li>
+      <li>
+        <strong>Critical Reminders:</strong> For vital wakeups, flights, critical medical appointments, or urgent
+        commitments, always set your device's native operating system alarm as a primary reminder.
+      </li>
+      <li>
+        <strong>Sound Playback:</strong> Modern web browsers enforce strict autoplay policies. Audio alarms require
+        prior user interaction on the page to ensure audio privileges are granted.
+      </li>
+    </ul>
+
+    <h2>3. Accuracy of Time and Time Zone Data</h2>
+    <p>
+      Local device times depend on your personal computer or smartphone's system clock. Time zone conversions
+      rely on the standardized IANA Time Zone Database implemented in your browser's JavaScript engine.
+      While we apply rigorous testing and DST validation, regional governments occasionally alter daylight saving
+      rules without sufficient advance notice, which may temporarily affect conversion outputs.
+    </p>
+
+    <h2>4. Intellectual Property</h2>
+    <p>
+      All visual design, code structure, written guides, and original 3D artistic assets of the Living Clock
+      (including all scene textures and models) are the exclusive intellectual property of {siteConfig.name}.
+      You may not scrape, republish, or commercialize these assets without explicit written permission.
+    </p>
+
+    <h2>5. Disclaimer of Warranties & Limitation of Liability</h2>
+    <p>
+      The Service is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, whether express
+      or implied. In no event shall the operators of {siteConfig.name} be liable for any direct, indirect, incidental,
+      or consequential damages arising out of the use or inability to use the instruments.
+    </p>
+
+    <h2>6. Contact</h2>
+    <p>
+      Questions regarding these Terms should be directed to our support team at
+      <a href="mailto:contact@clockgarden.com">contact@clockgarden.com</a>.
+    </p>
+  </article>
+</BaseLayout>

@@ -25,4 +25,14 @@ describe('return-visit data', () => {
     expect(validatePresets([{ label: 'Tea', milliseconds: 180000 }])).toHaveLength(1);
     expect(validatePresets([{ label: 'Tea', milliseconds: -1 }])).toBeNull();
   });
+
+  it('contains consistent E-E-A-T navigation and footer labels in en and ko', async () => {
+    const { copy } = await import('../i18n');
+    for (const lang of ['en', 'ko'] as const) {
+      expect(copy[lang].about).toBeDefined();
+      expect(copy[lang].contact).toBeDefined();
+      expect(copy[lang].terms).toBeDefined();
+      expect(copy[lang].privacy).toBeDefined();
+    }
+  });
 });

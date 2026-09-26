@@ -193,19 +193,43 @@ const structuredData = tool
     </main>
 
     <footer class="site-footer">
-      <p>{text.footer}</p>
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <a
+            class="wordmark"
+            href={pathFor(locale, '/')}
+            aria-label={`${siteConfig.name} ${locale === 'ko' ? '홈' : 'home'}`}
+          >
+            <span class="brand-mark" aria-hidden="true"></span>
+            {siteConfig.name}
+          </a>
+          <p class="footer-desc">{text.footer}</p>
+          <p class="copyright">
+            © {new Date().getFullYear()} {siteConfig.name}. {locale === 'ko' ? '모든 권리 보유.' : 'All rights reserved.'}
+          </p>
+        </div>
 
-      <div>
-        <a href={pathFor(locale, '/privacy/')}>
-          {text.privacy}
-        </a>
+        <div class="footer-col">
+          <p class="footer-heading">{text.toolsLabel}</p>
+          <ul class="footer-links">
+            <li><a href={pathFor(locale, '/clock/')}>{text.nav.clock}</a></li>
+            <li><a href={pathFor(locale, '/stopwatch/')}>{text.nav.stopwatch}</a></li>
+            <li><a href={pathFor(locale, '/timer/')}>{text.nav.timer}</a></li>
+            <li><a href={pathFor(locale, '/alarm/')}>{text.nav.alarm}</a></li>
+            <li><a href={pathFor(locale, '/world-clock/')}>{text.nav.world}</a></li>
+            <li><a href={pathFor(locale, '/time-zone-converter/')}>{text.nav.converter}</a></li>
+          </ul>
+        </div>
 
-        <span aria-hidden="true"> · </span>
-
-        <span>
-          © {new Date().getFullYear()}
-          {siteConfig.name}
-        </span>
+        <div class="footer-col">
+          <p class="footer-heading">{text.legalLabel}</p>
+          <ul class="footer-links">
+            <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
+            <li><a href={pathFor(locale, '/contact/')}>{text.contact}</a></li>
+            <li><a href={pathFor(locale, '/terms/')}>{text.terms}</a></li>
+            <li><a href={pathFor(locale, '/privacy/')}>{text.privacy}</a></li>
+          </ul>
+        </div>
       </div>
     </footer>
 

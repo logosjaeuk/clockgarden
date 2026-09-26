@@ -4,31 +4,87 @@ import { siteConfig } from '../config';
 ---
 
 <BaseLayout
-  title="Privacy"
-  description={`How ${siteConfig.name} handles preferences, alarms, analytics configuration, and browser permissions.`}
+  title="Privacy Policy – Transparent Data & Cookies Notice"
+  description={`How ${siteConfig.name} handles preferences, local storage, advertising cookies, and browser permissions.`}
   path="/privacy/"
 >
   <article class="content-page">
-    <p class="eyebrow">Plain-language policy</p><h1>Privacy</h1><p>
-      {siteConfig.name} does not require an account. Clock preferences, saved timer presets, converter
-      zones, alarms, and world-clock locations are stored in your browser using local storage. They are
-      not synchronized between devices. Running countdowns use session storage for this tab and survive
-      a refresh. Your browser may restore that tab data when restoring a browsing session.
-    </p><h2>Network requests</h2><p>
-      The tools calculate time in your browser. This build sends no analytics events and loads no
-      advertising scripts. The hosting provider receives normal page requests, which can include
-      your IP address and requested URL. Timer and converter links can contain the duration, time
-      zones and dates you choose; anyone you give a link to can read those values.
-    </p><h2>Offline pages</h2><p>
-      Previously visited pages and their assets can be cached by a service worker. Clearing site
-      data removes those cached files as well as your saved settings.
-    </p><h2>Permissions</h2><p>
-      Notification and screen wake-lock permissions are requested only after you choose the relevant
-      control. You can revoke them in browser settings. Alarm labels are included in local
-      notifications but are not uploaded by the core app.
-    </p><h2>Data removal</h2><p>
-      Delete individual alarms or locations in the app, or clear this site’s storage in your browser
-      to remove all saved preferences.
+    <p class="eyebrow">Plain-Language Policy</p>
+    <h1>Privacy Policy</h1>
+
+    <p>
+      Last updated: September 2026. At {siteConfig.name}, we believe in transparent, minimalist data practices.
+      We do not require user accounts, passwords, or personal profiles. All core calculations and timekeeping functions
+      execute 100% locally within your web browser.
+    </p>
+
+    <h2>Local Storage and Preferences</h2>
+    <p>
+      Your user preferences—including saved timer presets, active alarm schedules, preferred world clock cities,
+      time zone converter pairings, and light/dark theme selection—are stored exclusively in your browser's
+      <code>localStorage</code>.
+    </p>
+    <p>
+      Running countdown timers store an end-timestamp in <code>sessionStorage</code> so that refreshing the tab
+      or reopening a closed tab restores your countdown without losing elapsed time. None of this data is ever
+      transmitted to or stored on our servers.
+    </p>
+
+    <h2>Third-Party Advertising & Cookies</h2>
+    <p>
+      To help support the ongoing hosting and development of our free instruments, {siteConfig.name} works with
+      third-party advertising partners, including <strong>Google AdSense</strong>.
+    </p>
+    <ul>
+      <li>
+        Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website
+        or other websites on the Internet.
+      </li>
+      <li>
+        Google's use of advertising cookies enables it and its partners to serve personalized or non-personalized ads
+        based on your visits to our site and other sites across the web.
+      </li>
+      <li>
+        <strong>Your Choices & Opt-Out:</strong> You may opt out of personalized advertising at any time by visiting
+        <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.
+        Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting
+        <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.
+      </li>
+    </ul>
+
+    <h2>Server Logs & Hosting</h2>
+    <p>
+      When you load pages on {siteConfig.name}, our static hosting provider automatically receives standard HTTP
+      request metadata, such as your IP address, browser user-agent, and the requested page URL. This technical data
+      is used solely for content delivery, DDOS mitigation, and server security.
+    </p>
+
+    <h2>Browser Permissions (Notifications & Wake Lock)</h2>
+    <p>
+      We will only request browser permissions when you explicitly click a corresponding control:
+    </p>
+    <ul>
+      <li>
+        <strong>Notifications:</strong> Used solely to alert you when an alarm or timer completes. You can revoke
+        notification privileges at any time in your browser settings.
+      </li>
+      <li>
+        <strong>Screen Wake Lock:</strong> Used solely when you enable the "Keep screen awake" toggle on the clock or timer,
+        preventing your display from dimming during study or cooking sessions.
+      </li>
+    </ul>
+
+    <h2>How to Delete Your Data</h2>
+    <p>
+      Because your data is saved only in your device's browser, you have complete control. You can delete individual
+      alarms or saved cities directly inside the app, or clear your browser's cookies and site data for
+      <code>{siteConfig.name}</code> to permanently wipe all stored settings.
+    </p>
+
+    <h2>Contact Us</h2>
+    <p>
+      If you have questions about our privacy practices, please contact us at
+      <a href="mailto:contact@clockgarden.com">contact@clockgarden.com</a>.
     </p>
   </article>
 </BaseLayout>
