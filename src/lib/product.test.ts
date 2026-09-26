@@ -59,6 +59,16 @@ describe('return-visit data', () => {
         expect(faq.question.length).toBeGreaterThan(10);
         expect(faq.answer.length).toBeGreaterThan(30);
       }
+      expect(toolPages[lang]['world-clock'].faqs.length).toBeGreaterThanOrEqual(4);
+      expect(toolPages[lang]['time-zone-converter'].faqs.length).toBeGreaterThanOrEqual(4);
+      for (const faq of toolPages[lang]['world-clock'].faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
+      for (const faq of toolPages[lang]['time-zone-converter'].faqs) {
+        expect(faq.question.length).toBeGreaterThan(10);
+        expect(faq.answer.length).toBeGreaterThan(30);
+      }
     }
   });
 });

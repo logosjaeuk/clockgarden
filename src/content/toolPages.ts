@@ -287,42 +287,130 @@ export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
       ],
     },
     'world-clock': {
-      title: 'World Clock – Current Time Around the World',
-      meta: 'Search and save world time zones, compare current local times, UTC offsets and day differences, and reorder locations.',
-      eyebrow: 'Live global comparison',
-      heading: 'World clock',
+      title: 'World Clock – Current Local Time Around the World',
+      meta: 'Search and compare live world time zones, calculate global meeting overlaps, manage remote teams, and track UTC offsets.',
+      eyebrow: 'Live Global Comparison & Remote Team Collaboration',
+      heading: 'World clock and international time comparator',
       intro:
-        'Add and compare time zones with live local times, UTC offsets, and clear previous- or next-day labels.',
+        'Search and pin cities across the globe. Compare live local times, calculate date differences, and find golden overlapping hours for distributed teams.',
+      shortcuts: [
+        { key: 'Search City', action: 'Filter by city name or IANA time zone identifier' },
+        { key: 'Order', action: 'Top city acts as reference anchor for day differences' },
+        { key: 'Delete', action: 'Remove location from local browser storage' },
+      ],
       sections: [
         {
-          heading: 'Standards-based time zones',
-          body: 'World times use the browser’s Intl implementation and IANA time zone identifiers. Daylight-saving rules and historical offset changes are not manually hardcoded.',
+          heading: 'Coordinating Remote Distributed Teams Across Time Zones',
+          body: 'As modern organizations operate across North America, Europe, and Asia-Pacific, scheduling cross-border collaboration without exhausting teammates requires strategic planning. Use Clock Garden to identify the "Golden Overlap"—the 2-to-3 hour window where distributed teams can hold synchronous standups without forcing late-night overtime.',
+          list: [
+            'Golden Overlap: 9:00 PM Seoul corresponds to 1:00 PM London and 8:00 AM New York.',
+            'Asynchronous Culture: Use synchronous overlap strictly for critical unblocking; rely on documentation for routine updates.',
+            'Burnout Prevention: Rotate meeting times so no single continent consistently shoulders evening calls.',
+          ],
         },
         {
-          heading: 'Your locations',
-          body: 'Add the cities where your colleagues, friends or family live. Search by a city such as Seoul, New York or London, or choose an IANA zone from the list. Move your home city to the top: day differences use it as the reference. Your list is ready when you return.',
+          heading: 'Reference City & Next-Day / Previous-Day Indicators',
+          body: 'Move your home city or your team’s headquarters to the top of the list. All relative date badges (+1 Day or -1 Day) and hour offsets are instantly computed relative to that anchor location, ensuring you never book a meeting on the wrong calendar day.',
+        },
+        {
+          heading: 'Standard IANA Time Zones vs. Ambiguous Abbreviations',
+          body: 'Three-letter abbreviations like CST are notoriously ambiguous: CST can represent Central Standard Time (UTC-6 in the US), China Standard Time (UTC+8), or Cuba Standard Time (UTC-5). Clock Garden queries the canonical IANA (Olson) Time Zone Database directly, ensuring legal and astronomical precision.',
+        },
+        {
+          heading: 'Client-Side Persistence for Frequent Collaborators',
+          body: 'Your curated list of team cities, relatives abroad, and frequent travel destinations is preserved directly in your browser’s localStorage. There is no account sign-in required, and your location list is restored automatically whenever you return.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: 'How do I add a new city or time zone to the World Clock?',
+          answer:
+            'Use the search bar above the list. You can type common city names (like Seoul, London, Tokyo, or New York) or standard IANA identifiers (like Europe/Paris). Click Add to append it to your saved dashboard.',
+        },
+        {
+          question: 'Why does the order of cities matter in the list?',
+          answer:
+            'The topmost city serves as your reference anchor. The relative date indicators (+1 Day or -1 Day) and time differences for all other locations are calculated relative to that top city.',
+        },
+        {
+          question: 'How are Daylight Saving Time (DST) changes handled across different countries?',
+          answer:
+            'Because Clock Garden uses your browser’s standardized IANA database rather than static numerical offsets, seasonal time shifts (such as North American or European summer time transitions) update automatically on the exact legal date and hour.',
+        },
+        {
+          question: 'Is my saved list of world cities transmitted to a server?',
+          answer:
+            'No. Your list of cities and their custom ordering are stored entirely in your browser’s local storage. No geographic searches or personal location preferences are sent to our servers.',
+        },
+        {
+          question: 'Can I use three-letter abbreviations like EST or PST to search for cities?',
+          answer:
+            'Three-letter abbreviations are often rejected because they are ambiguous across international borders (for example, CST represents three completely different time zones). We recommend searching by city name (e.g., Chicago) or canonical IANA region (e.g., America/Chicago).',
+        },
+      ],
     },
     'time-zone-converter': {
-      title: 'Time Zone Converter and Time Difference Tool',
-      meta: 'Convert a date and time between multiple IANA time zones with DST-aware offsets and next-day or previous-day indicators.',
-      eyebrow: 'DST-aware conversion',
-      heading: 'Time zone converter',
+      title: 'Time Zone Converter – DST-Aware Time Difference Calculator',
+      meta: 'Convert dates and times across multiple IANA time zones with automatic Daylight Saving Time verification, gap warnings, and shareable links.',
+      eyebrow: 'DST-Aware Precision & Global Meeting Planner',
+      heading: 'Time zone converter and difference planner',
       intro:
-        'Convert one local date and time into multiple destinations, including UTC offsets and date changes.',
+        'Convert any local date and time across multiple international destinations. Resolves ambiguous daylight saving hours and creates permanent shareable links.',
+      shortcuts: [
+        { key: 'Pick Date & Time', action: 'Set original reference moment' },
+        { key: 'Swap Cities', action: 'Reverse source and destination with single click' },
+        { key: 'Copy Result Link', action: 'Generate shareable link with embedded DST choice' },
+      ],
       sections: [
         {
-          heading: 'Daylight-saving time',
-          body: 'Conversion uses IANA time zones through browser standards instead of fixed offsets, so seasonal daylight-saving changes are reflected by the platform data.',
+          heading: 'Demystifying Daylight Saving Time: Missing & Repeated Hours',
+          body: 'Twice a year, regional time jumps create severe calendar errors. In the spring (Spring Forward), clocks jump from 01:59 to 03:00, meaning 02:30 literally does not exist. In autumn (Fall Back), 01:30 occurs twice. Clock Garden mathematically detects both anomalies, rejecting non-existent hours and prompting you to disambiguate repeated times.',
+          list: [
+            'Spring Gaps: Alerts you immediately if you enter a time that never occurs due to clocks skipping ahead.',
+            'Autumn Duplicates: Offers clear options between the first occurrence (DST) and second occurrence (Standard Time).',
+            'Shareable Integrity: Copying the result link permanently locks in your selected DST interpretation.',
+          ],
         },
         {
-          heading: 'Ambiguous local times',
-          body: 'In New York, 02:30 on March 8, 2026 does not exist; 01:30 on November 1 occurs twice. This converter rejects missing times and asks you to choose an offset for repeated times. Copy result link preserves the date, destinations and selected occurrence for everyone opening it.',
+          heading: 'Planning International Webinars & Global Conference Calls',
+          body: 'When organizing international product launches or webinars across participants in Tokyo, Sydney, London, and San Francisco, seasonal transitions pose immense risk. Because European and North American DST transitions occur on different calendar weeks in March and November, time differences shift unexpectedly. Use this converter to verify real-time offsets for future dates.',
+        },
+        {
+          heading: 'Standardized UTC Offsets & Fractional Time Zones',
+          body: 'While most of the world uses integer hour offsets from Coordinated Universal Time (UTC), several regions operate on half-hour or 45-minute increments. Clock Garden fully supports all fractional zones, including India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and Australia’s Lord Howe Island.',
+        },
+        {
+          heading: 'Shareable Permalinks with Embedded Destination States',
+          body: 'Click Copy Result Link to generate a clean, parameterized URL containing your selected source timestamp, reference time zone, added comparison destinations, and chosen DST occurrence. Recipients opening the link see the identical synchronized moment without timezone calculation confusion.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: 'Why does the converter warn that a time does not exist?',
+          answer:
+            'During the spring Daylight Saving Time transition, local clocks skip an entire hour (for example, jumping from 01:59 to 03:00). A local time like 02:30 literally never occurs on that day. Clock Garden protects you from scheduling errors by rejecting non-existent local times.',
+        },
+        {
+          question: 'What should I do if a time occurs twice in the autumn?',
+          answer:
+            'When clocks fall back in autumn, the repeated hour occurs once during Daylight Saving Time and again 60 minutes later during Standard Time. Clock Garden prompts you to choose the First occurrence or Second occurrence, ensuring complete clarity.',
+        },
+        {
+          question: 'Does the shareable link remember my selected destination cities?',
+          answer:
+            'Yes. The generated link encodes the source timestamp, source time zone, all added destination zones, and the specific DST disambiguation. Anyone opening the link will see the exact same calculation.',
+        },
+        {
+          question: 'How does this tool handle fractional 30-minute and 45-minute time zones?',
+          answer:
+            'Clock Garden fully supports fractional IANA time zones, such as India (UTC+5:30), Iran (UTC+3:30), Afghanistan (UTC+4:30), Nepal (UTC+5:45), and Lord Howe Island (30-minute seasonal shift), calculating minute offsets accurately.',
+        },
+        {
+          question: 'Can I swap the source and destination cities with one click?',
+          answer:
+            'Yes. Click the Swap button between two time zones. The tool maintains the exact underlying moment in time while reversing the reference direction.',
+        },
+      ],
     },
   },
   ko: {
@@ -588,40 +676,130 @@ export const toolPages: Record<Locale, Record<ToolKey, ToolPageCopy>> = {
       ],
     },
     'world-clock': {
-      title: '세계 시계 – 세계 현재 시간',
-      meta: '세계 시간대를 검색하고 저장해 현재 현지 시간, UTC 오프셋, 날짜 차이를 비교하고 순서를 바꾸세요.',
-      eyebrow: '실시간 세계 시간 비교',
-      heading: '세계 시계',
-      intro: '여러 시간대의 현지 시간과 UTC 오프셋, 이전 날과 다음 날 여부를 한눈에 비교합니다.',
+      title: '세계 시계 – 실시간 전 세계 현지 시간 및 시차 비교',
+      meta: '전 세계 도시의 실시간 현지 시간 비교, 글로벌 미팅 골든 오버랩 시간대 계산, IANA 표준 시차 확인 및 즐겨찾는 도시 저장을 지원합니다.',
+      eyebrow: '글로벌 시차 비교 및 원격 근무 협업 도구',
+      heading: '세계 시계 및 글로벌 시차 비교기',
+      intro:
+        '세계 주요 도시의 현지 시간을 실시간으로 비교하고 나만의 목록을 관리하세요. 기준 도시를 바탕으로 날짜 차이와 글로벌 협업을 위한 최적의 미팅 시간을 즉시 확인합니다.',
+      shortcuts: [
+        { key: '도시 검색', action: '한글/영문 도시명 또는 IANA 시간대 검색' },
+        { key: '순서 조정', action: '맨 위 도시가 날짜 차이의 기준 도시로 지정' },
+        { key: '삭제', action: '브라우저 로컬 저장소에서 도시 제거' },
+      ],
       sections: [
         {
-          heading: '표준 시간대 데이터',
-          body: '브라우저의 Intl 구현과 IANA 시간대 식별자를 사용합니다. 일광 절약 시간과 과거 오프셋 규칙을 직접 하드코딩하지 않습니다.',
+          heading: '글로벌 원격 근무와 시차 겹침(Golden Overlap) 전략',
+          body: '아시아, 유럽, 북미에 흩어져 있는 글로벌 분산 팀과 협업할 때 가장 큰 장벽은 시차로 인한 피로도입니다. Clock Garden을 활용하여 대륙 간 팀원들이 야근이나 새벽 기상 없이 실시간 소통을 진행할 수 있는 2~3시간의 "골든 오버랩(Golden Overlap)" 시간대를 발굴하세요.',
+          list: [
+            '골든 오버랩 예시: 서울 오후 9시는 런던 오후 1시, 뉴욕 오전 8시에 해당합니다.',
+            '비동기(Async) 협업 문화: 실시간 회의는 필수 블로커 해결에 집중하고, 일상 업무 공유는 12~24시간 비동기 문서로 대체.',
+            '번아웃 예방: 특정 대륙의 팀원만 지속적으로 야간 콜에 참석하지 않도록 미팅 시간대를 정기적으로 순환.',
+          ],
         },
         {
-          heading: '내 위치 목록',
-          body: '동료나 가족이 사는 도시를 추가하세요. 서울, 뉴욕, London처럼 검색하거나 목록에서 IANA 시간대를 선택할 수 있습니다. 기준 도시를 맨 위에 두면 그 도시를 기준으로 날짜 차이를 표시합니다. 다음 방문에도 목록과 순서가 유지됩니다.',
+          heading: '기준 도시 설정과 날짜 차이(+1일 / -1일) 직관적 확인',
+          body: '본인이 거주하는 도시나 회사의 본사를 드래그하여 목록 맨 위에 배치하세요. 다른 모든 도시의 "+1일" 또는 "-1일" 날짜 뱃지와 시간 차이가 최상단 기준 도시를 바탕으로 실시간 자동 계산되어, 글로벌 회의나 항공편 예약 시 날짜 착오를 원천 방지합니다.',
+        },
+        {
+          heading: '공식 IANA 시간대 표준과 모호한 3자리 약어(CST 등)의 위험성',
+          body: 'CST와 같은 3자리 약어는 미국 중부 표준시(UTC-6), 중국 표준시(UTC+8), 쿠바 표준시(UTC-5) 등 서로 완전히 다른 3개 지역을 의미할 수 있어 심각한 혼선을 야기합니다. Clock Garden은 전 세계 표준인 IANA(Olson) 시간대 데이터베이스를 충실히 조회하므로, 지리적·천문학적으로 정확한 표준시를 보장합니다.',
+        },
+        {
+          heading: '회원가입 없는 로컬 저장소 목록 영구 보존',
+          body: '자주 협업하는 동료와 해외 친척이 거주하는 도시 목록, 그리고 커스텀 정렬 순서는 사용자의 브라우저 localStorage에 안전하게 보존됩니다. 계정 로그인 없이도 다음 방문 시 동일한 목록을 즉시 이용할 수 있습니다.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: '세계 시계에 새로운 도시를 추가하려면 어떻게 하나요?',
+          answer:
+            '상단 검색창에 서울, 뉴욕, London, Tokyo처럼 한글 또는 영문 도시명을 입력하거나 공식 IANA 시간대를 검색한 뒤 [추가] 버튼을 누르면 나만의 세계 시계 목록에 즉시 등록됩니다.',
+        },
+        {
+          question: '도시 목록의 순서를 바꾸는 것이 왜 중요한가요?',
+          answer:
+            '목록의 가장 첫 번째에 위치한 도시가 [기준 도시]가 됩니다. 다른 모든 도시의 +1일, -1일과 같은 날짜 차이 표시가 이 최상단 도시를 기준으로 자동 계산되기 때문입니다.',
+        },
+        {
+          question: '각국의 서머타임(일광 절약 시간)은 자동으로 반영되나요?',
+          answer:
+            '네. 고정된 숫자 오프셋 대신 브라우저 표준 IANA 데이터베이스를 사용하므로, 미국, 유럽 등 각국의 법정 서머타임 시작일과 종료일에 맞춰 시각이 1초의 오차 없이 자동으로 변경됩니다.',
+        },
+        {
+          question: '내가 등록한 도시 목록이 서버에 저장되거나 추적되나요?',
+          answer:
+            '아닙니다. 추가한 모든 도시와 순서 데이터는 오직 사용자의 브라우저 로컬 저장소에만 보관됩니다. 어떠한 검색 기록이나 위치 정보도 서버로 전송되지 않습니다.',
+        },
+        {
+          question: '왜 EST, CST 같은 3글자 약어로 검색되지 않는 경우가 있나요?',
+          answer:
+            '3자리 시간대 약어는 국가마다 동일한 약어를 다른 시간대에 사용하는 경우가 많아(예: CST는 미국, 중국, 쿠바에서 각각 다른 시차를 의미) 혼선을 초래합니다. 가장 정확한 검색을 위해 도시 이름(예: 뉴욕, 시카고, 베이징)으로 입력하시기를 권장합니다.',
+        },
+      ],
     },
     'time-zone-converter': {
-      title: '시간대 변환 및 시차 계산기',
-      meta: '날짜와 시간을 여러 IANA 시간대로 변환하고 DST 오프셋과 이전 날·다음 날 표시를 확인하세요.',
-      eyebrow: 'DST 반영 시간 변환',
-      heading: '시간대 변환기',
-      intro: '한 지역의 날짜와 시간을 여러 목적지로 변환하고 UTC 오프셋과 날짜 변경을 확인합니다.',
+      title: '시간대 변환 및 시차 계산기 – DST 반영 미팅 플래너',
+      meta: '전 세계 IANA 시간대 간 날짜 및 시각 변환, 서머타임 누락/중복 시간 검증, 30분 단위 특수 시차 계산 및 결과 공유 링크 생성을 지원합니다.',
+      eyebrow: 'DST 정밀 검증 및 글로벌 회의 일정 플래너',
+      heading: '시간대 변환 및 시차 계산기',
+      intro:
+        '기준 날짜와 시각을 여러 목적지 시간대로 즉시 변환하세요. 서머타임으로 인한 누락 및 중복 시각을 정확히 안내하며, 영구적인 결과 공유 링크를 생성합니다.',
+      shortcuts: [
+        { key: '날짜/시각 선택', action: '변환할 원본 기준 일시 지정' },
+        { key: '지역 맞바꾸기', action: '원클릭으로 출발지와 목적지 교환' },
+        { key: '결과 링크 복사', action: '선택한 DST 상태가 포함된 영구 공유 링크 생성' },
+      ],
       sections: [
         {
-          heading: '일광 절약 시간',
-          body: '고정 오프셋 대신 브라우저 표준을 통한 IANA 시간대를 사용하므로 플랫폼 데이터에 따른 계절별 일광 절약 시간 변경을 반영합니다.',
+          heading: '서머타임(DST)의 함정: 존재하지 않는 시간과 중복되는 시간',
+          body: '일 년에 두 번, 서머타임(일광 절약 시간) 전환 주간에는 캘린더 예약에 심각한 오류가 발생합니다. 봄철 시작일에는 시계가 1시간 앞당겨지며(Spring Forward) 01:59에서 03:00으로 건너뛰어 02:30 같은 시각은 아예 존재하지 않습니다. 반대로 가을철 종료일에는 시계를 1시간 뒤로 돌려(Fall Back) 01:30이 두 번 발생합니다. Clock Garden은 이 두 가지 예외를 완벽히 감지하여, 없는 시각은 사전에 차단하고 중복 시각은 첫 번째(서머타임)인지 두 번째(표준시)인지 선택하도록 안내합니다.',
+          list: [
+            '봄철 누락 시각: 서머타임으로 인해 발생하지 않는 시간을 입력하면 즉시 경고하여 일정 오류 예방.',
+            '가을철 중복 시각: 첫 번째 발생(DST)과 두 번째 발생(표준시) 중 의도한 시점을 명확히 선택 가능.',
+            '공유 링크 신뢰성: 결과 링크를 복사하면 선택한 DST 옵션까지 영구 보존되어 받는 사람도 동일한 시각 확인.',
+          ],
         },
         {
-          heading: '중복되거나 존재하지 않는 시간',
-          body: '뉴욕의 2026년 3월 8일 02:30은 존재하지 않고, 11월 1일 01:30은 두 번 발생합니다. 존재하지 않는 시간은 안내하고, 중복 시각은 오프셋을 선택하도록 합니다. 결과 링크에는 날짜, 목적지, 선택한 시각이 보존됩니다.',
+          heading: '글로벌 웨비나 및 다국가 화상 미팅 기획 가이드',
+          body: '서울, 도쿄, 런던, 샌프란시스코 참가자를 아우르는 글로벌 행사 기획 시, 3월과 11월의 서머타임 전환 주간은 대단히 위험합니다. 미국과 유럽의 서머타임 적용 일자가 1~2주가량 차이 나기 때문에 평소와 시차가 달라지기 때문입니다. Clock Garden을 통해 미래 행사 날짜의 실제 시차를 사전에 정확히 시뮬레이션하세요.',
+        },
+        {
+          heading: '협정 세계시(UTC) 오프셋과 30분·45분 분 단위 특수 시간대',
+          body: '대부분의 국가는 1시간 단위 정수 오프셋을 사용하지만, 인도(UTC+5:30), 이란(UTC+3:30), 아프가니스탄(UTC+4:30), 네팔(UTC+5:45), 호주 로드하우섬(30분 단위 서머타임) 등은 분 단위 특수 시차를 적용합니다. Clock Garden은 이러한 특수 시간대까지 완벽히 지원합니다.',
+        },
+        {
+          heading: 'DST 선택 상태까지 포함되는 완벽한 결과 공유 링크',
+          body: '[결과 링크 복사] 버튼을 누르면 기준 일시, 출발 시간대, 추가된 모든 비교 목적지, 그리고 서머타임 중복 선택 상태가 쿼리스트링에 깔끔하게 인코딩된 URL이 생성됩니다. 링크를 전달받은 상대방도 변환 계산 착오 없이 동일하게 동기화된 일정을 확인할 수 있습니다.',
         },
       ],
-      faqs: [],
+      faqs: [
+        {
+          question: '왜 어떤 날짜와 시간을 입력하면 존재하지 않는 시간이라고 안내하나요?',
+          answer:
+            '봄철 서머타임이 시작되는 날에는 시계가 1시간 앞당겨지면서 1시간이 사라집니다(예: 01:59 다음이 03:00으로 건너뜀). 따라서 해당 날짜의 02:30 같은 시각은 물리적으로 존재하지 않으므로, 미팅 예약 착오를 막기 위해 변환을 차단하고 안내합니다.',
+        },
+        {
+          question: '가을철에 같은 시각이 두 번 발생할 때는 어떻게 처리하나요?',
+          answer:
+            '가을철 서머타임이 해제될 때는 시계 바늘을 1시간 뒤로 돌리므로 01시~02시 구간이 2회 발생합니다. Clock Garden은 첫 번째(서머타임) 발생인지 두 번째(표준시) 발생인지 선택할 수 있는 옵션을 제공하여 모호함을 완전히 제거합니다.',
+        },
+        {
+          question: '결과 링크를 복사해서 다른 사람에게 공유하면 어떻게 보이나요?',
+          answer:
+            '공유 링크에는 날짜, 기준 시간대, 목적지 도시 목록 및 선택한 서머타임 상태가 완벽히 저장되어 있습니다. 링크를 전달받은 상대방도 동일한 변환 결과를 즉시 확인하고 본인의 현지 시간과 비교할 수 있습니다.',
+        },
+        {
+          question: '30분이나 45분 차이가 나는 특수 시간대(인도, 네팔 등)도 지원하나요?',
+          answer:
+            '네. 인도(UTC+5:30), 네팔(UTC+5:45), 이란(UTC+3:30) 등 정수 시차가 아닌 전 세계 모든 표준 IANA 시간대를 완벽하게 지원합니다.',
+        },
+        {
+          question: '기준 도시와 목적지 도시를 한 번에 맞바꿀 수 있나요?',
+          answer:
+            '네. 변환 결과 박스의 [맞바꾸기] 버튼을 누르면 계산된 실제 시점(순간)을 유지한 채 출발지와 목적지가 즉시 교환되어 양방향 시차 확인이 매우 간편합니다.',
+        },
+      ],
     },
   },
 };
