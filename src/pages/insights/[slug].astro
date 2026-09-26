@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articles, articleSlugs, type ArticleCopy } from '../../content/insights';
-import { pathFor } from '../../i18n';
 
 export function getStaticPaths() {
   return articleSlugs.map((slug) => ({

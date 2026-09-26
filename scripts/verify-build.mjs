@@ -10,8 +10,18 @@ const expectedOrigin = process.env.PUBLIC_SITE_URL || 'https://clockgarden.com';
 const adsenseSrc =
   'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227';
 const contentPages = ['privacy', 'about', 'contact', 'terms'];
+const articleSlugs = [
+  'circadian-rhythms-and-screen-light',
+  'browser-timer-drift-and-monotonic-clocks',
+  'remote-teams-timezone-overlap',
+  'neuroscience-of-the-pomodoro-technique',
+  'leap-seconds-and-atomic-time',
+  'behind-living-clock-crafting-digital-zen',
+];
+const insightRoutes = ['insights', ...articleSlugs.map((slug) => `insights/${slug}`)];
+
 for (const locale of ['en', 'ko']) {
-  for (const route of ['', ...tools, ...contentPages]) {
+  for (const route of ['', ...tools, ...contentPages, ...insightRoutes]) {
     const path = (locale === 'en' ? '' : 'ko/') + (route ? `${route}/` : '');
     const html = readFileSync(join('dist', path, 'index.html'), 'utf8');
     assert.equal((html.match(/<h1[ >]/g) ?? []).length, 1, path + ' H1');
@@ -51,6 +61,13 @@ for (const locale of ['en', 'ko']) {
       const types = jsonScripts.map((s) => s['@type']);
       assert.ok(types.includes('WebApplication'), path + ' WebApplication schema');
       assert.ok(types.includes('FAQPage'), path + ' FAQPage schema');
+    }
+    if (articleSlugs.some((slug) => route === `insights/${slug}`)) {
+      const jsonScripts = [
+        ...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi),
+      ].map((m) => JSON.parse(m[1]));
+      const types = jsonScripts.map((s) => s['@type']);
+      assert.ok(types.includes('Article'), path + ' Article schema');
     }
   }
 }
