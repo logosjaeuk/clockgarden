@@ -7,8 +7,8 @@ const adsState: AdsState =
   import.meta.env.PUBLIC_ADS_ENABLED === 'true' ? ADS_ENABLED : ADS_DISABLED;
 
 /**
- * Advertising has a single, explicit control plane. No provider script, publisher ID,
- * or creative is bundled; the enabled state only exposes the reviewed integration region.
+ * Verification metadata and ads.txt remain available during review.
+ * The provider script and placements are disabled until advertising is enabled.
  */
 export const adsConfig = {
   state: adsState,

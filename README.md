@@ -208,7 +208,7 @@ default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src
 
 ## 광고 및 분석
 
-기본 상태에서는 광고 제공자, 게시자 ID, 광고 소재 또는 분석 업체를 사용하지 않습니다. `PUBLIC_ADS_ENABLED=false`는 `src/config.ts`의 중앙 `ADS_DISABLED` 상태로 연결됩니다. 광고 제공자 연동과 출시 검토가 끝날 때까지 이 값을 변경하지 마세요.
+광고 비활성화 상태에서는 광고 스크립트를 불러오지 않습니다. AdSense 심사를 위한 계정 메타 태그와 ads.txt는 유지합니다. 광고 활성화는 릴리스 검증에서 차단하며 별도 연동 검토가 필요합니다.
 
 검토된 광고 구조는 의도적으로 보수적입니다.
 
@@ -218,7 +218,7 @@ default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src
 - 영역에는 `Advertisements` / `광고` 라벨이 표시되며 레이아웃 이동을 줄이기 위해 넓은 화면에서 728 × 90 CSS 픽셀, 모바일에서 최대 320 × 100 CSS 픽셀을 예약합니다.
 - 두 번째 광고 위치는 의도적으로 설정하지 않았습니다. 향후 페이지에 충분히 많은 고유 콘텐츠가 생기고 새 정책·UX 검토를 통과한 경우에만 다시 검토하세요.
 
-환경 변수를 켜도 검토된 빈 연동 영역만 표시되며 광고 자체를 불러오지는 않습니다. 실제 광고 스크립트를 추가하기 전에는 Content Security Policy와 두 언어의 개인정보 처리방침을 갱신하고, 지역별로 필요한 동의 플랫폼을 선택·설정하며, 동의 선택이 저장소와 네트워크 요청을 실제로 제어하는지 검증하고, 프로덕션 도메인에서 데스크톱·모바일·다크 모드·전체화면 감사를 다시 실행해야 합니다. 빈 예약 영역을 프로덕션에서 미리 보기 위한 목적으로 광고를 켜지 마세요.
+환경 변수를 켜면 광고 로더가 삽입되지만 릴리스 검증은 현재 이를 차단합니다. 활성화 전에 보안 정책, 개인정보 처리방침, 필요한 동의 흐름을 함께 검토해야 합니다. 현재 보안 정책은 외부 광고 스크립트를 허용하지 않습니다.
 
 내부 이벤트 목록은 `src/lib/analytics.ts`에 정의되어 있으며 엔드포인트를 설정하지 않으면 아무것도 전송하지 않습니다.
 
@@ -250,7 +250,7 @@ Lighthouse, LCP, INP, CLS 수치는 실제 프로덕션 주소에서 대표적�
 
 See [PRODUCT_REVIEW.md](PRODUCT_REVIEW.md) for findings, browser checks, measured limits, competitive positioning and monetization decisions. No advertising or affiliate links were activated.
 
-Use `npm run build:release` with `PUBLIC_SITE_URL` exported in the build environment. The release gate rejects missing/placeholder/non-HTTPS origins, ads, and analytics that have not been reviewed. `npm run build` also uses https://clockgarden.com as the default canonical origin; the preview server remains local. `npm run verify:build` checks all 16 indexable pages for metadata, alternates, structured data, sitemap membership and disabled ads.
+Use `npm run build:release` with `PUBLIC_SITE_URL` exported in the build environment. The release gate rejects missing/placeholder/non-HTTPS origins, ads, and analytics that have not been reviewed. `npm run build` also uses https://clockgarden.com as the default canonical origin; the preview server remains local. `npm run verify:build` checks all 36 indexable pages for metadata, alternates, structured data, sitemap membership and disabled ads.
 
 Locale paths, supported locale IDs and hreflang/sitemap generation are centralized. UI copy still contains English/Korean conditional branches: adding a third language requires replacing these branches with complete locale-keyed message dictionaries and reviewed city search aliases; changing the locale list alone is not sufficient.
 

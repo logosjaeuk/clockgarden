@@ -8,6 +8,8 @@ import WorldClockTool from './WorldClockTool.astro';
 import ConverterTool from './ConverterTool.astro';
 import AdSlot from './AdSlot.astro';
 import { toolPages, type ToolKey } from '../content/toolPages';
+import { articles, articleSlugs } from '../content/insights';
+import { pathFor } from '../i18n';
 import type { Locale } from '../config';
 
 const { locale, tool } = Astro.props as { locale: Locale; tool: ToolKey };
@@ -125,6 +127,27 @@ const faqSchema =
     }
 
     <AdSlot locale={locale} />
+    <section class="related-guides">
+      <h2>{locale === 'ko' ? '관련 사용 안내' : 'Related guides'}</h2>
+      <ul>
+        {
+          articleSlugs
+            .filter((slug) => articles[locale][slug].relatedTool === tool)
+            .map((slug) => (
+              <li>
+                <a href={pathFor(locale, '/insights/' + slug + '/')}>
+                  {articles[locale][slug].title}
+                </a>
+              </li>
+            ))
+        }
+        <li>
+          <a href={pathFor(locale, '/insights/')}
+            >{locale === 'ko' ? '모든 사용 안내 보기' : 'Browse all guides'}</a
+          >
+        </li>
+      </ul>
+    </section>
   </article>
 
   <script>

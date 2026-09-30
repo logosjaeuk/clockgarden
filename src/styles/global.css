@@ -934,7 +934,9 @@ select {
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.15s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
 }
 .home-feature-cta:hover {
   opacity: 0.92;
@@ -1057,7 +1059,9 @@ body:has(:fullscreen) .ad-region {
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.15s ease;
 }
 .insight-card:hover {
   border-color: var(--accent);
@@ -1525,6 +1529,42 @@ body:has(:fullscreen) .ad-region {
 }
 
 /* Product usability: stable controls and compact mobile forms. */
+.article-toc,
+.related-guides {
+  margin: 28px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  line-height: 1.8;
+}
+.article-meta-row {
+  flex-wrap: wrap;
+}
+.article-sources a,
+.contact-email-box a {
+  overflow-wrap: anywhere;
+}
+.article-section {
+  scroll-margin-top: 24px;
+}
+.scene-provenance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.scene-provenance figure {
+  margin: 0;
+}
+.scene-provenance img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.scene-provenance figcaption {
+  margin-top: 8px;
+  line-height: 1.6;
+}
 .site-header nav a[aria-current='page'] {
   background: var(--accent-soft);
   color: var(--accent-strong);

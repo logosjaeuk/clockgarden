@@ -1,69 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../config';
+import AboutContent from '../components/AboutContent.astro';
 ---
 
 <BaseLayout
-  title="About Us – Independent Craft & Philosophy"
-  description={`Learn about ${siteConfig.name}, our privacy-first philosophy, zero-tracking architecture, and the handcrafted Living Clock art installation.`}
-  path="/about/"
+  title="About Clock Garden and How It Works"
+  description="Learn how the time tools work, where Living Clock artwork comes from, and how to contact the project operator."
+  locale="en"
+  path="/about/"><AboutContent ko={false} /></BaseLayout
 >
-  <article class="content-page">
-    <p class="eyebrow">Independent Craft & Philosophy</p>
-    <h1>About {siteConfig.name}</h1>
-
-    <p>
-      {siteConfig.name} was created to solve a quiet frustration with the modern web: basic utility
-      tools like clocks, stopwatches, and timers have become bloated with intrusive popups, battery-draining
-      trackers, and laggy frameworks. We believe that everyday instruments should be fast, aesthetically pleasing,
-      and strictly respectful of your personal attention.
-    </p>
-
-    <h2>The Three Core Principles</h2>
-    <p>
-      Every instrument on {siteConfig.name} is designed around three non-negotiable principles:
-    </p>
-    <ul>
-      <li>
-        <strong>100% Client-Side Privacy:</strong> No accounts, no user profiles, and no background telemetry.
-        Your timer presets, alarm configurations, and saved world cities never leave your personal browser.
-      </li>
-      <li>
-        <strong>Zero-Drift Mathematical Precision:</strong> Instead of relying on naive intervals that drift
-        when browser tabs throttle, our tools continuously synchronize against hardware monotonic clocks
-        (<code>performance.now()</code>) and native IANA time zone definitions.
-      </li>
-      <li>
-        <strong>Instant Static Architecture:</strong> Built on Astro with zero runtime JavaScript framework overhead,
-        delivering sub-millisecond render times and complete offline readiness via modern Service Workers.
-      </li>
-    </ul>
-
-    <h2>Living Clock: Art That Breathes With Time</h2>
-    <p>
-      Unlike cold digital displays, time in nature is fluid, atmospheric, and rhythmic. That insight led to the
-      creation of our signature <strong>Living Clock</strong>.
-    </p>
-    <p>
-      Rather than generic stock illustrations, each Living Clock scene (such as <em>The Lantern Island</em>,
-      <em>Moonlit Conservatory</em>, and <em>Rainlight Window</em>) is handcrafted using 3D modeling in Blender
-      and procedural canvas shaders. The ambient sunlight warms at dawn, deepens at dusk, and transitions into
-      gentle starlight at night—reflecting the natural progression of your local day without demanding your attention.
-    </p>
-
-    <h2>Technical Transparency & Standards</h2>
-    <p>
-      All date and time transformations leverage the standardized ECMAScript <code>Intl</code> API and the canonical
-      IANA (Olson) Time Zone Database. When daylight saving transitions create non-existent spring hours or duplicated
-      autumn hours, our converter algorithms explicitly alert you and preserve your disambiguated choice in shareable links.
-    </p>
-
-    <h2>Who We Are</h2>
-    <p>
-      {siteConfig.name} is an independent, engineer-crafted web project. We take pride in building software that
-      respects human focus and operates as a quiet digital companion for your desk, study sessions, and daily routines.
-      If you have suggestions, questions, or bug reports, please reach out to us on our
-      <a href="/contact/">Contact page</a>.
-    </p>
-  </article>
-</BaseLayout>

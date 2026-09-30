@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import assert from 'node:assert/strict';
@@ -45,15 +45,22 @@ for (const locale of ['en', 'ko']) {
     const adsense = (head.match(/<script\b[^>]*>/gi) ?? []).filter(
       (tag) => tag.match(/\ssrc\s*=\s*(["'])(.*?)\1/i)?.[2] === adsenseSrc,
     );
-    assert.equal(adsense.length, 1, path + ' one intended AdSense loader in head');
-    assert.match(adsense[0], /\sasync(?:\s|=|>)/i, path + ' async AdSense loader');
-    assert.match(
-      adsense[0],
-      /\scrossorigin\s*=\s*(["'])anonymous\1/i,
-      path + ' anonymous AdSense loader',
-    );
+    assert.equal(adsense.length, 0, path + ' advertising disabled during review');
+    assert.ok(head.includes('name="google-adsense-account"'), path + ' ownership metadata');
     assert.ok(!html.includes('data-ad-placement='), path + ' no visible ad placements');
     assert.ok(!html.includes('googletagmanager.com'), path + ' no vendor tracking');
+    assert.ok(!html.includes('contact@clockgarden.com'), path + ' current contact address');
+    for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+      const raw = match[1].replaceAll('&amp;', '&');
+      if (!raw.startsWith('/') || raw.startsWith('//')) continue;
+      const link = new URL(raw, expectedOrigin);
+      const destination = join(
+        'dist',
+        decodeURIComponent(link.pathname),
+        link.pathname.endsWith('/') ? 'index.html' : '',
+      );
+      assert.ok(existsSync(destination), path + ' existing internal link: ' + raw);
+    }
     if (tools.includes(route)) {
       const jsonScripts = [
         ...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi),
@@ -68,10 +75,20 @@ for (const locale of ['en', 'ko']) {
       ].map((m) => JSON.parse(m[1]));
       const types = jsonScripts.map((s) => s['@type']);
       assert.ok(types.includes('Article'), path + ' Article schema');
+      const article = jsonScripts.find((s) => s['@type'] === 'Article');
+      assert.equal(article.mainEntityOfPage, canonical, path + ' article canonical');
+      assert.ok(article.dateModified >= article.datePublished, path + ' article dates');
+      assert.ok(article.citation.length > 0, path + ' article references');
+      assert.ok(html.includes('article-sources'), path + ' visible sources');
     }
   }
 }
 assert.ok(readFileSync('dist/404.html', 'utf8').includes('noindex,follow'));
+assert.ok(!readFileSync('dist/404.html', 'utf8').includes(adsenseSrc), 'no ads on error page');
+assert.ok(
+  readFileSync('dist/ads.txt', 'utf8').includes('pub-9708700594020227'),
+  'ownership ads.txt',
+);
 assert.match(readFileSync('dist/robots.txt', 'utf8'), /Sitemap: https?:\/\//);
 const assets = readdirSync('dist/_assets')
   .filter((name) => /\.(js|css)$/.test(name))

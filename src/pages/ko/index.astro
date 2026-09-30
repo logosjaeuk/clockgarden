@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClockTool from '../../components/ClockTool.astro';
+import HomeGuide from '../../components/HomeGuide.astro';
 import ToolCards from '../../components/ToolCards.astro';
 ---
 
 <BaseLayout
-  title="현재 시간과 온라인 시간 도구"
-  description="현재 현지 시간을 바로 확인하고 개인정보 친화적인 스톱워치, 타이머, 알람, 세계 시계, 시간대 변환기를 사용하세요."
+  title="초 단위 현재 시간과 온라인 시간 도구"
+  description="기기의 현재 시간을 초 단위로 확인하세요. Living Clock 풍경, 스톱워치, 타이머, 알람, 세계 시계와 시간대 변환기를 회원가입 없이 사용합니다."
   locale="ko"
   path="/"
   tool
@@ -16,41 +17,7 @@ import ToolCards from '../../components/ToolCards.astro';
     <ToolCards locale="ko" />
   </div>
 
-  <section class="home-showcase" aria-labelledby="craft-showcase-title-ko">
-    <div class="home-feature-card">
-      <span class="home-feature-badge">수작업 아트 워크</span>
-      <h2 id="craft-showcase-title-ko" class="home-feature-title">리빙 클록: 매초 살아 숨쉬는 수작업 인터랙티브 씬</h2>
-      <p class="home-feature-desc">
-        Clock Garden은 찍어낸 저품질 위젯이나 기계적인 AI 복제품이 아닙니다. 엄격한 정밀 계측 엔진 위에 3D 모델링과 절차적 캔버스 셰이더로 빚어낸 오리지널 아트워크를 결합했습니다. 창가에 빗방울이 번지는 <em>Rainlight</em>부터 고요한 식물원 야경을 담은 <em>Moonlit Conservatory</em>까지, 모니터 위에 편안하고 살아 숨쉬는 시간의 공간을 선물합니다.
-      </p>
-      <div class="home-feature-footer">
-        <a href="/ko/clock/" class="home-feature-cta">
-          리빙 클록 씬 감상하기 &rarr;
-        </a>
-        <span class="home-feature-note">별도 설치 없음 &bull; GPU 가속 렌더링 &bull; 전체화면 지원</span>
-      </div>
-    </div>
-
-    <div class="home-grid-three">
-      <div class="home-mini-card">
-        <span class="home-mini-icon" aria-hidden="true">&#x1F6E1;&#xFE0F;</span>
-        <h3>100% 클라이언트 사이드 프라이버시</h3>
-        <p>설정한 타이머, 알람, 도시 목록 등 모든 데이터는 브라우저 내부 메모리에만 머뭅니다. 서버로 전송되거나 기록되지 않아 완벽한 개인정보 보호를 보장합니다.</p>
-      </div>
-
-      <div class="home-mini-card">
-        <span class="home-mini-icon" aria-hidden="true">&#x23F1;&#xFE0F;</span>
-        <h3>하드웨어급 단조 시계 정밀도</h3>
-        <p>고해상도 타이머(<code>performance.now()</code>)와 드리프트 보정 알고리즘을 적용하여 브라우저 백그라운드 스로틀링이나 장시간 측정 시에도 오차 없는 정확도를 유지합니다.</p>
-      </div>
-
-      <div class="home-mini-card">
-        <span class="home-mini-icon" aria-hidden="true">&#x1F5A5;&#xFE0F;</span>
-        <h3>몰입을 돕는 미니멀 인체공학</h3>
-        <p>광고 공해나 팝업 방해 없이, 완벽한 키보드 단축키, 화면 꺼짐 방지(Wake Lock), OLED 다크 모드, 그리고 풀스크린 앰비언트 모드를 통해 업무와 휴식의 몰입을 돕습니다.</p>
-      </div>
-    </div>
-  </section>
+  <HomeGuide locale="ko" />
 
   <script>
     import '../../scripts/tools';

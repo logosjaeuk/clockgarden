@@ -1,0 +1,65 @@
+---
+import type { Locale } from '../config';
+import { pathFor } from '../i18n';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+---
+
+<section class="home-showcase" aria-labelledby="home-guide-title">
+  <div class="home-feature-card">
+    <span class="home-feature-badge">{ko ? '숫자 너머의 시계' : 'A clock with a view'}</span>
+    <h2 id="home-guide-title" class="home-feature-title">
+      {ko ? '시간에 따라 달라지는 작은 풍경' : 'A small landscape that follows your day'}
+    </h2>
+    <p class="home-feature-desc">
+      {
+        ko
+          ? 'Living Clock에서 등불로 분을 읽고, 배의 움직임으로 초를 보거나, 비 오는 창가를 책상 시계로 두세요. 코드로 그린 풍경, Blender 온실, AI를 활용한 일러스트가 함께 있으며 실제 시간은 기기 시계를 따릅니다.'
+          : 'Read minutes in lanterns, follow seconds with a boat, or keep a rainy window on your desk. Living Clock brings together code-drawn scenery, a Blender conservatory, and AI-assisted illustrations. The time comes from your device clock.'
+      }
+    </p>
+    <div class="home-feature-footer">
+      <a class="home-feature-cta" href={pathFor(locale, '/clock/') + '?view=living'}
+        >{ko ? 'Living Clock 열기 →' : 'Open Living Clock →'}</a
+      >
+      <a href={pathFor(locale, '/insights/behind-living-clock-crafting-digital-zen/')}
+        >{ko ? '제작 과정 보기' : 'How the scenes are made'}</a
+      >
+    </div>
+  </div>
+  <div class="home-grid-three">
+    <section class="home-mini-card">
+      <h3>{ko ? '이 시계는 어떤 시간인가요?' : 'Where does the time come from?'}</h3><p>
+        {
+          ko
+            ? '기기의 현지 시간입니다. 표준시나 예매 서버와 동기화하지 않습니다. 밀리초 표시는 정확도 보증이 아닙니다.'
+            : 'Your local device clock. It is not synchronized with an atomic clock or a ticketing server. Millisecond digits are not an accuracy guarantee.'
+        }
+      </p><a href={pathFor(locale, '/insights/leap-seconds-and-atomic-time/')}
+        >{ko ? '시간 기준 알아보기 →' : 'Understand the time source →'}</a
+      >
+    </section>
+    <section class="home-mini-card">
+      <h3>{ko ? '집중 시간과 알림' : 'Focus sessions and reminders'}</h3><p>
+        {
+          ko
+            ? '타이머로 작업 시간을 정하고 스톱워치로 구간을 기록하세요. 탭 종료나 기기 절전 후 알림은 보장되지 않습니다.'
+            : 'Use a timer to set a work period and a stopwatch to record intervals. Alerts are not guaranteed after a tab closes or the device sleeps.'
+        }
+      </p><a href={pathFor(locale, '/insights/browser-timer-drift-and-monotonic-clocks/')}
+        >{ko ? '알림이 늦는 이유 →' : 'Why an alert can be late →'}</a
+      >
+    </section>
+    <section class="home-mini-card">
+      <h3>{ko ? '날짜까지 확인하는 시차' : 'Time zones, with the date included'}</h3><p>
+        {
+          ko
+            ? '지금은 세계 시계로, 미래 회의는 변환기로 확인하세요. 계절에 따라 시차가 달라질 수 있어 날짜와 지역을 함께 선택해야 합니다.'
+            : 'Compare now with World Clock, or use the converter for a future meeting. Choose both a date and a zone because offsets can change through the year.'
+        }
+      </p><a href={pathFor(locale, '/insights/remote-teams-timezone-overlap/')}
+        >{ko ? '회의 시간 비교하기 →' : 'Plan a cross-zone meeting →'}</a
+      >
+    </section>
+  </div>
+</section>

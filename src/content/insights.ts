@@ -1,25 +1,24 @@
 import type { Locale } from '../config';
 import type { ToolKey } from './toolPages';
-
 export interface ArticleSection {
   heading: string;
   paragraphs: string[];
   callout?: string;
 }
-
 export interface ArticleCopy {
   slug: string;
   title: string;
   description: string;
   category: string;
   publishedDate: string;
+  modifiedDate: string;
   readTimeMinutes: number;
   relatedTool: ToolKey;
   heroLead: string;
   sections: ArticleSection[];
   takeaways: string[];
+  sources: Array<{ label: string; url: string }>;
 }
-
 export const articleSlugs = [
   'circadian-rhythms-and-screen-light',
   'browser-timer-drift-and-monotonic-clocks',
@@ -28,622 +27,673 @@ export const articleSlugs = [
   'leap-seconds-and-atomic-time',
   'behind-living-clock-crafting-digital-zen',
 ] as const;
-
 export type ArticleSlug = (typeof articleSlugs)[number];
-
 export const articles: Record<Locale, Record<ArticleSlug, ArticleCopy>> = {
   en: {
     'circadian-rhythms-and-screen-light': {
       slug: 'circadian-rhythms-and-screen-light',
-      title: 'The Science of Circadian Rhythms & Screen Light: How Displays Alter Sleep Architecture',
+      title: 'Setting up a readable evening desk clock',
       description:
-        'Explore the neurobiology of intrinsically photosensitive retinal ganglion cells, melatonin suppression curves, and how ambient display modes protect cognitive circadian rhythms.',
-      category: 'Chronobiology & Health',
-      publishedDate: '2026-09-20',
-      readTimeMinutes: 7,
+        'Choose a theme, reduce visual movement, and understand what a browser clock can and cannot change about your display.',
+      category: 'Display guide',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        'Human biology evolved under astronomical light cycles. When computer monitors emit intense narrow-spectrum blue light after dusk, our central circadian clock misinterprets evening hours as midday, disrupting deep REM cycles and restorative sleep architecture.',
+        'For an evening desk clock, start with readable digits and your device brightness controls. Clock Garden changes page colors and scenery; it does not measure screen brightness, filter wavelengths, or provide a sleep treatment.',
       sections: [
         {
-          heading: 'The Suprachiasmatic Nucleus and Melatonin Suppression',
+          heading: 'Start with the room and the display',
           paragraphs: [
-            'Deep within the hypothalamus sits the suprachiasmatic nucleus (SCN), a master pacemaker consisting of approximately 20,000 neurons that orchestrates our 24-hour physiological rhythm. The SCN coordinates body temperature fluctuations, cortisol secretion, and cellular metabolic regeneration.',
-            'Light exposure regulates the SCN through specialized photoreceptors in the eye called intrinsically photosensitive retinal ganglion cells (ipRGCs). These cells contain the photopigment melanopsin, which displays peak sensitivity to narrow-band blue light between 460 and 480 nanometers—precisely the dominant emission spectrum of LED-backlit computer monitors.',
-          ],
-          callout:
-            'Exposure to 480nm blue light in the 2 hours before bed can delay natural melatonin release by up to 90 minutes, fragmenting rapid eye movement (REM) sleep architecture.',
-        },
-        {
-          heading: 'Digital Eye Strain and the 20-20-20 Protective Rule',
-          paragraphs: [
-            'Prolonged screen focus causes asthenopia, commonly known as digital eye strain. When concentrating on luminous monitors, human blink rates plummet from an average of 15–18 blinks per minute down to less than 5 blinks per minute, accelerating corneal tear film evaporation.',
-            'Optometrists emphasize the 20-20-20 ergonomic protocol: every 20 minutes, shift your gaze to an object at least 20 feet away for 20 seconds. This allows the ciliary muscles within the eye lens to relax from constant near-point accommodation.',
+            "Open the clock at your usual viewing distance. Adjust device brightness until the digits are readable without dominating the room, then choose the light or dark page theme. Page colors cannot override your monitor's brightness setting.",
+            'Switch off milliseconds if the changing digits distract you. Seconds can also be hidden. The best setting is the one you can read comfortably during the task; there is no measured health benefit claimed for this theme.',
           ],
         },
         {
-          heading: 'OLED Black, Low-Contrast Ambient Displays, and Desk Clocks',
+          heading: 'Choose between numbers and scenery',
           paragraphs: [
-            'Standard desktop clock widgets often blast full-spectrum white pixels with glaring contrast, creating unnecessary cognitive arousal during evening study or late-night desk sessions.',
-            'Clock Garden was engineered with a dedicated OLED dark mode and warm ambient scenes. By replacing harsh white backgrounds with deep charcoal tones (#10110f) and subdued amber/green accents, total photonic emission is reduced by over 80% on OLED and Mini-LED panels.',
+            "The digital view gives the clearest time display. Living Clock adds illustrated or drawn environments that change with the device's hour. These are artistic day cycles, not local sunrise calculations or live weather.",
+            'In Living Clock, Browse scenes lets you choose and favorite a scene. The day preview temporarily displays a different time. Return to current time before using it as a desk clock.',
           ],
         },
         {
-          heading: 'Practical Evening Workspace Ergonomics',
+          heading: 'Keep the screen on only when needed',
           paragraphs: [
-            'To maintain peak circadian health without sacrificing late-evening productivity, align your physical desk environment with progressive dimming. Pair warm room bias lighting (2700K or lower) with low-luminance fullscreen clock displays.',
-            'Enabling full-screen ambient mode on your auxiliary monitor provides peaceful time awareness without triggering the neuroendocrine alertness spikes caused by jarring white-themed utility apps.',
+            'Use Fullscreen to enlarge the instrument and Keep screen awake if your browser offers it. Wake lock is a request: the browser or system can release it, especially when the page is no longer visible.',
+            'After switching tabs, check the setting again. Turn it off when finished. Leaving any illuminated display on uses power; Clock Garden has not measured battery or light-emission savings.',
+          ],
+        },
+        {
+          heading: 'Troubleshoot an uncomfortable setup',
+          paragraphs: [
+            "If the display looks crowded, hide milliseconds and the analog face, leave fullscreen, or try the numeric view. For reduced decorative movement, enable your operating system's reduced-motion preference.",
+            'This guide replaces earlier unsupported claims about melatonin, sleep stages, and percentage reductions in light emission. The product provides display controls, not medical advice or a verified sleep intervention.',
           ],
         },
       ],
       takeaways: [
-        'ipRGC photoreceptors in the human retina are tuned to 460–480nm blue light emitted by standard monitors.',
-        'Evening screen exposure delays pineal melatonin secretion and degrades deep stage-3 slow-wave sleep.',
-        'OLED dark themes and warm ambient displays significantly reduce photic retinal stress during evening work.',
-        'Implement the 20-20-20 rule to preserve tear film integrity and ciliary muscle accommodation.',
+        'Adjust brightness on the device itself.',
+        'Hide fast-changing digits if they distract you.',
+        'Check wake lock after returning to the tab.',
+        'Scene previews do not show the current time.',
+      ],
+      sources: [
+        {
+          label: 'MDN: Screen Wake Lock API',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API',
+        },
       ],
     },
-
     'browser-timer-drift-and-monotonic-clocks': {
       slug: 'browser-timer-drift-and-monotonic-clocks',
-      title: 'Why Browser Timers Drift: Monotonic Clocks vs CPU Throttling in JavaScript',
+      title: 'Why a browser timer can finish late',
       description:
-        'A deep technical look into why setInterval accumulates cumulative drift, how operating systems throttle background tabs, and how monotonic clocks guarantee sub-millisecond precision.',
-      category: 'Software Engineering',
-      publishedDate: '2026-09-21',
-      readTimeMinutes: 8,
-      relatedTool: 'stopwatch',
-      heroLead:
-        'Most naive web countdowns and stopwatches lose several seconds per hour when minimized. Understanding the distinction between wall-clock epoch time, setInterval tick queues, and monotonic hardware clocks is essential for high-precision time instruments.',
-      sections: [
-        {
-          heading: 'The Fallacy of Recursive setInterval',
-          paragraphs: [
-            'Many beginner web applications implement countdown timers by incrementing an internal counter inside a 1,000ms `setInterval` or `setTimeout` loop. This approach is inherently flawed due to JavaScript’s single-threaded event loop architecture.',
-            'If the main thread is occupied by DOM manipulation, style recalculation, or garbage collection, the timer callback is delayed in the Macrotask Queue. Because `setInterval` schedules the next interval relative to execution rather than an absolute baseline, delays accumulate monotonically—a phenomenon known as cumulative time drift.',
-          ],
-          callout:
-            'A naive setInterval timer running in an active tab can drift by 1.2 to 3.5 seconds every 30 minutes under heavy CPU or memory load.',
-        },
-        {
-          heading: 'Aggressive Background Tab Throttling by Modern Browsers',
-          paragraphs: [
-            'To extend laptop battery life and reduce fan noise, modern browser engines (Chromium, WebKit, Gecko) aggressively throttle inactive background tabs. Timers in background tabs are clamped to fire no more than once per second (1,000ms), and in some power-saving states, once per minute.',
-            'If a web stopwatch relies on counting ticks, minimizing the tab or switching to another window causes the timer to freeze or fall dramatically behind actual elapsed physical time.',
-          ],
-        },
-        {
-          heading: 'Monotonic Hardware Clocks and performance.now()',
-          paragraphs: [
-            'System clocks (`Date.now()`) report wall-clock time relative to Unix epoch (January 1, 1970). However, wall-clock time is non-monotonic: it can jump backward or forward when the operating system synchronizes with Network Time Protocol (NTP) servers or adjusts for daylight saving.',
-            'For high-precision duration measurement, modern engines provide the High Resolution Time API (`performance.now()`). This returns milliseconds elapsed since an arbitrary origin, backed by the CPU’s hardware monotonic counter (such as x86 RDTSC). It is strictly non-decreasing and immune to system clock adjustments.',
-          ],
-        },
-        {
-          heading: 'The Clock Garden Precision Architecture',
-          paragraphs: [
-            'Clock Garden instruments reject tick-counting completely. When a stopwatch or countdown starts, the engine records an absolute target epoch timestamp alongside high-resolution `performance.now()` reference marks in `sessionStorage`.',
-            'On every animation frame or tab wake event, elapsed time is computed as `targetTime - currentTime`. Even if the browser suspends the background tab for three hours, the instant you return, the display evaluates the exact elapsed duration with sub-millisecond accuracy.',
-          ],
-        },
-      ],
-      takeaways: [
-        'Recursive setInterval loops suffer from cumulative drift caused by event loop macrotask delays.',
-        'Browser power-saving heuristics throttle background tab timer execution to 1,000ms or slower.',
-        'Date.now() is non-monotonic and subject to NTP clock stepping and manual user adjustments.',
-        'High-precision web tools store absolute target timestamps and calculate delta offsets via performance.now().',
-      ],
-    },
-
-    'remote-teams-timezone-overlap': {
-      slug: 'remote-teams-timezone-overlap',
-      title: 'Mastering Asynchronous Collaboration: Golden Overlap Across 12 Timezones',
-      description:
-        'How distributed engineering teams navigate ambiguous 3-letter abbreviations, daylight saving jump gaps, and find the Golden Overlap window for frictionless global teamwork.',
-      category: 'Productivity & Remote Work',
-      publishedDate: '2026-09-22',
-      readTimeMinutes: 6,
-      relatedTool: 'world-clock',
-      heroLead:
-        'When teams stretch across San Francisco, London, Seoul, and Sydney, traditional 9-to-5 synchronous collaboration collapses. Structuring your workday around asynchronous handoffs and explicit IANA time zone anchors turns global distance into a round-the-clock superpower.',
-      sections: [
-        {
-          heading: 'The Trap of Ambiguous 3-Letter Abbreviations',
-          paragraphs: [
-            'Calendar invites often specify "10:00 AM CST". However, "CST" can legitimately denote Central Standard Time in North America (UTC-6), China Standard Time (UTC+8), or Cuba Standard Time (UTC-5). A single ambiguous abbreviation can derail critical client pitches or executive releases.',
-            'Professional global organizations rely exclusively on the canonical IANA (Olson) Time Zone Database, using unambiguous location pairs such as `America/Chicago`, `Asia/Seoul`, or `Europe/London`. IANA identifiers encode full historical rules, future Daylight Saving changes, and geographical jurisdictions.',
-          ],
-          callout:
-            'Never schedule cross-border meetings using 3-letter codes like BST, CST, or IST. Always use standardized IANA canonical names (e.g., Europe/London, Asia/Kolkata).',
-        },
-        {
-          heading: 'Daylight Saving Time (DST) Asymmetry and Jump Gaps',
-          paragraphs: [
-            'Countries do not switch to Daylight Saving Time on the same date. The United States typically transitions two weeks before European nations in spring and one week later in autumn, while equatorial countries and nations like South Korea and Japan do not observe DST at all.',
-            'During these transitional transition weeks, the time difference between New York and London shifts from 5 hours down to 4 hours. Recurring cross-continental meetings suddenly clash with personal schedules unless tracked with DST-aware conversion tools.',
-          ],
-        },
-        {
-          heading: 'Identifying the 2-Hour Golden Overlap',
-          paragraphs: [
-            'Distributed teams thrive when synchronous meetings are strictly confined to a shared 90 to 120-minute window known as the Golden Overlap. For example, a 9:00 AM meeting in London aligns with 6:00 PM in Tokyo and 5:00 PM in Seoul.',
-            'Reserving this shared window solely for high-bandwidth alignment, pair programming, or unblocking dependencies protects the remainder of each engineer’s workday for uninterrupted deep work.',
-          ],
-        },
-        {
-          heading: 'Asynchronous Handoff Protocols: The 24-Hour Sun Cycle',
-          paragraphs: [
-            'When real-time overlap is impossible (e.g., San Francisco and Singapore with a 15-hour difference), teams use asynchronous relay handoffs. Evening engineers document open pull requests, reproduction steps, and blockers in concise Loom or markdown digests.',
-            'When morning engineers in the opposite hemisphere log in, they pick up the baton with fresh energy, effectively achieving continuous 24-hour development momentum without burning out either team.',
-          ],
-        },
-      ],
-      takeaways: [
-        'Three-letter time zone acronyms are inherently ambiguous; always verify against IANA canonical IDs.',
-        'Spring and autumn Daylight Saving transition mismatches alter global time differences for up to 3 weeks.',
-        'Limit real-time meetings to a focused 90-minute Golden Overlap window to protect deep work hours.',
-        'Use explicit, shareable permalink URLs when coordinating cross-timezone deadlines.',
-      ],
-    },
-
-    'neuroscience-of-the-pomodoro-technique': {
-      slug: 'neuroscience-of-the-pomodoro-technique',
-      title: 'The Neuroscience of the Pomodoro Technique: Sustaining Prefrontal Stamina',
-      description:
-        'Why breaking complex work into 25-minute intervals prevents prefrontal cortex fatigue, manages dopamine depleting cycles, and defeats procrastination via the 2-minute threshold.',
-      category: 'Cognitive Science',
-      publishedDate: '2026-09-23',
-      readTimeMinutes: 7,
+        "How Clock Garden's stopwatch and countdown calculate time, what happens in hidden tabs, and how to test an alert before relying on it.",
+      category: 'Timing guide',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'timer',
       heroLead:
-        'The Pomodoro Technique is not merely a cute tomato kitchen timer ritual. It is a precise behavioral framework engineered around the biological constraints of human working memory, glucose consumption in the prefrontal cortex, and dopamine reward circuitry.',
+        'The number on a countdown and the delivery of its alert are separate things. Clock Garden calculates remaining time from a deadline, but a browser can delay the code that plays the completion sound.',
       sections: [
         {
-          heading: 'Prefrontal Cortex Depletion and Executive Fatigue',
+          heading: 'A delayed redraw is not an extra second',
           paragraphs: [
-            'The prefrontal cortex (PFC) is the seat of executive cognitive function: logical deduction, impulse control, working memory, and sustained attention. Unlike sensory processing areas of the brain, the PFC operates on high metabolic glucose expenditure and tires rapidly.',
-            'When attempting continuous 4-hour uninterrupted work sessions, micro-distractions, attention residue from open browser tabs, and willpower depletion degrade problem-solving clarity, leading to cognitive burnout and diminishing marginal returns.',
-          ],
-          callout:
-            'Cognitive studies reveal that working memory degrades after 30–45 minutes of intense focus. A 5-minute cognitive rest restores glycogen stores and resets attention circuits.',
-        },
-        {
-          heading: 'Ultradian Rhythms and the 25/5 Work-Rest Wave',
-          paragraphs: [
-            'Pioneering sleep researcher Nathaniel Kleitman discovered that human alertness follows Basic Rest-Activity Cycles (BRAC) during waking hours, oscillating in 90 to 120-minute ultradian rhythms. Within these larger waves, 25-minute sprints represent optimal sub-peaks of acute selective focus.',
-            'The mandatory 5-minute break is not wasted time; it is when neuroplastic consolidation occurs. Stepping away from the screen allows the default mode network (DMN) to process synthesized information in the background, frequently generating the breakthrough solutions that elude active strain.',
+            'Suppose you start a ten-minute timer at 14:00 and return at 14:07. A deadline-based countdown compares the saved 14:10 endpoint with the current device time and shows about three minutes remaining.',
+            'Counting one second per callback would undercount time whenever callbacks are delayed. Clock Garden instead uses targetAt minus Date.now() for the countdown, so it does not depend on receiving every scheduled callback.',
           ],
         },
         {
-          heading: 'Dopaminergic Momentum and the 2-Minute Overcome Threshold',
+          heading: 'The stopwatch uses a different clock',
           paragraphs: [
-            'Procrastination is rarely a flaw in time management; it is an emotional regulation defense mechanism against perceived discomfort or cognitive overwhelm. The amygdala perceives a massive 20-page report as a threat, triggering avoidant behavior like scrolling social media.',
-            'By committing to a timer set for only 2 or 5 minutes, you lower the neurological barrier to entry below the amygdala’s activation threshold. Once task initiation occurs, the striatum releases baseline dopamine, establishing momentum that effortlessly carries you through the full 25-minute sprint.',
+            "The stopwatch computes active elapsed time from performance.now() plus previously accumulated time. This monotonic clock avoids jumps from changing the device's wall clock.",
+            "The countdown uses wall-clock timestamps so it can restore its deadline after a refresh. Changing the device time can therefore affect it. Neither approach guarantees that the screen updates or a user's click is captured with millisecond accuracy.",
           ],
         },
         {
-          heading: 'Protecting the Sprint: Zero Multitasking Hygiene',
+          heading: 'What happens in background tabs and sleep',
           paragraphs: [
-            'Multitasking is a biological myth. What feels like parallel processing is actually rapid cognitive task-switching, with each context switch shedding significant attention residue. A single notification ping can hijack focus for up to 23 minutes.',
-            'Clock Garden’s timer features ambient fullscreen mode, tab-title live countdowns, and completion audio chimes designed to keep you centered inside a single task without intrusive visual clutter.',
+            'Browsers reduce work on hidden pages, and a suspended page may execute no code. Returning to the timer lets it calculate the remaining time again; this does not mean a sound played at the original deadline.',
+            'For a practical check, start a one-minute timer, switch tabs, and note when you hear it. Repeat with your usual battery settings. This checks your current setup only, not every browser or future session.',
+          ],
+        },
+        {
+          heading: 'What survives a refresh',
+          paragraphs: [
+            "A countdown saves its state in session storage and can resume in the same tab when storage is available. A stopwatch's laps are page memory: export the CSV before refreshing.",
+            'A closed tab is not a dependable alarm service. For a deadline you cannot miss, use a native device alarm too. Displaying three decimal places is a format choice, not evidence of a calibrated instrument.',
           ],
         },
       ],
       takeaways: [
-        'Executive focus in the prefrontal cortex depletes metabolic energy and requires planned micro-rests.',
-        '5-minute rests activate the default mode network, facilitating subconscious insight and memory consolidation.',
-        'Lowering initiation friction with a short 2-minute timer defeats amygdala-driven task avoidance.',
-        'Context switching incurs heavy attention residue; single-task sprints maximize cognitive throughput.',
+        'Countdown: saved deadline minus device time.',
+        'Stopwatch: accumulated active time plus a monotonic interval.',
+        'Late callbacks can delay sounds even when the display catches up.',
+        'Export laps before leaving the page.',
+      ],
+      sources: [
+        {
+          label: 'MDN: performance.now()',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Performance/now',
+        },
+        {
+          label: 'MDN: Page Visibility API',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API',
+        },
       ],
     },
-
+    'remote-teams-timezone-overlap': {
+      slug: 'remote-teams-timezone-overlap',
+      title: 'Plan a meeting across time zones without a date mistake',
+      description:
+        'A worked Seoul, Tokyo, and London example, plus a workflow for daylight-saving gaps, repeated hours, and shared conversion links.',
+      category: 'Time-zone guide',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
+      relatedTool: 'time-zone-converter',
+      heroLead:
+        "Choose the meeting date before calculating the time difference. The world clock answers 'what time is it now?'; the converter answers 'what time will this dated event be in each location?'.",
+      sections: [
+        {
+          heading: 'Use a dated example',
+          paragraphs: [
+            "For 15 January 2026, 09:00 in Europe/London corresponds to 18:00 in both Asia/Seoul and Asia/Tokyo. For 15 July 2026, 09:00 in London corresponds to 17:00 in both cities under the browser's time-zone rules.",
+            'Seoul and Tokyo share UTC+09:00 in these examples. An earlier version of this guide incorrectly gave different times for them. Recalculate for the actual event date rather than copying a seasonal offset.',
+          ],
+        },
+        {
+          heading: 'Enter the event in its source zone',
+          paragraphs: [
+            "Open the converter, choose the source city, and enter the local date and time written on the invitation. Add the destination cities. Check each result's date and UTC offset as well as its hour.",
+            'Use identifiers such as Europe/London or America/New_York rather than CST, which is ambiguous. The browser supplies time-zone data; keep the browser and operating system updated when rules change.',
+          ],
+        },
+        {
+          heading: 'Handle skipped and repeated times',
+          paragraphs: [
+            'Some clock changes skip local times; others repeat an hour. If the converter reports a missing local time, ask the organizer for a valid replacement instead of guessing.',
+            'If it offers two offsets, choose the one the organizer intended. A local time without an offset is not enough to identify an occurrence in a repeated hour.',
+          ],
+        },
+        {
+          heading: 'Share the decision, not just an hour',
+          paragraphs: [
+            'Copy the result link after selecting the intended occurrence. Include the date, source zone, and any next-day result in your meeting message. The link stores conversion inputs, not a calendar invitation.',
+            'For recurring meetings, check dates on both sides of seasonal transitions. If no convenient overlap exists, rotate the inconvenience or use an asynchronous update; a converter cannot make every local workday overlap.',
+          ],
+        },
+      ],
+      takeaways: [
+        'Choose the date first.',
+        'Seoul and Tokyo have the same time in these examples.',
+        'Resolve repeated-hour choices before sharing.',
+        'Recheck recurring meetings across clock changes.',
+      ],
+      sources: [
+        {
+          label: 'IANA Time Zone Database',
+          url: 'https://www.iana.org/time-zones',
+        },
+      ],
+    },
+    'neuroscience-of-the-pomodoro-technique': {
+      slug: 'neuroscience-of-the-pomodoro-technique',
+      title: 'Run a focus session with a 25-minute timer',
+      description:
+        'A practical work-and-break routine using presets, saved timers, and manual break changes, without productivity or neuroscience guarantees.',
+      category: 'Focus guide',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
+      relatedTool: 'timer',
+      heroLead:
+        'A focus timer gives a task a visible boundary. Start with one small outcome, choose a duration you can manage, and review what actually happened when the timer ends. Twenty-five minutes is an option, not a biological requirement.',
+      sections: [
+        {
+          heading: 'Define an outcome before pressing Start',
+          paragraphs: [
+            "Write a concrete target such as 'outline the introduction' or 'review five practice questions'. Avoid a target as broad as 'finish the project'. Clear one obvious distraction before starting.",
+            'Choose 25 minutes if that fits the task, or use a shorter duration for a first attempt. Do not spend the session optimizing timer settings; the timer is a boundary for the work.',
+          ],
+        },
+        {
+          heading: 'Set up work and break presets',
+          paragraphs: [
+            'Select your work duration and start. Save a named preset in My timers if you will reuse it. Leave the tab open and check the sound with a short timer before a longer session.',
+            'When work ends, choose five minutes for a break if that suits you. Repeat reuses the same duration; Clock Garden does not automatically alternate work and break lengths.',
+          ],
+        },
+        {
+          heading: 'Handle interruption deliberately',
+          paragraphs: [
+            'If you stop to answer an urgent question, pause the countdown. When you return, decide whether to continue the same task or reset for a new one. Adding a minute changes the deadline, so use it intentionally.',
+            'If the device sleeps, the remaining-time display can catch up when the page resumes, but the completion sound may have been delayed. A browser timer is not a record of how long you were concentrating.',
+          ],
+        },
+        {
+          heading: 'Review one session before planning the next',
+          paragraphs: [
+            'At the end, note the result in your own notebook: completed, partly completed, or blocked. Adjust the next duration based on the task rather than forcing every activity into the same pattern.',
+            'Clock Garden does not measure attention, diagnose fatigue, or promise a percentage improvement in productivity. This guide replaces earlier unsupported neuroscience claims with a repeatable way to use the timer.',
+          ],
+        },
+      ],
+      takeaways: [
+        'Pick one observable outcome.',
+        'Choose a manageable duration.',
+        'Start breaks manually; Repeat keeps the same duration.',
+        'Review results in your own notes.',
+      ],
+      sources: [
+        {
+          label: 'Clock Garden timer',
+          url: '/timer/',
+        },
+      ],
+    },
     'leap-seconds-and-atomic-time': {
       slug: 'leap-seconds-and-atomic-time',
-      title: 'How Digital Civilization Measures One Second: Atomic Clocks, UTC, and Leap Smearing',
+      title: 'Device time, UTC, and why this is not an atomic clock',
       description:
-        'Explore the fascinating tension between astronomical solar time and cesium-133 atomic time, why Earth’s wobbling rotation creates leap seconds, and how Google leap smearing keeps the cloud in sync.',
-      category: 'Timekeeping Standards',
-      publishedDate: '2026-09-24',
-      readTimeMinutes: 8,
+        "Understand what the clock's seconds and milliseconds mean, why server time can differ, and how time-zone conversion uses the same instant.",
+      category: 'Clock guide',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        'We assume that time flows steadily at exactly 86,400 seconds per day. In reality, Earth is an imperfect, wobbling flywheel whose rotation constantly fluctuates, creating a quiet conflict between astronomical time and ultra-precise cesium atomic clocks.',
+        'Clock Garden reads the clock on your device. It does not contact a time server or the server of a ticketing website. If the device time is wrong, the displayed time is wrong too.',
       sections: [
         {
-          heading: 'Defining the Second: From Solar Noon to Cesium-133',
+          heading: 'Separate an instant from its local display',
           paragraphs: [
-            'Historically, one second was defined as 1/86,400 of a mean solar day. However, tidal friction caused by moon gravity, tectonic plate shifts, and atmospheric wind patterns cause Earth’s rotational velocity to fluctuate unpredictably.',
-            'In 1967, the 13th General Conference on Weights and Measures redefined the SI second using quantum physical constants: exactly 9,192,631,770 periods of radiation corresponding to the transition between two hyperfine ground levels of the Cesium-133 atom. International Atomic Time (TAI) was born.',
-          ],
-          callout:
-            'A cesium fountain atomic clock drifts by less than one single second every 300 million years, exposing the irregular wobble of Earth’s physical rotation.',
-        },
-        {
-          heading: 'The Invention of Coordinated Universal Time (UTC) and Leap Seconds',
-          paragraphs: [
-            'While atomic clocks are impeccably precise, human life is bound to the sun. If civilization ran purely on TAI, solar noon would gradually drift away from 12:00:00 over the centuries.',
-            'To maintain harmony between atomic time and Earth’s true orientation (UT1), Coordinated Universal Time (UTC) was established in 1972. Whenever UT1 and UTC diverge by more than 0.9 seconds, the International Earth Rotation and Reference Systems Service (IERS) schedules a leap second: inserting a 61st second (23:59:60) into the day.',
+            'JavaScript Date represents an instant as milliseconds relative to an epoch. A time zone controls how that instant is shown as a calendar date and clock time.',
+            'World Clock formats the same instant for each selected zone. Changing from Seoul to London changes the local representation, not the moment being compared.',
           ],
         },
         {
-          heading: 'The Cloud Crisis: Why 23:59:60 Crashes Servers',
+          heading: 'More digits do not prove more accuracy',
           paragraphs: [
-            'In computing, POSIX standards assume every day contains exactly 86,400 seconds. When a leap second occurs, many servers freeze or experience kernel panics because system timers encounter duplicate timestamps or invalid seconds values like `:60`.',
-            'In 2012, a leap second brought down major platforms across the internet, corrupting databases and causing high-frequency trading disruptions. This spurred cloud engineers to pioneer "leap smearing"—gradually slowing or accelerating server clock frequencies by tiny fractions over a 24-hour window rather than making an instantaneous 1-second leap.',
+            'The optional milliseconds are digits from the device clock. The browser cannot paint a new frame for every millisecond, and scheduling delays can postpone the visible update.',
+            "For a simple check, compare Clock Garden with the device's own clock. Agreement shows they share a source; it does not show that either is synchronized to an external reference.",
           ],
         },
         {
-          heading: 'The Future: Phasing Out Leap Seconds by 2035',
+          heading: 'What to check when the time looks wrong',
           paragraphs: [
-            'At the 2022 General Conference on Weights and Measures (CGPM), international delegates voted to relax the tolerance between UTC and UT1, effectively pausing leap seconds by 2035 for at least a century.',
-            'As global digital infrastructure—from satellite GPS navigation to distributed database consensus algorithms—relies ever more heavily on unbroken monotonic time streams, human timekeeping is officially transitioning from an astronomical anchor to a pure quantum physical foundation.',
+            "Check the operating system's date, time zone, and automatic time settings. Then reload the page if you changed the time zone. Clock Garden cannot correct the operating system clock itself.",
+            'A remote website may use its own clock and request-processing rules. This tool cannot tell you exactly when that server will accept a registration or ticket request.',
+          ],
+        },
+        {
+          heading: 'Where leap seconds fit',
+          paragraphs: [
+            'JavaScript Date timestamps do not count leap seconds as extra seconds. This display is not designed to show an inserted 23:59:60 second or to compare UTC with an atomic timescale.',
+            'Use an authoritative time service for a traceable reference and purpose-built equipment for measurement that requires calibration. This browser display is for everyday time awareness.',
           ],
         },
       ],
       takeaways: [
-        'The second is officially defined by 9,192,631,770 hyperfine transitions of the cesium-133 atom.',
-        'Earth’s physical rotation fluctuates due to lunar tidal friction and core mantle dynamics.',
-        'Leap seconds maintain alignment between atomic UTC and astronomical solar noon (UT1).',
-        'Leap smearing prevents server crashes by distributing the 1-second adjustment across 24 hours.',
+        'The clock follows your device.',
+        'Time zones change the display of an instant.',
+        'Millisecond display is not certified accuracy.',
+        'This is not a ticketing-server or atomic-time service.',
+      ],
+      sources: [
+        {
+          label: 'MDN: JavaScript Date',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date',
+        },
       ],
     },
-
     'behind-living-clock-crafting-digital-zen': {
       slug: 'behind-living-clock-crafting-digital-zen',
-      title: 'Behind Living Clock: Bringing Atmospheric 3D Craft and Procedural Shaders to the Web',
+      title: 'How Living Clock scenes turn device time into artwork',
       description:
-        'A behind-the-scenes look into how Clock Garden pairs high-precision timekeeping with handcrafted Blender models, canvas shaders, and ambient procedural landscapes.',
-      category: 'Art & Design',
-      publishedDate: '2026-09-25',
-      readTimeMinutes: 7,
+        'A transparent look at canvas scenes, the Blender conservatory, AI-assisted illustrations, and the shared time and preview behavior.',
+      category: 'Making Living Clock',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        'Most online clocks are sterile digital digits surrounded by noisy banner ads. Living Clock reimagines time as a mindful, atmospheric desktop companion by pairing lightweight Blender 3D geometry with real-time procedural canvas lighting.',
+        'Living Clock combines several production methods. Some scenes are drawn in code, Moonlit Conservatory uses locally made Blender renders, and Rainlight and Quiet Study use AI-assisted illustrations with live elements layered over them.',
       sections: [
         {
-          heading: 'The Philosophy of Ambient Computing',
+          heading: 'Three different kinds of artwork',
           paragraphs: [
-            'Mark Weiser, Xerox PARC chief scientist, coined the concept of "ambient computing"—technology that informs from the periphery of our attention rather than aggressively demanding our center of focus. When you glance out of a window, you effortlessly sense the time of day without reading numbers.',
-            'Living Clock applies this principle to the digital desktop. By simulating natural diurnal cycles—the soft rose gold of dawn, the clean amber of afternoon, and the serene deep indigo of twilight—your screen reflects the natural flow of your day in the background.',
-          ],
-          callout:
-            'Digital instruments should serve as calm, aesthetic sanctuaries on your desk, celebrating human craftsmanship rather than maximizing addictive engagement metrics.',
-        },
-        {
-          heading: 'From Blender 3D Viewport to Lightweight Browser Canvas',
-          paragraphs: [
-            'Each Living Clock scene begins as a handcrafted 3D architectural or natural study in Blender. Rather than downloading bloated 50-megabyte WebGL bundles that spin laptop fans, we render multi-layered atmospheric passes into compressed WebP assets and procedural canvas vector shaders.',
-            'In scenes like *Moonlit Conservatory*, glass reflections, water ripple caustics, and botanical silhouettes are rendered using hardware-accelerated 2D canvas drawing calls. This guarantees silky 60fps rendering while maintaining a featherlight network payload under 30KB.',
+            'Lantern Isle, Aquarium, and Chrono Garden use canvas drawing. Moonlit Conservatory blends day and night renders of a Blender scene containing the greenhouse, plants, pond, and lamps.',
+            "Rainlight's background was generated with an image tool. Quiet Study was edited from a supplied reference with an image tool, leaving a blank desk-clock face for live digits. Calling every scene entirely hand-drawn would misrepresent that process.",
           ],
         },
         {
-          heading: 'Procedural Time Mapping: Rain, Moon Phases, and Lanterns',
+          heading: 'Which parts actually tell the time',
           paragraphs: [
-            'Living Clock scenes do not play static repeating video loops. In *Lantern Isle*, 60 harbor lanterns progressively light up as the minute hand advances, while a miniature ferry completes an unhurried harbor circuit precisely every 60 seconds.',
-            'In *Rainlight*, procedural raindrops streak across the glass with randomized droplet physics calculated on the GPU, while the exterior sky luminance dynamically computes the angle of the sun based on your local system clock.',
+            'On Lantern Isle, the sky follows the day, sixty lanterns represent minutes, and the boat follows the seconds. Chrono Garden uses 24 hour sectors, flower opening for minutes, and an orbit for seconds.',
+            "Rain and fireflies in some other scenes are decorative. Read the common numeric clock and each scene's legend. These effects do not report real rainfall, astronomical sunrise, or your location.",
           ],
         },
         {
-          heading: 'Rejecting Disposable AI Slop for Lasting Craft',
+          heading: 'Explore a day without changing your device',
           paragraphs: [
-            'The modern web has been flooded with disposable, AI-generated utility clones that offer zero original thought or tactile delight. Clock Garden is built on an enduring commitment to craft: hand-written code, respectful client-side privacy, and original digital art.',
-            'Whether keeping screen awake during deep study or resting peacefully on an auxiliary vertical monitor, Living Clock turns your computer display into a living, tranquil window to the present moment.',
+            'The day preview sends one chosen time to the scene and the numeric display together. Presets choose the hour with randomized minutes and seconds; the preview returns to current time after 20 seconds.',
+            'You can return immediately using the current-time control. This is a visual preview only and does not change operating system time or schedule an alarm.',
+          ],
+        },
+        {
+          heading: 'How the scenes stay manageable',
+          paragraphs: [
+            'Scenes load when selected. The shared renderer pauses when hidden or outside the viewport and limits its frame rate and canvas resolution. Reduced-motion preferences stop decorative movement while the time still updates.',
+            'Image scenes can need a network connection when first opened. If loading fails, retry or choose another scene. Performance still depends on the device; the project does not promise zero CPU use or a measured battery saving.',
           ],
         },
       ],
       takeaways: [
-        'Ambient computing informs human awareness from the visual periphery without cognitive distraction.',
-        'Multi-layer procedural canvas shaders provide 60fps atmospheric motion at under 30KB network payload.',
-        'Diurnal sky cycles and dynamic lighting reflect local time naturally without demanding reading attention.',
-        'Handcrafted original art and clean zero-tracking code provide lasting value against disposable web slop.',
+        'Artwork provenance differs by scene.',
+        'Read the legend for the actual time symbols.',
+        'Preview time is temporary and clearly separate from current time.',
+        'Reduced motion preserves the time display.',
+      ],
+      sources: [
+        {
+          label: 'Clock Garden scene library',
+          url: '/clock/?view=living',
+        },
       ],
     },
   },
-
   ko: {
     'circadian-rhythms-and-screen-light': {
       slug: 'circadian-rhythms-and-screen-light',
-      title: '생체 시계와 화면 블루라이트의 과학: 야간 디스플레이가 수면 구조를 바꾸는 원리',
-      description:
-        '망막 신경절 세포(ipRGC)의 신경생물학, 멜라토닌 분비 억제 곡선, 그리고 모니터 앰비언트 모드가 일주기 생체 리듬을 보호하는 과학적 원리를 살펴봅니다.',
-      category: '생체 시간학 및 건강',
-      publishedDate: '2026-09-20',
-      readTimeMinutes: 7,
+      title: '저녁 책상 시계를 읽기 편하게 설정하는 방법',
+      description: '화면 테마와 움직임 조절, 기기 밝기와 웹 시계의 차이를 설명합니다.',
+      category: '화면 사용 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        '인간의 생체 리듬은 자연의 빛 주기에 맞춰 진화했습니다. 해가 진 뒤 컴퓨터 모니터의 강한 협대역 블루라이트에 노출되면 뇌 속 중추 시계는 밤을 한낮으로 착각하여 깊은 렘(REM) 수면과 신체 회복 주기를 무너뜨립니다.',
+        '저녁 책상 시계는 숫자를 읽을 수 있는 밝기부터 맞추세요. 이 페이지는 화면 밝기를 측정하거나 빛의 파장을 걸러내지 않으며 수면 치료 기능도 없습니다.',
       sections: [
         {
-          heading: '시교차상핵(SCN)과 멜라토닌 분비 억제 메커니즘',
+          heading: '기기 밝기부터 조절하기',
           paragraphs: [
-            '시상하부 깊숙이 위치한 시교차상핵(SCN)은 약 2만 개의 신경세포로 구성된 인체의 마스터 시계입니다. 체온 조절, 코르티솔 분비, 세포 대사 회복 등 인체의 24시간 생체 주기를 총괄합니다.',
-            '빛 자극은 눈의 내인성 광민감성 망막 신경절 세포(ipRGC)를 통해 SCN으로 전달됩니다. 이 세포는 멜라놉신(melanopsin)이라는 광색소를 함유하고 있으며, LED 모니터의 주 방출 대역인 460~480nm 협대역 청색광에 가장 민감하게 반응합니다.',
-          ],
-          callout:
-            '취침 전 2시간 동안 480nm 블루라이트에 노출되면 자연스러운 멜라토닌 분비가 최대 90분까지 지연되어 렘(REM) 수면 구조가 심각하게 파편화됩니다.',
-        },
-        {
-          heading: '디지털 안정 피로와 20-20-20 안구 보호 규칙',
-          paragraphs: [
-            '장시간 모니터를 집중해서 바라보면 디지털 눈 피로증(asthenopia)이 발생합니다. 발광 화면을 응시할 때 인간의 눈 깜빡임 횟수는 분당 15~18회에서 5회 미만으로 급감하며, 각막의 눈물막이 증발하여 안구 건조와 피로가 가속화됩니다.',
-            '검안의들은 20-20-20 인체공학적 규칙을 권장합니다. 20분 작업할 때마다 최소 20피트(약 6미터) 떨어진 먼 곳을 20초 동안 응시하여 수정체 모양체근의 긴장을 완전히 이완시키는 습관입니다.',
+            '평소 시계를 볼 거리에서 페이지를 열고 기기 밝기를 조절하세요. 숫자가 잘 보이는 상태에서 밝은 테마나 어두운 테마를 선택합니다.',
+            '페이지 색을 바꿔도 모니터 밝기가 바뀌지는 않습니다. 빠른 숫자 변화가 신경 쓰이면 밀리초와 초를 끄세요.',
           ],
         },
         {
-          heading: 'OLED 다크 모드, 저대비 앰비언트 디스플레이와 데스크 클록',
+          heading: '숫자와 풍경 중 선택하기',
           paragraphs: [
-            '기존의 일반 시계 웹사이트나 위젯들은 눈부신 순백색 배경과 강한 대비로 야간 작업 시 뇌에 불필요한 각성 신호를 보냅니다.',
-            'Clock Garden은 OLED 다크 모드와 차분한 앰비언트 씬을 기본 설계로 채택했습니다. 자극적인 백색 픽셀 대신 깊은 흑색(#10110f)과 편안한 앰버/세이지 그린 톤을 사용하여 광자 방출량을 80% 이상 줄였습니다.',
+            '숫자 보기는 시간을 빠르게 읽기에 적합합니다. Living Clock은 기기 시간에 따라 변하는 풍경을 더하지만 실제 일출이나 날씨를 계산하지 않습니다.',
+            '씬 둘러보기에서 장면을 선택하고 즐겨찾기에 넣으세요. 미리보기 중에는 다른 시각이 보이므로 시간을 읽기 전에 현재 시간으로 돌아오세요.',
           ],
         },
         {
-          heading: '건강한 야간 서재 환경을 위한 인체공학적 조언',
+          heading: '필요할 때만 화면 켜두기',
           paragraphs: [
-            '야간의 업무 효율과 생체 리듬을 동시에 지키려면 모니터뿐 아니라 주변 조명의 색온도를 2700K 이하의 따뜻한 톤으로 낮추어야 합니다.',
-            '보조 모니터에 자극적인 웹 위젯 대신 Clock Garden의 전체화면 앰비언트 시계를 띄워두면, 눈의 피로와 각성 호르몬 자극 없이도 평온하게 시간의 흐름을 인지할 수 있습니다.',
+            '전체 화면과 지원되는 브라우저의 화면 켜두기를 사용하세요. 브라우저나 시스템이 요청을 해제할 수 있습니다.',
+            '다른 탭에서 돌아오면 상태를 확인하고 사용이 끝나면 끄세요. 켜진 화면은 전력을 사용하며 절감률을 측정하지 않았습니다.',
+          ],
+        },
+        {
+          heading: '불편한 표시 줄이기',
+          paragraphs: [
+            '밀리초와 아날로그 보기를 끄거나 숫자 보기로 바꾸세요. 장식 움직임은 운영체제의 동작 줄이기 설정을 따릅니다.',
+            '이 안내는 이전 글의 근거 없는 멜라토닌·수면 단계·광량 감소율 주장을 대체합니다. 화면 설정에 검증된 수면 개선 효과를 주장하지 않습니다.',
           ],
         },
       ],
       takeaways: [
-        '망막의 ipRGC 수용체는 일반 모니터가 방출하는 460~480nm 파장의 청색광에 극도로 민감합니다.',
-        '야간 화면 노출은 송과선의 멜라토닌 분비를 억제하여 3단계 서파 수면과 REM 수면을 방해합니다.',
-        'OLED 다크 테마와 앰비언트 디스플레이는 야간 망막의 광자 스트레스를 크게 낮춥니다.',
-        '20-20-20 규칙을 실천하여 눈물막 증발을 막고 안구 모양체근의 피로를 풀어주세요.',
+        '밝기는 기기에서 조절하세요.',
+        '빠른 숫자는 숨길 수 있습니다.',
+        '화면 켜두기 상태를 확인하세요.',
+        '미리보기와 현재 시간을 구분하세요.',
+      ],
+      sources: [
+        {
+          label: 'MDN: Screen Wake Lock API',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API',
+        },
       ],
     },
-
     'browser-timer-drift-and-monotonic-clocks': {
       slug: 'browser-timer-drift-and-monotonic-clocks',
-      title: '웹 브라우저 타이머가 느려지는 이유: `setInterval` 한계와 단조 시계의 원리',
-      description:
-        'setInterval이 누적 오차를 유발하는 기술적 원인, 운영체제의 백그라운드 탭 절전 스로틀링, 그리고 하드웨어 단조 시계가 밀리초 단위 정밀도를 보장하는 방식을 깊이 있게 살펴봅니다.',
-      category: '소프트웨어 엔지니어링',
-      publishedDate: '2026-09-21',
-      readTimeMinutes: 8,
-      relatedTool: 'stopwatch',
-      heroLead:
-        '웹 브라우저의 일반적인 타이머나 스톱워치는 다른 탭으로 전환하거나 창을 최소화하면 몇 초씩 오차가 발생합니다. 운영체제의 CPU 스로틀링과 자바스크립트 이벤트 루프, 그리고 단조 시계의 차이를 이해해야 진정한 정밀 계측 도구를 만들 수 있습니다.',
-      sections: [
-        {
-          heading: '단순 재귀적 setInterval 방식의 치명적 결함',
-          paragraphs: [
-            '많은 초급 웹 위젯들은 1000ms마다 `setInterval`을 호출하여 변수를 1씩 더하는 방식으로 초를 측정합니다. 이는 단일 스레드로 동작하는 자바스크립트의 이벤트 루프 환경에서 필연적으로 오차를 축적합니다.',
-            '메인 스레드가 DOM 렌더링, 스타일 연산, 가비지 컬렉션 등으로 바빠지면 타이머 콜백은 매크로태스크 큐(Macrotask Queue)에서 지연됩니다. 이렇게 누적된 지연 시간은 절대 보정되지 않으며, 시간이 흐를수록 실제 시간보다 계속 뒤처지게 됩니다.',
-          ],
-          callout:
-            'CPU 부하가 큰 상황에서 단순 setInterval 카운터를 30분간 방치하면 실제 시간과 1.2초에서 3.5초까지 오차가 벌어질 수 있습니다.',
-        },
-        {
-          heading: '모던 브라우저의 공격적인 백그라운드 탭 스로틀링',
-          paragraphs: [
-            '배터리 수명을 절약하고 팬 소음을 줄이기 위해 크롬, 사파리, 엣지 등 현대 브라우저는 비활성화된 백그라운드 탭의 타이머 주기를 강제로 1초(1,000ms) 이상, 심한 경우 분당 1회 수준으로 제한합니다.',
-            '단순히 틱(Tick)을 세는 방식의 스톱워치나 타이머는 탭을 전환하거나 다른 창 아래에 두는 순간 즉각 멈추거나 심각하게 느려지는 원인이 여기에 있습니다.',
-          ],
-        },
-        {
-          heading: '하드웨어 단조 시계(Monotonic Clock)와 performance.now()',
-          paragraphs: [
-            '`Date.now()`로 얻는 시스템 시각은 1970년 1월 1일(Unix Epoch)을 기준으로 하는 벽시계 시간(Wall-clock time)입니다. 하지만 벽시계 시간은 네트워크 시간 프로토콜(NTP) 동기화나 서머타임 변경에 따라 앞뒤로 순간 이동할 수 있어 비단조적(Non-monotonic)입니다.',
-            '고정밀 시간 측정을 위해 브라우저는 High Resolution Time API인 `performance.now()`를 제공합니다. 이는 CPU의 하드웨어 타이머(예: x86 RDTSC 레지스터)를 기반으로 하여 운영체제 시간 변경에 영향을 받지 않고 오직 앞으로만 흐르는 엄격한 단조 시계입니다.',
-          ],
-        },
-        {
-          heading: 'Clock Garden의 드리프트 제로 아키텍처',
-          paragraphs: [
-            'Clock Garden의 타이머와 스톱워치는 단순 반복 틱을 세지 않습니다. 측정이 시작될 때 기준 타임스탬프와 `performance.now()` 마커를 `sessionStorage`에 안전하게 기록합니다.',
-            '매 렌더링 프레임 및 탭 복귀 이벤트마다 `현재시각 - 시작시각`의 절대 차이를 역산하므로, 백그라운드에서 몇 시간을 방치하거나 브라우저를 새로고침하더라도 0.001초의 오차 없이 정확한 경과 시간을 즉시 복원합니다.',
-          ],
-        },
-      ],
-      takeaways: [
-        '자바스크립트의 setInterval은 이벤트 루프 지연으로 인해 시간이 누적 지연되는 근본적 결함이 있습니다.',
-        '브라우저는 전력 절약을 위해 백그라운드 탭의 타이머 주기를 1초 이상으로 강제 스로틀링합니다.',
-        'Date.now()는 NTP 동기화 시 시간이 뒤로 튈 수 있으므로 정밀 계측에는 performance.now()를 써야 합니다.',
-        '절대 목표 시각을 저장하고 현재 시각과의 델타(Delta)를 역산하는 구조가 정확도의 핵심입니다.',
-      ],
-    },
-
-    'remote-teams-timezone-overlap': {
-      slug: 'remote-teams-timezone-overlap',
-      title: '글로벌 분산 팀의 시차 극복법: 12개 시간대를 연결하는 골든 오버랩 협업 전략',
-      description:
-        '모호한 3자리 시차 약어의 위험성, 국가별 서머타임 전환 불일치, 그리고 글로벌 분산 조직이 2시간의 골든 오버랩을 활용해 24시간 연속 개발 사이클을 완성하는 방법을 분석합니다.',
-      category: '생산성 및 원격 근무',
-      publishedDate: '2026-09-22',
-      readTimeMinutes: 6,
-      relatedTool: 'world-clock',
-      heroLead:
-        '샌프란시스코, 런던, 서울, 시드니에 팀원이 흩어져 있다면 전통적인 9-to-5 동기식 협업은 불가능합니다. 명확한 IANA 표준 시간대 앵커와 비동기 인수인계 프로토콜을 구축하면 시차는 장애물이 아닌 24시간 릴레이 개발의 강력한 무기가 됩니다.',
-      sections: [
-        {
-          heading: '모호한 3자리 시간대 약어의 함정',
-          paragraphs: [
-            '일정 조율 시 흔히 사용하는 "10:00 AM CST"라는 표기는 치명적인 실수를 낳습니다. CST는 미국 중부 표준시(UTC-6), 중국 표준시(UTC+8), 쿠바 표준시(UTC-5) 등 세 개 대륙의 전혀 다른 시간대를 모두 가리킬 수 있기 때문입니다.',
-            '글로벌 기업들은 3자리 약어 대신 IANA(Olson) 표준 데이터베이스 이름인 `America/Chicago`, `Asia/Seoul`, `Europe/London`을 의무적으로 사용합니다. 이 식별자에는 해당 지역의 수십 년간의 서머타임 규칙과 행정구역 변경 이력이 온전히 담겨 있습니다.',
-          ],
-          callout:
-            'BST, CST, IST와 같은 3자리 시차 약어는 국가마다 중복됩니다. 항상 표준 IANA 식별자(예: Europe/London, Asia/Seoul)를 사용하여 약속을 잡으세요.',
-        },
-        {
-          heading: '서머타임(DST) 시작·종료 시점의 비대칭 시차 간극',
-          paragraphs: [
-            '세계 각국은 서머타임을 같은 날에 바꾸지 않습니다. 미국은 대개 유럽보다 봄에 2주 일찍 서머타임을 시작하고 가을에 1주 늦게 종료하며, 한국과 일본처럼 서머타임을 전혀 적용하지 않는 국가도 많습니다.',
-            '이로 인해 런던과 뉴욕의 시차는 평소 5시간이다가 특정 주간에는 4시간으로 줄어듭니다. 시차 변환기를 통해 이러한 변칙 구간을 사전에 점검하지 않으면 글로벌 정기 회의가 어긋나기 십상입니다.',
-          ],
-        },
-        {
-          heading: '집중적 동기 소통을 위한 2시간의 골든 오버랩(Golden Overlap)',
-          paragraphs: [
-            '시차가 큰 팀이 모두에게 무리 없는 협업을 하려면 실시간 회의를 하루 90~120분의 "골든 오버랩" 시간대로 엄격히 제한해야 합니다. 예를 들어 런던의 오전 9시는 도쿄의 오후 6시, 서울의 오후 5시와 겹칩니다.',
-            '이 귀중한 겹침 시간에는 블로커 해결과 의사결정 회의만 진행하고, 나머지 근무 시간은 방해받지 않는 온전한 딥 워크(Deep Work) 시간으로 보장해야 팀의 피로도를 낮출 수 있습니다.',
-          ],
-        },
-        {
-          heading: '24시간 릴레이 바통 터치를 위한 비동기 핸드오프 규칙',
-          paragraphs: [
-            '샌프란시스코와 싱가포르처럼 시차가 15시간에 달해 오버랩이 불가능한 경우 비동기 인수인계(Asynchronous Handoff)가 정답입니다. 퇴근하는 엔지니어는 오늘의 진행 상황, PR 요약, 재현 링크를 깔끔한 마크다운 리포트로 남깁니다.',
-            '지구 반대편의 동료가 출근하여 그 바통을 이어받아 코드를 리뷰하고 빌드함으로써, 24시간 쉬지 않고 제품이 전진하는 진정한 글로벌 개발 모멘텀이 완성됩니다.',
-          ],
-        },
-      ],
-      takeaways: [
-        '3자리 시간대 약어는 혼란을 유발하므로 항상 IANA 표준 지역 식별자를 사용하세요.',
-        '봄과 가을의 국가별 서머타임 시작일 불일치는 시차를 일시적으로 왜곡시킵니다.',
-        '실시간 회의는 90~120분의 골든 오버랩으로 압축하고, 나머지는 딥 워크로 보호하세요.',
-        '시차를 넘어선 협업 시에는 세팅 값이 고정된 공유 링크(URL)를 적극 활용하세요.',
-      ],
-    },
-
-    'neuroscience-of-the-pomodoro-technique': {
-      slug: 'neuroscience-of-the-pomodoro-technique',
-      title: '포모도로 기법 25분의 뇌과학: 전두엽 피로를 막고 몰입을 유지하는 메커니즘',
-      description:
-        '복잡한 과업을 25분 단위로 쪼개는 것이 어떻게 전두엽 글리코겐 고갈을 막고, 도파민 보상 회로를 자극하며, 2분 실행 규칙을 통해 미루는 습관을 극복하는지 살펴봅니다.',
-      category: '인지 뇌과학 및 생산성',
-      publishedDate: '2026-09-23',
-      readTimeMinutes: 7,
+      title: '브라우저 타이머 종료음이 늦게 울리는 이유',
+      description: '카운트다운과 스톱워치의 계산, 숨겨진 탭의 제약과 알림 확인 방법입니다.',
+      category: '시간 측정 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'timer',
       heroLead:
-        '포모도로 기법은 단순한 토마토 타이머 놀이가 아닙니다. 인간 작업 기억(Working Memory)의 용량 한계, 전두엽의 포도당 소모율, 그리고 도파민 보상 시스템의 특성을 정밀하게 조율한 뇌과학적 행동 설계입니다.',
+        '카운트다운 숫자가 맞는 것과 종료음이 제때 울리는 것은 별개입니다. 종료 시각으로 남은 시간을 계산해도 소리를 실행하는 코드는 브라우저에 의해 지연될 수 있습니다.',
       sections: [
         {
-          heading: '전두엽 피질(Prefrontal Cortex)의 대사적 고갈',
+          heading: '종료 시각으로 다시 계산하기',
           paragraphs: [
-            '전두엽 피질은 논리적 추론, 충동 억제, 집중력 유지 등 실행 기능을 관장하는 뇌의 사령탑입니다. 다른 뇌 부위와 달리 전두엽은 고농도의 포도당과 글리코겐을 소모하며 급격한 피로를 느낍니다.',
-            '휴식 없이 4시간 연속으로 작업을 강행하면 작업 기억 용량이 급격히 줄어들고, 브라우저 탭을 오갈 때마다 발생하는 주의 잔류물(Attention Residue)로 인해 문제 해결 속도가 곤두박질치게 됩니다.',
-          ],
-          callout:
-            '인지 뇌과학 연구에 따르면 30~45분 이상 고강도 집중이 지속되면 뇌의 작업 기억 효율이 저하됩니다. 5분의 휴식은 주의력 신경망을 리셋하는 필수 연료 충전 시간입니다.',
-        },
-        {
-          heading: '울트라디안 리듬과 25분 집중 / 5분 휴식의 파동',
-          paragraphs: [
-            '수면 생리학자 나다니엘 클라이트만은 인간의 각성 주기가 낮 동안에도 90~120분 단위의 기본 휴식-활동 주기(BRAC, 울트라디안 리듬)를 따른다는 사실을 발견했습니다. 25분 집중 스프린트는 이 거대한 파동 속에서 뇌가 가장 선명하게 집중할 수 있는 이상적인 미세 정점입니다.',
-            '의무적인 5분의 휴식 시간 동안 모니터에서 눈을 떼면, 뇌의 디폴트 모드 네트워크(DMN)가 활성화되어 방금 학습한 정보를 무의식 속에서 재구성하고 통합하여 번뜩이는 통찰을 만들어냅니다.',
+            '14시에 10분 타이머를 시작해 14시 7분에 돌아오면 저장한 종료 시각과 현재 시간을 비교해 약 3분을 표시합니다.',
+            '콜백마다 1초씩 차감하지 않고 targetAt에서 Date.now()를 뺍니다. 따라서 모든 콜백이 정확한 간격으로 실행될 필요는 없습니다.',
           ],
         },
         {
-          heading: '도파민 모멘텀과 편도체 저항을 넘는 2분 실행 규칙',
+          heading: '스톱워치와 카운트다운의 차이',
           paragraphs: [
-            '일을 미루는 행위는 시간 관리 능력이 부족해서가 아니라, 과업의 막막함에서 오는 불안을 회피하려는 편도체(Amygdala)의 감정 방어 기제입니다. 수십 장의 기획서라는 부담은 뇌에 위험 신호로 인식됩니다.',
-            '이때 타이머를 딱 2분이나 5분으로 맞추고 "이 시간만 시작해 본다"고 목표를 낮추면 편도체의 경보 시스템을 무력화할 수 있습니다. 행동이 시작되는 순간 뇌의 선조체에서 도파민이 분비되며 작업 모멘텀이 형성되어 자연스럽게 25분 완주로 이어집니다.',
+            '스톱워치는 performance.now()와 누적 시간을 사용해 기기 시각 변경에 따른 점프를 피합니다.',
+            '카운트다운은 새로고침 후 복원할 종료 시각을 사용하므로 기기 시간을 바꾸면 남은 시간도 달라질 수 있습니다. 밀리초 정확도를 보장하지 않습니다.',
           ],
         },
         {
-          heading: '스프린트의 순도 지키기: 멀티태스킹의 허상과 알림 차단',
+          heading: '숨겨진 탭과 절전 상태',
           paragraphs: [
-            '인간의 뇌는 동시에 여러 과업을 처리할 수 없습니다. 우리가 멀티태스킹이라고 느끼는 것은 단지 두 작업 사이를 빠르게 스위칭하며 엄청난 에너지를 낭비하는 것에 불과합니다. 메신저 알림 하나에 뺏긴 집중을 되찾는 데는 최대 23분이 걸립니다.',
-            'Clock Garden의 타이머는 탭 제목 카운트다운, 앰비언트 전체화면 모드, 완료 알림 차임을 제공하여 시각적 산만함 없이 오직 하나의 과업에만 몰입할 수 있도록 돕습니다.',
+            '브라우저는 숨겨진 탭의 작업을 줄이며 중단된 페이지는 코드를 실행하지 못할 수 있습니다. 숫자가 복귀 후 따라잡아도 소리가 제때 났다는 뜻은 아닙니다.',
+            '실제 환경에서 1분 타이머를 시작하고 다른 탭으로 이동해 소리를 확인하세요. 평소 절전 설정에서도 확인하되 모든 환경에 적용되는 검증은 아닙니다.',
+          ],
+        },
+        {
+          heading: '새로고침 전에 보관할 것',
+          paragraphs: [
+            '카운트다운은 저장소를 사용할 수 있으면 같은 탭에서 복원됩니다. 스톱워치 랩은 페이지 메모리이므로 CSV로 내보내세요.',
+            '닫힌 탭의 알림을 보장하지 않습니다. 중요한 마감은 기기 알람도 사용하세요. 세 자리 소수점은 교정된 측정 장비라는 증거가 아닙니다.',
           ],
         },
       ],
       takeaways: [
-        '전두엽 피질의 집중력은 한정된 대사 자원을 소비하므로 정기적인 짧은 휴식이 필수적입니다.',
-        '5분 휴식 시 활성화되는 디폴트 모드 네트워크(DMN)가 아이디어 정리와 창의적 발상을 돕습니다.',
-        '막막한 과업은 2분 타이머로 시작 장벽을 낮춰 편도체의 회피 반응을 우회하세요.',
-        '작업 전환 시 주의 잔류물이 발생하므로 25분 동안은 단 하나의 목표에만 전념해야 합니다.',
+        '종료 시각과 현재 시간을 비교합니다.',
+        '스톱워치는 단조 시계를 사용합니다.',
+        '종료음은 지연될 수 있습니다.',
+        '랩은 떠나기 전에 내보내세요.',
+      ],
+      sources: [
+        {
+          label: 'MDN: performance.now()',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Performance/now',
+        },
+        {
+          label: 'MDN: Page Visibility API',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API',
+        },
       ],
     },
-
+    'remote-teams-timezone-overlap': {
+      slug: 'remote-teams-timezone-overlap',
+      title: '날짜 실수 없이 해외 회의 시간을 정하는 방법',
+      description: '서울·도쿄·런던 예시와 일광 절약 시간, 중복 시각, 결과 링크 확인 순서입니다.',
+      category: '시간대 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
+      relatedTool: 'time-zone-converter',
+      heroLead:
+        '회의 날짜를 먼저 정하고 시차를 계산하세요. 세계 시계는 현재 시각을, 변환기는 특정 날짜의 회의가 각 지역에서 몇 시인지를 보여줍니다.',
+      sections: [
+        {
+          heading: '날짜가 있는 예시',
+          paragraphs: [
+            '2026년 1월 15일 런던 09:00은 서울과 도쿄 모두 18:00입니다. 7월 15일 런던 09:00은 브라우저 시간대 규칙상 두 도시에서 모두 17:00입니다.',
+            '이 예시에서 서울과 도쿄는 UTC+09:00입니다. 이전 글에서 두 도시 시각을 다르게 표기한 오류를 바로잡았습니다.',
+          ],
+        },
+        {
+          heading: '주최 지역에서 시작하기',
+          paragraphs: [
+            '변환기에서 출발 지역, 현지 날짜와 시각을 입력하고 목적지 도시를 추가하세요. 결과의 날짜와 UTC 오프셋까지 확인하세요.',
+            'CST 같은 약어 대신 Europe/London 같은 식별자를 사용하세요. 시간대 데이터가 갱신되도록 브라우저와 운영체제를 업데이트하세요.',
+          ],
+        },
+        {
+          heading: '중복되거나 없는 시각',
+          paragraphs: [
+            '시계 조정으로 특정 시각이 사라지면 주최자에게 유효한 시각을 확인하세요. 임의로 한 시간을 더하지 마세요.',
+            '두 오프셋이 나오면 의도한 것을 고르세요. 반복되는 시간에는 현지 시각만으로 실제 순간을 특정할 수 없습니다.',
+          ],
+        },
+        {
+          heading: '결정 내용을 공유하기',
+          paragraphs: [
+            '결과 링크와 함께 날짜, 출발 시간대, 다음 날 여부를 안내하세요. 링크는 변환 입력값을 보존하고 캘린더 초대를 만들지는 않습니다.',
+            '정기 회의는 계절 전환 전후 날짜를 각각 확인하세요. 편한 겹침 시간이 없으면 불편한 시간을 번갈아 맡거나 비동기 업데이트를 고려하세요.',
+          ],
+        },
+      ],
+      takeaways: [
+        '날짜부터 선택하세요.',
+        '서울과 도쿄 시각은 같습니다.',
+        '오프셋을 고른 뒤 공유하세요.',
+        '계절 전환 전후를 확인하세요.',
+      ],
+      sources: [
+        {
+          label: 'IANA Time Zone Database',
+          url: 'https://www.iana.org/time-zones',
+        },
+      ],
+    },
+    'neuroscience-of-the-pomodoro-technique': {
+      slug: 'neuroscience-of-the-pomodoro-technique',
+      title: '25분 타이머로 집중 시간을 운영하는 방법',
+      description:
+        '작업을 정하고 집중·휴식을 직접 선택하는 사용법이며 생산성 향상률을 보장하지 않습니다.',
+      category: '집중 시간 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
+      relatedTool: 'timer',
+      heroLead:
+        '집중 타이머는 작업에 눈에 보이는 경계를 만듭니다. 작은 목표와 감당할 수 있는 시간을 선택하고 결과를 확인하세요. 25분은 선택지이지 생물학적 필수 조건이 아닙니다.',
+      sections: [
+        {
+          heading: '결과 하나부터 정하기',
+          paragraphs: [
+            '서론 개요 쓰기나 연습 문제 다섯 개 검토처럼 구체적인 목표를 정하세요. 이번 시간에 확인할 수 있는 범위로 줄이세요.',
+            '작업에 맞으면 25분을 선택하고 어렵다면 짧게 시작하세요. 설정을 다듬기보다 작업에 집중하세요.',
+          ],
+        },
+        {
+          heading: '집중과 휴식 설정하기',
+          paragraphs: [
+            '원하는 시간을 선택하고 자주 쓰는 길이는 내 타이머에 저장하세요. 탭을 열어 두고 짧은 타이머로 소리를 확인하세요.',
+            '집중 후 필요하면 5분 휴식을 직접 선택하세요. 반복은 같은 길이를 다시 실행하며 집중과 휴식을 자동으로 교대하지 않습니다.',
+          ],
+        },
+        {
+          heading: '중단을 의도적으로 처리하기',
+          paragraphs: [
+            '급한 연락을 처리할 때는 일시정지하고 돌아와 같은 작업을 이어갈지 결정하세요. 시간 추가는 종료 시각을 바꿉니다.',
+            '기기 절전 후 숫자는 따라잡아도 소리가 늦을 수 있습니다. 타이머는 실제 집중 시간을 측정하는 장치가 아닙니다.',
+          ],
+        },
+        {
+          heading: '다음 세션 전에 검토하기',
+          paragraphs: [
+            '완료·일부 완료·막힘처럼 결과를 자신의 메모에 남기세요. 작업 특성에 맞게 다음 길이를 조절하세요.',
+            '이 도구는 주의력 측정이나 피로 진단을 하지 않습니다. 이전 글의 근거 없는 뇌과학 주장을 실제 사용 순서로 대체했습니다.',
+          ],
+        },
+      ],
+      takeaways: [
+        '작은 목표를 정하세요.',
+        '맞는 길이를 선택하세요.',
+        '휴식은 직접 시작하세요.',
+        '결과를 메모하세요.',
+      ],
+      sources: [
+        {
+          label: 'Clock Garden timer',
+          url: '/ko/timer/',
+        },
+      ],
+    },
     'leap-seconds-and-atomic-time': {
       slug: 'leap-seconds-and-atomic-time',
-      title: '디지털 문명이 1초를 정의하는 방법: 원자시계, UTC, 그리고 윤초의 기술적 비밀',
-      description:
-        '천문학적 태양시와 세슘-133 원자시의 미세한 간극, 지구 자전의 불규칙성이 만들어낸 윤초(Leap Second), 그리고 클라우드 장애를 막기 위한 구글의 윤초 스미어링(Leap Smearing) 기술을 알아봅니다.',
-      category: '시간 계측 표준',
-      publishedDate: '2026-09-24',
-      readTimeMinutes: 8,
+      title: '기기 시간과 UTC: 이 시계가 원자시계는 아닌 이유',
+      description: '초와 밀리초의 의미, 서버 시각과의 차이, 같은 순간의 지역별 표시를 설명합니다.',
+      category: '시계 기준 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        '우리는 하루가 항상 정확히 86,400초라고 믿습니다. 하지만 지구는 조석 마찰과 맨틀 운동으로 속도가 불규칙하게 흔들리는 플라이휠이며, 이로 인해 천문시와 원자시계 사이에는 미세한 시차가 발생합니다.',
+        'Clock Garden은 내 기기 시계를 읽습니다. 표준시 서버나 예매 서버에 접속해 시간을 가져오지 않습니다. 기기 시간이 틀리면 표시 시간도 틀립니다.',
       sections: [
         {
-          heading: '1초의 정의: 태양 남중시에서 세슘-133 원자시계로',
+          heading: '순간과 표시 구분하기',
           paragraphs: [
-            '과거 인류는 태양이 정남쪽에 오는 남중 시간을 기준으로 하루의 1/86,400을 1초로 정의했습니다. 그러나 달의 조석력으로 인한 마찰과 지각 변동으로 인해 지구의 자전 속도는 해마다 미세하게 느려집니다.',
-            '1967년 국제도량형총회는 1초를 불변의 물리량으로 재정의했습니다. 세슘-133 원자가 기저 상태의 두 초미세 에너지 준위 사이를 전이할 때 방출하는 전자기파의 주기가 정확히 91억 9263만 1770번 진동하는 시간을 1초로 확정한 것입니다.',
-          ],
-          callout:
-            '세슘 분수 원자시계는 3억 년에 1초 이하의 오차를 자랑하며, 지구라는 행성이 가진 자전의 흔들림을 적나라하게 보여줍니다.',
-        },
-        {
-          heading: '협정 세계시(UTC)의 탄생과 윤초(Leap Second)의 도입',
-          paragraphs: [
-            '원자시계는 너무나 정확하지만 인간의 일상은 태양의 높낮이에 종속되어 있습니다. 원자시계만을 고집한다면 수백 년 후에는 낮 12시에 해가 뜨지 않는 역전 현상이 생길 수 있습니다.',
-            '이를 절충하기 위해 1972년 협정 세계시(UTC)가 도입되었습니다. 원자시(TAI)를 따르되, 지구 자전 기반의 천문시(UT1)와의 차이가 0.9초를 넘지 않도록 국제지구자전국(IERS)의 결정에 따라 1초를 더하는 윤초(23:59:60)를 삽입하게 되었습니다.',
+            'JavaScript Date는 기준 시점으로부터의 밀리초로 한 순간을 표현합니다. 시간대는 그 순간을 어느 날짜와 시각으로 표시할지 정합니다.',
+            '세계 시계는 같은 순간을 지역별로 표시합니다. 서울에서 런던으로 바꿔도 비교하는 순간은 같습니다.',
           ],
         },
         {
-          heading: '23:59:60의 공포: 컴퓨터 서버와 클라우드가 멈추는 이유',
+          heading: '숫자와 정확도의 차이',
           paragraphs: [
-            '컴퓨터의 POSIX 표준 시계는 하루가 언제나 86,400초라고 가정합니다. 시스템 시계에 존재하지 않는 초인 `:60`이 들어오거나 같은 시각이 두 번 반복되면 서버 커널이 패닉에 빠지거나 데이터베이스 정렬이 깨집니다.',
-            '실제로 2012년 윤초 적용 당시 전 세계 유명 사이트들이 동시다발적으로 다운되었습니다. 이를 해결하기 위해 구글 등은 윤초 당일 24시간 동안 시계를 1초당 수 마이크로초씩 미세하게 늦추는 "윤초 스미어링(Leap Smearing)" 기법을 고안해 냈습니다.',
+            '밀리초는 기기 시계에서 가져온 숫자입니다. 브라우저가 매 밀리초마다 화면을 그리지는 않으며 갱신이 늦을 수 있습니다.',
+            '기기 시계와 값이 같아도 외부 기준시와 동기화됐다는 증거는 아닙니다. 같은 원천을 사용한다는 확인입니다.',
           ],
         },
         {
-          heading: '역사의 뒤안길로: 2035년 윤초 폐지 결정',
+          heading: '잘못 보일 때 점검하기',
           paragraphs: [
-            '2022년 국제도량형총회는 2035년까지 윤초 삽입을 잠정 중단하기로 결의했습니다. 인공위성 GPS, 고빈도 금융 거래, 분산 클라우드 시스템 등 현대 디지털 인프라에 윤초가 주는 위험이 너무 크기 때문입니다.',
-            '인류의 시간은 이제 천문학적 관측이라는 자연의 밧줄을 풀고, 우주 보편의 양자역학적 물리 법칙 위에 영구히 닻을 내리게 되었습니다.',
+            '운영체제의 날짜와 시간대, 자동 시간 설정을 확인하세요. 시간대를 바꿨다면 새로고침하세요.',
+            '다른 사이트는 자체 서버 시각과 처리 규칙을 사용합니다. 이 도구로 예매나 수강신청의 정확한 접수 순간을 알아낼 수 없습니다.',
+          ],
+        },
+        {
+          heading: '윤초와 원자시의 범위',
+          paragraphs: [
+            'JavaScript Date는 윤초를 추가 초로 세지 않습니다. 이 화면은 23:59:60 표시나 UTC와 원자시 비교를 위해 설계되지 않았습니다.',
+            '추적 가능한 기준시에는 공인 시간 서비스를, 교정된 측정에는 목적에 맞는 장비를 사용하세요. 이 시계는 일상적인 시간 확인용입니다.',
           ],
         },
       ],
       takeaways: [
-        '현대 1초의 정의는 세슘-133 원자의 9,192,631,770회 고유 진동 주기를 기반으로 합니다.',
-        '지구 자전 속도는 조석 마찰과 지구 내부 운동으로 인해 일정하지 않고 변동합니다.',
-        '윤초는 원자시계 기반의 UTC와 태양 위치 기반의 UT1 간 오차를 보정하기 위한 장치였습니다.',
-        '현대 디지털 서버는 23:59:60 충돌을 막기 위해 24시간에 걸쳐 1초를 분산시키는 스미어링을 씁니다.',
+        '기기 시간을 따릅니다.',
+        '시간대는 표시를 바꿉니다.',
+        '밀리초가 정확도 인증은 아닙니다.',
+        '예매 서버 시간이 아닙니다.',
+      ],
+      sources: [
+        {
+          label: 'MDN: JavaScript Date',
+          url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date',
+        },
       ],
     },
-
     'behind-living-clock-crafting-digital-zen': {
       slug: 'behind-living-clock-crafting-digital-zen',
-      title: '리빙 클록 제작기: Blender 3D 모델링과 절차적 캔버스 셰이더로 빚어낸 시간의 공간',
+      title: 'Living Clock은 시간을 어떻게 풍경으로 바꾸나요?',
       description:
-        'Clock Garden이 무미건조한 숫자 대신 Blender 3D 지오메트리, 절차적 캔버스 셰이더, 그리고 일주기 조명 알고리즘을 결합하여 살아 숨쉬는 디지털 시간의 안식처를 제작한 과정을 공개합니다.',
-      category: '아트 및 인터랙티브 디자인',
-      publishedDate: '2026-09-25',
-      readTimeMinutes: 7,
+        'Canvas 장면, Blender 온실, AI 활용 일러스트의 제작 방식과 미리보기 동작을 공개합니다.',
+      category: 'Living Clock 제작 안내',
+      publishedDate: '2026-09-26',
+      modifiedDate: '2026-09-30',
+      readTimeMinutes: 3,
       relatedTool: 'clock',
       heroLead:
-        '인터넷의 수많은 시계들은 깜빡이는 배너 광고와 삭막한 폰트 숫자에 갇혀 있습니다. Living Clock은 가벼운 3D 지오메트리와 2D 캔버스 셰이더를 융합하여, 모니터 위에서 시간의 흐름을 고요히 느낄 수 있는 인터랙티브 안식처로 시계를 재해석했습니다.',
+        'Living Clock은 여러 제작 방식을 사용합니다. 코드로 그린 장면, 직접 만든 Blender 온실 렌더, AI 도구로 제작·편집한 Rainlight와 Quiet Study 일러스트에 실시간 요소를 더한 장면이 있습니다.',
       sections: [
         {
-          heading: '앰비언트 컴퓨팅(Ambient Computing)과 시각적 평온',
+          heading: '장면마다 다른 제작 방식',
           paragraphs: [
-            '제록스 파크의 전설적인 컴퓨터 과학자 마크 와이저는 기술이 인간의 주의력을 강탈하지 않고 주변부(Periphery)에 자연스럽게 녹아드는 "앰비언트 컴퓨팅"을 제창했습니다. 창밖을 볼 때 숫자를 읽지 않고도 대략의 시각과 계절을 직관하는 것과 같습니다.',
-            'Living Clock은 이 철학을 데스크톱 화면에 구현했습니다. 새벽의 은은한 로즈 골드빛, 한낮의 선명한 햇살, 해 질 녘의 보랏빛 노을이 로컬 시계에 맞춰 부드럽게 전환되며 시간의 흐름을 뇌에 직관적으로 전달합니다.',
-          ],
-          callout:
-            '디지털 도구는 사용자의 시선을 억지로 빼앗는 것이 아니라, 책상 위에 머물며 마음을 편안하게 해주는 고요한 배경이 되어야 합니다.',
-        },
-        {
-          heading: 'Blender 3D 뷰포트에서 브라우저 캔버스로의 여정',
-          paragraphs: [
-            '각 리빙 클록 씬은 Blender에서 시작된 정교한 3D 건축 및 자연 환경 모델링에서 출발합니다. 하지만 수십 메가바이트의 무거운 3D 파일을 브라우저로 내려받게 하면 노트북 팬이 돌고 로딩이 지연됩니다.',
-            'Clock Garden은 3D 장면의 빛과 그림자를 고효율 WebP 레이어로 분리하고, 빗방울과 수면의 파문, 별빛 효과를 경량 2D 캔버스 벡터 셰이더로 직접 렌더링했습니다. 그 결과 30KB 미만의 깃털 같은 용량으로 60fps의 매끄러운 움직임을 구현했습니다.',
+            '등불섬, 수족관, 시간의 정원은 Canvas로 그립니다. 달빛 온실은 Blender에서 만든 온실·식물·연못·등불의 낮과 밤 렌더를 혼합합니다.',
+            'Rainlight 배경은 이미지 생성 도구로 만들었으며 Quiet Study는 제공된 참고 그림을 이미지 도구로 편집했습니다. 모든 장면을 순수 수작업이라고 부르면 제작 과정을 잘못 설명하게 됩니다.',
           ],
         },
         {
-          heading: '시간과 동기화되는 절차적 인터랙션: 랜턴, 배, 그리고 비',
+          heading: '실제로 시간을 나타내는 부분',
           paragraphs: [
-            'Living Clock의 장면들은 단순한 비디오 무한 반복 재생이 아닙니다. *Lantern Isle*에서는 분(Minute)이 바뀔 때마다 해안가의 60개 가로등에 하나씩 불이 켜지며, 작은 연락선이 60초마다 만을 한 바퀴 우아하게 순회합니다.',
-            '비 내리는 창가를 묘사한 *Rainlight* 씬에서는 GPU 캔버스 알고리즘이 빗방울의 흐름과 표면 장력을 실시간 연산하며, 현재 시간에 맞추어 창밖의 하늘빛을 실시간으로 물들입니다.',
+            '등불섬의 하늘은 하루, 60개 등불은 분, 배는 초를 나타냅니다. 시간의 정원은 24구역, 꽃의 개화, 반딧불의 공전으로 시·분·초를 표현합니다.',
+            '다른 장면의 비나 반딧불은 장식일 수 있습니다. 숫자 시계와 범례를 확인하세요. 실제 날씨나 천문학적 일출을 나타내는 효과가 아닙니다.',
           ],
         },
         {
-          heading: '인스턴트 AI 복제물이 범람하는 시대에 장인정신을 고집하는 이유',
+          heading: '기기 시간을 바꾸지 않는 미리보기',
           paragraphs: [
-            '현재 웹에는 클릭 한 번으로 찍어낸 공허한 AI 복제 사이트들이 넘쳐납니다. Clock Garden은 직접 한 줄 한 줄 짠 순수 코드, 100% 클라이언트 사이드 프라이버시, 그리고 수작업 오리지널 아트를 타협 없이 고수합니다.',
-            '업무 중 화면 꺼짐 방지(Wake Lock)를 켜두거나 서재의 보조 모니터에 전체화면으로 띄워둘 때, Living Clock은 모니터라는 차가운 유리를 시간을 담는 가장 따뜻한 풍경화로 바꾸어 드립니다.',
+            '하루 미리보기는 장면과 숫자에 같은 시각을 전달합니다. 프리셋은 시를 선택하고 분·초는 무작위로 정하며 20초 뒤 현재 시간으로 돌아갑니다.',
+            '현재 시간 버튼으로 즉시 돌아갈 수 있습니다. 운영체제 시간을 바꾸거나 알람을 예약하는 기능이 아닙니다.',
+          ],
+        },
+        {
+          heading: '장면을 실행하는 방식',
+          paragraphs: [
+            '선택한 장면을 불러오고 숨겨지거나 화면 밖으로 벗어나면 공유 렌더러를 멈춥니다. 프레임 수와 해상도를 제한하고 동작 줄이기 설정에서는 장식 이동을 멈춥니다.',
+            '이미지 장면은 첫 로딩에 연결이 필요할 수 있습니다. 실패하면 재시도하거나 다른 장면을 고르세요. CPU 사용량 0이나 측정된 배터리 절감률을 약속하지 않습니다.',
           ],
         },
       ],
       takeaways: [
-        '앰비언트 컴퓨팅은 사용자의 의식 집중을 방해하지 않고 배경에서 자연스럽게 시각 정보를 전달합니다.',
-        '다층 레이어 렌더링과 2D 캔버스 셰이더를 통해 30KB 이하의 초경량으로 60fps 그래픽을 실현했습니다.',
-        '시간에 따라 가로등이 켜지고 해가 기울어지는 인터랙티브 디테일이 살아있는 경험을 줍니다.',
-        '장인정신으로 빚은 오리지널 아트와 무추적 클라이언트 코드가 진정한 사용자 가치를 만듭니다.',
+        '제작 방식은 장면마다 다릅니다.',
+        '시간 기호는 범례를 확인하세요.',
+        '미리보기는 임시 시각입니다.',
+        '동작 줄이기에서도 시간은 갱신됩니다.',
+      ],
+      sources: [
+        {
+          label: 'Clock Garden scene library',
+          url: '/ko/clock/?view=living',
+        },
       ],
     },
   },
