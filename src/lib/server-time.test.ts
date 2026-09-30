@@ -146,7 +146,7 @@ describe('same-origin time API', () => {
     vi.stubGlobal('caches', {});
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(response({}, 403)));
     const result = await onRequest(request('?site=yes24'));
-    expect(result.status).toBe(502);
+    expect(result.status).toBe(424);
     expect(result.headers.get('Cache-Control')).toBe('no-store');
     expect(result.headers.get('X-Robots-Tag')).toBe('noindex');
     expect(await result.json()).toMatchObject({ error: 'upstream', upstreamStatus: 403 });

@@ -55,7 +55,8 @@ export async function onRequest(context: Context): Promise<Response> {
     const failure = error instanceof TimeSourceError ? error : new TimeSourceError('network');
     return json(
       { site: site.id, error: failure.code, upstreamStatus: failure.upstreamStatus },
-      502,
+      // A dependency failed; keep the JSON explanation instead of an intermediary's 5xx page.
+      424,
     );
   }
 }
