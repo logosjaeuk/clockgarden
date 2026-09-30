@@ -9,7 +9,7 @@ const titles = new Set();
 const expectedOrigin = process.env.PUBLIC_SITE_URL || 'https://clockgarden.com';
 const adsenseSrc =
   'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9708700594020227';
-const contentPages = ['privacy', 'about', 'contact', 'terms'];
+const contentPages = ['privacy', 'about', 'contact', 'terms', 'server-time'];
 const articleSlugs = [
   'circadian-rhythms-and-screen-light',
   'browser-timer-drift-and-monotonic-clocks',
@@ -69,6 +69,12 @@ for (const locale of ['en', 'ko']) {
       assert.ok(types.includes('WebApplication'), path + ' WebApplication schema');
       assert.ok(types.includes('FAQPage'), path + ' FAQPage schema');
     }
+    if (route === 'server-time') {
+      assert.ok(html.includes('data-server-time'), path + ' server time tool');
+      assert.ok(html.includes('--:--:--'), path + ' no unmeasured server clock');
+      for (const site of ['nol', 'yes24', 'melon', 'ticketlink'])
+        assert.ok(html.includes(`data-site="${site}"`), path + ' provider ' + site);
+    }
     if (articleSlugs.some((slug) => route === `insights/${slug}`)) {
       const jsonScripts = [
         ...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi),
@@ -90,6 +96,10 @@ assert.ok(
   'ownership ads.txt',
 );
 assert.match(readFileSync('dist/robots.txt', 'utf8'), /Sitemap: https?:\/\//);
+assert.deepEqual(JSON.parse(readFileSync('dist/_routes.json', 'utf8')).include, [
+  '/api/server-time',
+  '/api/server-time/',
+]);
 const assets = readdirSync('dist/_assets')
   .filter((name) => /\.(js|css)$/.test(name))
   .map((name) => {

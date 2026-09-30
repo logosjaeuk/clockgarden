@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ticketSites } from '../lib/ticket-sites';
+import { pathFor } from '../i18n';
+import type { Locale } from '../config';
+import '../styles/server-time.css';
+const { locale } = Astro.props as { locale: Locale };
+const ko = locale === 'ko';
+const title = ko ? '티켓팅 서버 시간 조회' : 'Ticket website time';
+const description = ko
+  ? 'NOL·YES24·멜론티켓·티켓링크 웹 응답의 시간을 조회하고 기기 시간 차이와 예매 시작까지 남은 시간을 비교하세요. 초 단위 추정값과 오차를 표시합니다.'
+  : 'Compare HTTP response time from NOL, YES24, Melon Ticket and Ticketlink with your device clock, and set a sale countdown. Includes timing estimates and limitations.';
+---
+
+<BaseLayout title={title} description={description} locale={locale} path="/server-time/" tool>
+  <article class="tool-page server-time-page">
+    <header class="tool-heading">
+      <p class="eyebrow">{ko ? '예매 준비 · 시간 비교' : 'Before the sale · Compare time'}</p>
+      <h1>{title}</h1>
+      <p>
+        {
+          ko
+            ? '예매처를 고르면 웹 응답에서 읽은 시간을 비교합니다.'
+            : 'Choose a ticket website to compare the time in its web response.'
+        }
+      </p>
+    </header>
+    <section
+      class="instrument ticket-instrument"
+      data-server-time
+      data-locale={locale}
+      aria-label={title}
+    >
+      <div class="ticket-sites" role="group" aria-label={ko ? '예매처 선택' : 'Choose a website'}>
+        {
+          ticketSites.map((site, index) => (
+            <button
+              class="ticket-site"
+              type="button"
+              data-site={site.id}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+            >
+              <>
+                <strong>{ko ? site.name : site.english}</strong>
+                <span>{new URL(site.url).hostname}</span>
+              </>
+            </button>
+          ))
+        }
+      </div>
+      <div class="ticket-clock-heading">
+        <p class="instrument-kicker">
+          {
+            ko
+              ? '웹 응답 시간 추정 · 한국 표준시 (KST)'
+              : 'Estimated web response time · Korea (KST)'
+          }
+        </p>
+        <span class="ticket-state" data-state>{ko ? '조회 전' : 'Not measured'}</span>
+      </div>
+      <div class="ticket-time" data-server-clock aria-label={ko ? '조회한 시간' : 'Measured time'}>
+        --:--:--
+      </div>
+      <p class="ticket-date" data-server-date>—</p>
+      <p class="ticket-message" data-message role="status" aria-live="polite">
+        {
+          ko
+            ? '시간 조회를 누르면 선택한 사이트에 연결합니다.'
+            : 'Press Check time to connect to the selected website.'
+        }
+      </p>
+      <div class="ticket-actions">
+        <button class="ticket-check" type="button" data-check
+          >{ko ? '시간 조회' : 'Check time'}</button
+        >
+        <a data-official href={ticketSites[0].url} target="_blank" rel="noopener noreferrer"
+          >{ko ? '공식 예매처 열기 ↗' : 'Open official website ↗'}</a
+        >
+      </div>
+      <dl class="ticket-metrics">
+        <div>
+          <dt>{ko ? '내 기기 시간 · KST' : 'Device time · KST'}</dt><dd data-device-clock>
+            --:--:--
+          </dd>
+        </div>
+        <div><dt>{ko ? '기기와의 차이' : 'Difference from device'}</dt><dd data-offset>—</dd></div>
+        <div>
+          <dt>{ko ? '통신·초 단위 추정 오차' : 'Network & resolution estimate'}</dt><dd
+            data-uncertainty
+          >
+            —
+          </dd>
+        </div>
+        <div><dt>{ko ? '마지막 측정 후' : 'Sample age'}</dt><dd data-age>—</dd></div>
+      </dl>
+      <form class="ticket-countdown" data-countdown-form>
+        <label for="ticket-opening"
+          >{
+            ko ? '예매 시작 일시 · 한국 표준시 (KST)' : 'Sale opening date and time · Korea (KST)'
+          }</label
+        >
+        <div class="ticket-countdown-input">
+          <input id="ticket-opening" type="datetime-local" step="1" required /><button
+            class="chip"
+            type="submit">{ko ? '카운트다운 설정' : 'Set countdown'}</button
+          >
+        </div>
+        <p class="ticket-countdown-result" data-countdown>
+          {
+            ko
+              ? '공식 공지의 날짜와 시각을 직접 입력하세요.'
+              : 'Enter the date and time from the official sale announcement.'
+          }
+        </p>
+      </form>
+      <details class="ticket-source">
+        <summary
+          >{ko ? '조회 출처와 원본 응답 시각' : 'Source and original response timestamp'}</summary
+        ><dl>
+          <dt>URL</dt><dd data-source>{ticketSites[0].url}</dd><dt>HTTP Date (GMT)</dt><dd
+            data-date-header
+          >
+            —
+          </dd>
+        </dl>
+      </details>
+      <p class="ticket-limit">
+        {
+          ko
+            ? '실제 예매 개시를 판정하는 내부 서버와 같다는 보장은 없습니다. 조회 실패 시 기기 시간으로 대체하지 않습니다.'
+            : 'This may differ from the internal server that opens ticket sales. Failed checks never substitute your device time.'
+        }
+      </p>
+    </section>
+    <div class="supporting-copy">
+      <section class="guide-section">
+        <h2>{ko ? '어떤 시간을 읽나요?' : 'What time does this read?'}</h2><p>
+          {
+            ko
+              ? '선택한 공식 사이트의 공개 웹 응답에 포함된 HTTP Date 헤더를 읽습니다. 이 값은 응답이 생성된 시각으로, 티켓 재고·대기열·판매 시작을 관리하는 시스템의 시각을 직접 제공하는 API는 아닙니다. CDN이나 프록시가 응답을 제공할 수도 있습니다.'
+              : 'The tool reads the HTTP Date header from a public response of the selected official website. It describes when the response originated; it is not an API for the system controlling inventory, queues or sale opening. A CDN or proxy may serve the response.'
+          }
+        </p>
+      </section>
+      <section class="guide-section">
+        <h2>{ko ? '오차와 갱신 방식' : 'Uncertainty and refresh'}</h2><p>
+          {
+            ko
+              ? '시간 헤더는 초 단위입니다. 통신 왕복 시간의 절반을 편도 지연으로 가정해 보정하며, ± 표시는 초 단위 해상도와 측정한 통신 지연을 반영한 추정 범위입니다. 서버 시계 자체의 오차나 비대칭 통신 경로까지 보증하는 수치는 아닙니다. 숫자를 밀리초까지 표시해도 원본 정확도가 높아지지 않아 초까지만 표시합니다.'
+              : 'The header has whole-second resolution. Half the measured round trip is used as an estimated one-way delay. The ± figure accounts for header resolution and measured network delays; it cannot guarantee the server clock or symmetric network paths. Extra millisecond digits would not improve the source accuracy, so the display stops at seconds.'
+          }
+        </p><p>
+          {
+            ko
+              ? '조회는 버튼을 누를 때만 실행합니다. 같은 지역에서 측정한 결과를 최대 10초 공유하고 경과 시간을 반영합니다. 2분이 지나거나 탭을 떠나면 추정 시계를 중단하며 다시 조회해야 합니다. 조회 차단, 오래된 응답, 오프라인 상태에서는 실패 사유를 표시합니다.'
+              : 'Checks run only when requested. A measured sample may be shared within an edge location for up to ten seconds, with elapsed time added. The estimate stops after two minutes or when you leave the tab; check again when you return. Blocked requests, stale responses and offline conditions show a failure message.'
+          }
+        </p>
+      </section>
+      <section class="guide-section">
+        <h2>{ko ? '예매 전에 확인할 것' : 'Before booking'}</h2><p>
+          {
+            ko
+              ? '공식 예매처에서 공연 날짜, 예매 시작 일시, 선예매 자격, 로그인 상태를 확인하세요. 카운트다운 입력은 한국 표준시 기준이며 해외에 있어도 동일하게 계산합니다. 이 페이지는 시간을 비교하는 도구이고 예매 버튼을 누르거나 대기열에 접속하는 기능은 없습니다.'
+              : 'Check the event date, sale announcement, presale eligibility and login state on the official website. Countdown input always uses Korea Standard Time, even abroad. This tool compares time; it does not click booking buttons or join queues.'
+          }
+        </p>
+      </section>
+      <section class="guide-section">
+        <h2>{ko ? '공식 예매처와 기술 문서' : 'Official websites and documentation'}</h2><ul>
+          {
+            ticketSites.map((site) => (
+              <li>
+                <a href={site.url} target="_blank" rel="noopener noreferrer">
+                  {ko ? site.name : site.english}
+                </a>
+              </li>
+            ))
+          }<li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Date"
+              >MDN · HTTP Date</a
+            >
+          </li>
+        </ul><p>
+          <a href={pathFor(locale, '/clock/')}
+            >{ko ? '기기 시간 시계로 돌아가기 →' : 'Return to the device clock →'}</a
+          >
+        </p>
+      </section>
+    </div>
+  </article>
+  <script>
+    import '../scripts/server-time';
+  </script>
+</BaseLayout>

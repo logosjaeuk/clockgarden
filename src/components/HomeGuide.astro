@@ -35,8 +35,8 @@ const ko = locale === 'ko';
             ? '기기의 현지 시간입니다. 표준시나 예매 서버와 동기화하지 않습니다. 밀리초 표시는 정확도 보증이 아닙니다.'
             : 'Your local device clock. It is not synchronized with an atomic clock or a ticketing server. Millisecond digits are not an accuracy guarantee.'
         }
-      </p><a href={pathFor(locale, '/insights/leap-seconds-and-atomic-time/')}
-        >{ko ? '시간 기준 알아보기 →' : 'Understand the time source →'}</a
+      </p><a href={pathFor(locale, '/server-time/')}
+        >{ko ? '예매처 응답 시간 비교하기 →' : 'Compare ticket website time →'}</a
       >
     </section>
     <section class="home-mini-card">

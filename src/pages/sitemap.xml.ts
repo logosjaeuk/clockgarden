@@ -14,6 +14,7 @@ export const GET: APIRoute = ({ site }) => {
       '/terms/',
       '/privacy/',
       '/insights/',
+      '/server-time/',
       ...articleSlugs.map((slug) => `/insights/${slug}/`),
       ...Object.keys(toolPages[locale]).map((tool) => `/${tool}/`),
     ].map((path) => pathFor(locale, path)),

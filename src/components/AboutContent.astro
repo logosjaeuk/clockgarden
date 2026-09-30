@@ -28,6 +28,13 @@ const prefix = ko ? '/ko' : '';
         : 'Time-zone conversion uses the browser’s Intl implementation and time-zone data. A suspended browser or sleeping device may delay or prevent alerts. Cached pages may work offline, but every page and image is not guaranteed to be available.'
     }
   </p>
+  <p>
+    {
+      ko
+        ? '별도의 티켓팅 시계는 예매처 웹 응답의 HTTP Date 헤더를 조회해 시간을 추정합니다. 초 단위 해상도와 통신 지연에 따른 한계가 있으며, 실제 판매 시작을 판정하는 내부 서버 시간과 일치한다고 보장하지 않습니다. 이 기능에는 네트워크 연결이 필요합니다.'
+        : 'The separate ticket time tool estimates time from a ticket website’s HTTP Date response header. Whole-second resolution and network delays limit the estimate, and it is not guaranteed to match the internal sale-opening clock. This feature requires a network connection.'
+    }
+  </p>
   <h2>{ko ? 'Living Clock 작품의 출처' : 'Where the artwork comes from'}</h2>
   <p>
     {

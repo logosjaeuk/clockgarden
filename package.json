@@ -7,6 +7,7 @@
     "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "preview:pages": "wrangler pages dev dist --compatibility-date=2026-09-30",
     "typecheck": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -22,6 +23,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "wrangler": "^4.144.0"
   }
 }

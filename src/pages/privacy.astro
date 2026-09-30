@@ -15,7 +15,7 @@ import { siteConfig } from '../config';
     <p>
       Last updated: September 2026. At {siteConfig.name}, we believe in transparent, minimalist data
       practices. We do not require user accounts, passwords, or personal profiles. All core
-      calculations and timekeeping functions execute 100% locally within your web browser.
+      device-clock, stopwatch, timer, alarm and time-zone calculations run within your web browser.
     </p>
 
     <h2>Local Storage and Preferences</h2>
@@ -31,6 +31,15 @@ import { siteConfig } from '../config';
       state. None of this data is ever transmitted to or stored on our servers.
     </p>
 
+    <h2>Ticket website time checks</h2>
+    <p>
+      When you request a ticket time check, our hosting service receives the selected website ID and
+      queries that website's public response timestamp. The upstream request does not forward your
+      cookies, IP address, login details or countdown input. Measured time samples may be shared in
+      a hosting cache for up to ten seconds; they contain the website ID and timing data, not
+      visitor records. Countdown input remains in this page's memory. Standard hosting logs may
+      include your request path and IP address as described below.
+    </p>
     <h2>Advertising review and cookies</h2><p>
       As of September 30, 2026, advertising is disabled. Account metadata and ads.txt identify the
       site for AdSense review without loading the advertising script. The following information

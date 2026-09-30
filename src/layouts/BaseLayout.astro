@@ -168,6 +168,13 @@ const structuredData = tool
         </a>
 
         <a
+          href={pathFor(locale, '/server-time/')}
+          aria-current={path === '/server-time/' ? 'page' : undefined}
+        >
+          {text.nav.serverTime}
+        </a>
+
+        <a
           href={pathFor(locale, '/insights/')}
           aria-current={path.startsWith('/insights/') ? 'page' : undefined}
         >
@@ -233,6 +240,7 @@ const structuredData = tool
             <li><a href={pathFor(locale, '/alarm/')}>{text.nav.alarm}</a></li>
             <li><a href={pathFor(locale, '/world-clock/')}>{text.nav.world}</a></li>
             <li><a href={pathFor(locale, '/time-zone-converter/')}>{text.nav.converter}</a></li>
+            <li><a href={pathFor(locale, '/server-time/')}>{text.nav.serverTime}</a></li>
           </ul>
         </div>
 

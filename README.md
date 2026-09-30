@@ -2,7 +2,7 @@
 
 [English](#minute-glass) · [한국어](#minute-glass-한국어)
 
-Clock Garden is a fast, static, bilingual time utility with a live clock, stopwatch, countdown timer, multi-alarm clock, world clock, and time-zone converter. It has no account, database, or persistent application server.
+Clock Garden is a bilingual time utility with a device clock, stopwatch, countdown timer, multi-alarm clock, world clock, time-zone converter, and ticket website time comparison. Pages are static; the ticket time check uses one Cloudflare Pages Function. It has no account or database.
 
 ## Architecture
 
@@ -30,6 +30,21 @@ npm run preview
 ```
 
 The production output is in `dist/`.
+
+### Ticket website time
+
+`/server-time/` and `/ko/server-time/` compare public HTTP `Date` response timestamps from NOL, YES24, Melon Ticket and Ticketlink. `functions/api/server-time.ts` accepts only these fixed provider IDs. It uses a bounded HEAD request (GET only when HEAD is unsupported), validates redirects, rejects error responses and detectable cached/stale timestamps, and shares valid samples for ten seconds at each edge location. It forwards no visitor credentials or IP headers. `_routes.json` invokes the Function only for this API; other pages remain static.
+
+The display corrects estimated network delay and uses a monotonic clock after measurement. It shows whole seconds, source, sample age and estimated uncertainty. Backend processing is subtracted from the browser round trip to avoid counting upstream delay twice. This is an estimate of web response time, **not verified internal sale-opening time**. Manual countdown input uses `Asia/Seoul` (UTC+09:00). Samples expire after two minutes and are invalidated on tab suspension; there is no device-time fallback for a failed measurement.
+
+To test pages and the real Function locally:
+
+```sh
+npm run build
+npm run preview:pages
+```
+
+Open `http://localhost:8788/ko/server-time/`. `npm run dev` and `npm run preview` serve static pages only; the time API requires Pages Functions. The production project is `clockgarden-git` and its Git build command is `npm run build:release`. Deploy the repository including `functions/`, rather than uploading `dist/` alone to a generic static host. On other hosts, ordinary tools work but this API needs an equivalent server endpoint.
 
 ## Configuration
 
