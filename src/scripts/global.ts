@@ -49,3 +49,20 @@ const languageLink = document.querySelector<HTMLAnchorElement>('.language-link')
 if (languageLink) {
   languageLink.href += location.search;
 }
+
+// Ensure all legacy service workers and caches are thoroughly eliminated
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister();
+    }
+  });
+  if ('caches' in window) {
+    caches.keys().then((names) => {
+      for (const name of names) {
+        caches.delete(name);
+      }
+    });
+  }
+}
+

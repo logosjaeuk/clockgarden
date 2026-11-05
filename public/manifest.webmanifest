@@ -1,11 +1,11 @@
 {
-  "name": "Clock Garden Time Utilities",
+  "name": "Clock Garden",
   "short_name": "Clock Garden",
-  "description": "Private clocks and time tools.",
+  "description": "Smart work guide, spreadsheet tips, Notion, and productivity templates.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f4ef",
-  "theme_color": "#426344",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
