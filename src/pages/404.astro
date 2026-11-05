@@ -3,14 +3,109 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Page not found"
-  description="The requested page could not be found."
+  title="페이지를 찾을 수 없습니다 (404)"
+  description="요청하신 페이지가 존재하지 않거나 이전되었습니다. 클락가든 홈으로 이동해 필요한 실무 가이드를 확인하세요."
   path="/404/"
   noindex
 >
-  <article class="content-page">
-    <p class="eyebrow">404</p><h1>Time to head back.</h1><p>
-      The page you requested does not exist. <a href="/">Open the current time and tools</a>.
-    </p>
-  </article>
+  <div class="not-found-wrapper">
+    <div class="not-found-card">
+      <div class="error-badge">404 NOT FOUND</div>
+      <h1 class="not-found-title">요청하신 페이지를 찾을 수 없습니다</h1>
+      <p class="not-found-desc">
+        페이지의 주소가 변경되었거나 유효하지 않은 경로입니다.<br />
+        아래 버튼을 통해 클락가든 실무 가이드 홈이나 전체 아티클 목록으로 이동해주세요.
+      </p>
+
+      <div class="not-found-actions">
+        <a href="/" class="btn-primary">실무 가이드 홈으로 이동 &rarr;</a>
+        <a href="/articles/" class="btn-secondary">전체 가이드 탐색</a>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .not-found-wrapper {
+    max-width: 680px;
+    margin: 80px auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .not-found-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 64px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .error-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  :global([data-theme="dark"]) .error-badge {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+  }
+  .not-found-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 16px 0;
+    letter-spacing: -0.03em;
+  }
+  .not-found-desc {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin: 0 0 32px 0;
+  }
+  .not-found-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--bg);
+    color: var(--text) !important;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background: var(--bg-alt);
+    border-color: var(--border-hover);
+  }
+</style>

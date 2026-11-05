@@ -39,10 +39,7 @@ export const copy = {
   },
 };
 
-export function pathFor(locale: Locale, path: string): string {
+export function pathFor(_locale: Locale, path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  if (locale === 'en') {
-    return normalized;
-  }
-  return `/ko${normalized === '/' ? '/' : normalized}`;
+  return normalized;
 }

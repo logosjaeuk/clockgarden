@@ -1,5 +1,5 @@
 ---
-import { siteConfig, adsConfig, ADS_ENABLED, supportedLocales, type Locale } from '../config';
+import { siteConfig, adsConfig, ADS_ENABLED, type Locale } from '../config';
 import { copy, pathFor } from '../i18n';
 import '../styles/global.css';
 
@@ -23,9 +23,6 @@ const fullTitle = `${title} | ${siteConfig.name}`;
 const text = copy[locale];
 const canonicalPath = pathFor(locale, path);
 const canonical = new URL(canonicalPath, Astro.site || 'https://clockgarden.com');
-const english = new URL(pathFor('en', path), Astro.site || 'https://clockgarden.com');
-const alternateLocale = locale === 'en' ? 'ko' : 'en';
-const alternatePath = pathFor(alternateLocale, noindex ? '/' : path);
 
 const structuredData = article
   ? {
@@ -127,19 +124,6 @@ const structuredData = article
 
     <link rel="canonical" href={canonical} />
 
-    {
-      !noindex &&
-        supportedLocales.map((language) => (
-          <link
-            rel="alternate"
-            hreflang={language}
-            href={new URL(pathFor(language, path), Astro.site || 'https://clockgarden.com')}
-          />
-        ))
-    }
-
-    {!noindex && <link rel="alternate" hreflang="x-default" href={english} />}
-
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS Feed`} href="/rss.xml" />
@@ -206,10 +190,6 @@ const structuredData = article
         >
           ◐
         </button>
-
-        <a class="language-link" href={alternatePath} hreflang={alternateLocale}>
-          {text.language}
-        </a>
       </div>
     </header>
 
