@@ -4,54 +4,65 @@ import { siteConfig } from '../config';
 ---
 
 <BaseLayout
-  title="Contact & Support – Get in Touch"
-  description={`Contact the ${siteConfig.name} team for technical support, bug reports, timezone data feedback, and feature suggestions.`}
+  title="Contact & Feedback – Get in Touch"
+  description={`Contact the ${siteConfig.name} team for technical feedback, formula suggestions, template requests, and corrections.`}
   path="/contact/"
 >
   <article class="content-page">
-    <p class="eyebrow">Support & Feedback</p>
+    <p class="eyebrow">Support & Editorial Feedback</p>
     <h1>Contact {siteConfig.name}</h1>
 
     <p>
-      We actively maintain {siteConfig.name} and appreciate feedback from users around the world. Whether
-      you encountered an unexpected edge case in a time zone conversion, have an idea for a new Living
-      Clock scene, or noticed a display bug on your device, we are here to listen.
+      We actively maintain {siteConfig.name} and appreciate feedback from knowledge workers, analysts, and readers.
+      Whether you found an edge case in an Excel formula, need a specific Notion database template, or have ideas for a new workflow guide, we are here to listen.
     </p>
 
     <h2>Primary Contact Channel</h2>
-    <p>For all inquiries, bug reports, and suggestions, please email us directly at:</p>
+    <p>For editorial questions, formula verification, bug reports, and partnership inquiries:</p>
     <p class="contact-email-box">
       <strong>Email:</strong>
       <a href="mailto:jacho0227@gmail.com">jacho0227@gmail.com</a>
     </p>
     <p>
-      <em>Expected response time:</em> The project operator reads this mailbox. Response times vary.
+      <em>Expected response time:</em> The editorial team reviews every message. Typical response within 24–48 hours.
     </p>
 
-    <h2>How to Report a Bug or Calculation Anomaly</h2>
-    <p>To help us investigate and patch technical issues quickly, please consider including:</p>
+    <h2>How to Suggest a Guide or Report a Formula Issue</h2>
+    <p>To help us verify and update guides quickly, please include:</p>
     <ul>
-      <li>
-        <strong>Operating System & Device:</strong> (e.g., macOS Sonoma, Windows 11, iOS 18, Android 15)
-      </li>
-      <li><strong>Browser & Version:</strong> (e.g., Chrome 128, Safari 18, Firefox 130)</li>
-      <li>
-        <strong>Affected Tool:</strong> (Clock, Stopwatch, Timer, Alarm, World Clock, or Time Zone Converter)
-      </li>
-      <li>
-        <strong>Specific Inputs:</strong> For timezone or DST reports, include the source and destination
-        cities/dates involved.
-      </li>
-      <li>
-        <strong>Observed vs. Expected Result:</strong> What happened, and what did you anticipate seeing?
-      </li>
+      <li><strong>Application & Version:</strong> (e.g., Microsoft 365 Excel, Google Sheets, Notion desktop/web)</li>
+      <li><strong>Operating System:</strong> (Windows 11, macOS, iPadOS)</li>
+      <li><strong>Affected Guide URL:</strong> Link to the specific article</li>
+      <li><strong>Formula / Scenario:</strong> The exact data structure, input values, and expected vs. actual output</li>
     </ul>
-
-    <h2>Feature Suggestions & Living Clock Art</h2>
-    <p>
-      Have an idea for an ambient theme or an aesthetic living clock environment? We love creative
-      suggestions that align with our quiet, distraction-free design philosophy. Feel free to share
-      your thoughts.
-    </p>
   </article>
 </BaseLayout>
+
+<style>
+  .content-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    line-height: 1.8;
+  }
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+  h1 { font-size: 2.25rem; font-weight: 700; margin: 0 0 1.5rem; }
+  h2 { font-size: 1.375rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+  p { margin: 0 0 1rem; color: var(--color-text-muted); }
+  ul { margin: 0 0 1.5rem; padding-left: 1.5rem; color: var(--color-text-muted); }
+  li { margin-bottom: 0.5rem; }
+  .contact-email-box {
+    background: var(--color-bg-card, var(--color-bg-alt));
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+  }
+  .contact-email-box a { color: var(--color-accent); text-decoration: underline; }
+</style>

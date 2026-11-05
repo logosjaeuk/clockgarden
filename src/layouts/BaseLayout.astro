@@ -172,27 +172,27 @@ const structuredData = article
 
       <nav aria-label={locale === 'ko' ? '기본 메뉴' : 'Primary navigation'}>
         <a href={pathFor(locale, '/articles/')} aria-current={path.startsWith('/articles/') ? 'page' : undefined}>
-          {locale === 'ko' ? '매거진' : 'Magazine'}
+          {locale === 'ko' ? '전체 가이드' : 'All Guides'}
         </a>
 
-        <a href={pathFor(locale, '/category/mechanics/')} aria-current={path === '/category/mechanics/' ? 'page' : undefined}>
-          {locale === 'ko' ? '무브먼트' : 'Mechanics'}
+        <a href={pathFor(locale, '/category/spreadsheet/')} aria-current={path === '/category/spreadsheet/' ? 'page' : undefined}>
+          {locale === 'ko' ? '스프레드시트' : 'Spreadsheet'}
         </a>
 
-        <a href={pathFor(locale, '/category/history/')} aria-current={path === '/category/history/' ? 'page' : undefined}>
-          {locale === 'ko' ? '시간의 역사' : 'History'}
+        <a href={pathFor(locale, '/category/notion/')} aria-current={path === '/category/notion/' ? 'page' : undefined}>
+          {locale === 'ko' ? '노션 & 앱' : 'Notion & Apps'}
         </a>
 
-        <a href={pathFor(locale, '/category/astronomy/')} aria-current={path === '/category/astronomy/' ? 'page' : undefined}>
-          {locale === 'ko' ? '천문시계' : 'Astronomy'}
+        <a href={pathFor(locale, '/category/templates/')} aria-current={path === '/category/templates/' ? 'page' : undefined}>
+          {locale === 'ko' ? '실무 템플릿' : 'Templates'}
         </a>
 
-        <a href={pathFor(locale, '/category/horology-care/')} aria-current={path === '/category/horology-care/' ? 'page' : undefined}>
-          {locale === 'ko' ? '보존과학' : 'Care & Science'}
+        <a href={pathFor(locale, '/category/workflow/')} aria-current={path === '/category/workflow/' ? 'page' : undefined}>
+          {locale === 'ko' ? '워크플로우' : 'Workflow'}
         </a>
 
         <a href={pathFor(locale, '/about/')} aria-current={path === '/about/' ? 'page' : undefined}>
-          {locale === 'ko' ? '연구진 소개' : 'About'}
+          {locale === 'ko' ? '소개' : 'About'}
         </a>
       </nav>
 
@@ -230,8 +230,8 @@ const structuredData = article
           </a>
           <p class="footer-desc">
             {locale === 'ko'
-              ? '클락가든은 시계학(Horology), 정밀 계측 공학, 그리고 시간의 역사를 심층 탐구하는 독립 연구 저널입니다.'
-              : 'Clock Garden is an independent journal dedicated to horology, chronometry, and the science of time measurement.'}
+              ? '클락가든(Clock Garden)은 직장인과 프리랜서의 소중한 시간을 아껴주는 스마트 워크, 스프레드시트, 노션, 실무 서식 및 자동화 가이드를 제공합니다.'
+              : 'Clock Garden is an actionable digital journal dedicated to smart workplace workflows, spreadsheets, Notion, and productivity templates.'}
           </p>
           <p class="copyright">
             {`© ${new Date().getFullYear()} ${siteConfig.name}.`}
@@ -240,18 +240,18 @@ const structuredData = article
         </div>
 
         <div class="footer-col">
-          <p class="footer-heading">{locale === 'ko' ? '주제별 아카이브' : 'Categories'}</p>
+          <p class="footer-heading">{locale === 'ko' ? '핵심 실무 가이드' : 'Categories'}</p>
           <ul class="footer-links">
-            <li><a href={pathFor(locale, '/articles/')}>{locale === 'ko' ? '전체 아티클 읽기' : 'All Articles'}</a></li>
-            <li><a href={pathFor(locale, '/category/mechanics/')}>{locale === 'ko' ? '무브먼트 & 메커니즘' : 'Mechanics & Movements'}</a></li>
-            <li><a href={pathFor(locale, '/category/history/')}>{locale === 'ko' ? '시간의 과학과 역사' : 'History & Metrology'}</a></li>
-            <li><a href={pathFor(locale, '/category/astronomy/')}>{locale === 'ko' ? '천문시계 & 컴플리케이션' : 'Astronomical & Complications'}</a></li>
-            <li><a href={pathFor(locale, '/category/horology-care/')}>{locale === 'ko' ? '시계 보존 및 관리 과학' : 'Conservation & Science'}</a></li>
+            <li><a href={pathFor(locale, '/articles/')}>{locale === 'ko' ? '전체 가이드' : 'All Guides'}</a></li>
+            <li><a href={pathFor(locale, '/category/spreadsheet/')}>{locale === 'ko' ? '엑셀 & 스프레드시트' : 'Spreadsheet'}</a></li>
+            <li><a href={pathFor(locale, '/category/notion/')}>{locale === 'ko' ? '노션 & 생산성 앱' : 'Notion & Apps'}</a></li>
+            <li><a href={pathFor(locale, '/category/templates/')}>{locale === 'ko' ? '실무 서식 & 템플릿' : 'Templates'}</a></li>
+            <li><a href={pathFor(locale, '/category/workflow/')}>{locale === 'ko' ? '워크플로우 & 단축키' : 'Workflows'}</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <p class="footer-heading">{locale === 'ko' ? '연구소 및 에디토리얼' : 'Editorial & Research'}</p>
+          <p class="footer-heading">{locale === 'ko' ? '소개 및 가이드라인' : 'About & Editorial'}</p>
           <ul class="footer-links">
             <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
             <li><a href={pathFor(locale, '/editorial-policy/')}>{locale === 'ko' ? '편집 및 팩트체크 원칙' : 'Editorial Policy'}</a></li>

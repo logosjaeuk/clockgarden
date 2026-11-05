@@ -13,7 +13,7 @@ const articles = defineCollection({
     pubDate: z.string(),
     updatedDate: z.string().optional(),
     author: z.string(),
-    authorRole: z.string().default('시계공학 및 정밀계측 전문위원'),
+    authorRole: z.string().default('스마트 워크 & 실무 생산성 연구원'),
     readTime: z.number().default(5),
     featured: z.boolean().default(false),
     coverImage: z.string().optional(),

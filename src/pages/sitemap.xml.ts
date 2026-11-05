@@ -7,7 +7,7 @@ export const GET: APIRoute = async ({ site }) => {
   const base = site ?? new URL('https://clockgarden.com');
   const articles = await getCollection('articles');
 
-  const categories = ['mechanics', 'history', 'astronomy', 'horology-care'];
+  const categories = ['spreadsheet', 'notion', 'templates', 'workflow'];
 
   const staticRoutes = [
     '/',

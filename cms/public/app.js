@@ -1,4 +1,4 @@
-// Clock Garden CMS Studio Client Logic
+// Clock Garden Smart Work CMS Studio Client Logic
 
 let currentArticles = [];
 let generatedDraft = null;
@@ -15,19 +15,31 @@ function renderMarkdown(md) {
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    // Blockquote
+    // Alerts/Callouts
+    .replace(/^\> \[!TIP\] (.*$)/gim, '<div class="alert-box tip">💡 <strong>TIP:</strong> $1</div>')
+    .replace(/^\> \[!NOTE\] (.*$)/gim, '<div class="alert-box note">📌 <strong>NOTE:</strong> $1</div>')
+    .replace(/^\> \[!IMPORTANT\] (.*$)/gim, '<div class="alert-box important">⚠️ <strong>IMPORTANT:</strong> $1</div>')
     .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
     // Bold & Italic
     .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+    // Code blocks & inline code
+    .replace(/```([\s\S]*?)```/gim, '<pre class="code-block"><code>$1</code></pre>')
+    .replace(/`([^`]+)`/gim, '<code class="inline-code">$1</code>')
     // Horizontal rule
     .replace(/^---$/gim, '<hr style="border:none;border-top:1px solid #2b3042;margin:1.5rem 0;">')
-    // Line breaks to paragraphs
+    // Paragraphs & Lists
     .split(/\n\n+/)
     .map((block) => {
       block = block.trim();
       if (!block) return '';
-      if (block.startsWith('<h') || block.startsWith('<blockquote') || block.startsWith('<hr')) {
+      if (
+        block.startsWith('<h') ||
+        block.startsWith('<blockquote') ||
+        block.startsWith('<div class="alert-box') ||
+        block.startsWith('<pre') ||
+        block.startsWith('<hr')
+      ) {
         return block;
       }
       if (block.startsWith('- ') || block.startsWith('* ')) {
@@ -145,7 +157,7 @@ async function loadArticles() {
 function renderArticlesTable(articles) {
   const tbody = document.getElementById('articles-tbody');
   if (!articles.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">검색된 아티클이 없습니다.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">등록된 실무 가이드가 없습니다.</td></tr>';
     return;
   }
 
@@ -255,13 +267,13 @@ window.deleteArticle = async function (id) {
 function initNewArticle() {
   document.getElementById('btn-new-article').addEventListener('click', () => {
     document.getElementById('ed-title').value = '';
-    document.getElementById('ed-slug').value = `horology-guide-${Date.now()}`;
+    document.getElementById('ed-slug').value = `guide-${Date.now()}`;
     document.getElementById('ed-desc').value = '';
     document.getElementById('ed-readtime').value = 8;
-    document.getElementById('ed-tags').value = '시계공학, 무브먼트';
+    document.getElementById('ed-tags').value = '스마트워크, 생산성, 실무가이드';
     document.getElementById('ed-featured').checked = false;
-    document.getElementById('ed-body').value = `## 1. 서론\n\n여기에 내용을 입력하세요...\n\n## 2. 기구학적 원리\n\n- 핵심 원리 1\n- 핵심 원리 2\n\n## 3. 결론\n\n결론을 정리합니다.`;
-    document.getElementById('editor-heading').textContent = '새 아티클 작성';
+    document.getElementById('ed-body').value = `## 1. 서론: 왜 이 실무 테크닉이 필요한가?\n\n여기에 내용을 입력하세요...\n\n## 2. 핵심 원리 및 단계별 적용법\n\n\`\`\`excel\n=XLOOKUP(A2, B:B, C:C)\n\`\`\`\n\n## 3. 실무 주의사항 및 체크리스트\n\n- 체크 1\n- 체크 2\n\n## 4. 결론\n\n결론을 정리합니다.`;
+    document.getElementById('editor-heading').textContent = '새 실무 가이드 작성';
 
     document.querySelector('.nav-tab[data-tab="editor"]').click();
     updateLivePreview();
@@ -319,7 +331,7 @@ function initSave() {
 
       const data = await res.json();
       if (data.success) {
-        alert('아티클이 성공적으로 저장되었습니다!');
+        alert('실무 가이드가 성공적으로 저장되었습니다!');
         loadStats();
       } else {
         alert('저장 실패: ' + data.error);
@@ -352,75 +364,117 @@ function initAudit() {
   });
 }
 
-// AGY Generator Studio
-function initAgyStudio() {
-  const btnRun = document.getElementById('btn-run-agy');
+// ============================================================================
+// AGY 100% Fully Autonomous One-Click AI Engine
+// ============================================================================
+async function triggerAutonomousGeneration(customPayload = {}) {
+  // Switch to AGY view
+  const agyTab = document.querySelector('.nav-tab[data-tab="agy"]');
+  if (agyTab) agyTab.click();
+
+  const progressBox = document.getElementById('auto-progress-box');
   const resultBox = document.getElementById('agy-result-box');
+  const resultTitle = document.getElementById('result-title');
   const preview = document.getElementById('agy-preview');
+  const step1 = document.getElementById('step-1');
+  const step2 = document.getElementById('step-2');
+  const step3 = document.getElementById('step-3');
+  const step4 = document.getElementById('step-4');
+
+  progressBox.classList.remove('hidden');
+  resultBox.classList.add('hidden');
+
+  // Reset steps
+  [step1, step2, step3, step4].forEach((s) => (s.className = 'step-item'));
+  step1.classList.add('active');
+
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  try {
+    // Step 1: Research
+    await wait(600);
+    step1.classList.remove('active');
+    step1.classList.add('done');
+    step2.classList.add('active');
+
+    // Call Autonomous API
+    const apiPromise = fetch('/api/agy/auto-generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(customPayload),
+    });
+
+    await wait(800);
+    step2.classList.remove('active');
+    step2.classList.add('done');
+    step3.classList.add('active');
+
+    const res = await apiPromise;
+    const data = await res.json();
+
+    if (!data.success) {
+      throw new Error(data.error || '자동 생성 실패');
+    }
+
+    await wait(500);
+    step3.classList.remove('active');
+    step3.classList.add('done');
+    step4.classList.add('done');
+
+    generatedDraft = {
+      slug: data.slug,
+      title: data.title,
+      category: data.category,
+      body: data.content,
+    };
+
+    resultTitle.textContent = data.title;
+    preview.innerHTML = renderMarkdown(data.content);
+    resultBox.classList.remove('hidden');
+
+    loadStats();
+    loadArticles();
+  } catch (err) {
+    alert('원클릭 자동 생성 중 오류가 발생했습니다: ' + err.message);
+  }
+}
+
+function initAgyStudio() {
+  const btnHeaderAuto = document.getElementById('btn-header-auto-gen');
+  const btnQuickGen = document.getElementById('btn-quick-gen-articles');
+  const btnRunFullAuto = document.getElementById('btn-run-full-auto');
+  const btnRunCustom = document.getElementById('btn-run-custom-agy');
   const btnLoad = document.getElementById('btn-load-to-editor');
 
-  btnRun.addEventListener('click', async () => {
-    const topic = document.getElementById('agy-topic').value.trim();
-    if (!topic) {
-      alert('생성할 연구 주제를 입력하세요.');
-      return;
-    }
+  if (btnHeaderAuto) {
+    btnHeaderAuto.addEventListener('click', () => triggerAutonomousGeneration());
+  }
+  if (btnQuickGen) {
+    btnQuickGen.addEventListener('click', () => triggerAutonomousGeneration());
+  }
+  if (btnRunFullAuto) {
+    btnRunFullAuto.addEventListener('click', () => triggerAutonomousGeneration());
+  }
 
-    const [category, categorySlug] = document.getElementById('agy-cat').value.split('|');
-    const keywords = document.getElementById('agy-keywords').value.split(',').map((k) => k.trim()).filter(Boolean);
+  if (btnRunCustom) {
+    btnRunCustom.addEventListener('click', () => {
+      const topic = document.getElementById('agy-topic').value.trim();
+      const categorySlug = document.getElementById('agy-cat').value;
+      const keywords = document.getElementById('agy-keywords').value
+        .split(',')
+        .map((k) => k.trim())
+        .filter(Boolean);
 
-    btnRun.textContent = '⏳ AGY 기구학 지식 엔진 작동 중...';
-    btnRun.disabled = true;
+      triggerAutonomousGeneration({ topic, categorySlug, keywords });
+    });
+  }
 
-    try {
-      const res = await fetch('/api/agy/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, category, categorySlug, keywords }),
-      });
-
-      const data = await res.json();
-      btnRun.textContent = '⚡ AGY 전문 칼럼 초안 생성';
-      btnRun.disabled = false;
-
-      if (data.success) {
-        generatedDraft = data.article;
-        resultBox.classList.remove('hidden');
-        preview.textContent = `---\ntitle: "${generatedDraft.title}"\ncategory: "${generatedDraft.category}"\n---\n\n${generatedDraft.body}`;
-      } else {
-        alert('생성 실패: ' + data.error);
-      }
-    } catch (err) {
-      btnRun.textContent = '⚡ AGY 전문 칼럼 초안 생성';
-      btnRun.disabled = false;
-      alert('생성 통신 오류: ' + err.message);
-    }
-  });
-
-  btnLoad.addEventListener('click', () => {
-    if (!generatedDraft) return;
-
-    document.getElementById('ed-title').value = generatedDraft.title;
-    document.getElementById('ed-slug').value = generatedDraft.slug;
-    document.getElementById('ed-desc').value = generatedDraft.description;
-    document.getElementById('ed-readtime').value = generatedDraft.readTime;
-    document.getElementById('ed-tags').value = generatedDraft.tags.join(', ');
-    document.getElementById('ed-featured').checked = false;
-    document.getElementById('ed-body').value = generatedDraft.body;
-
-    const catVal = `${generatedDraft.category}|${generatedDraft.categorySlug}`;
-    const catSelect = document.getElementById('ed-cat');
-    for (let opt of catSelect.options) {
-      if (opt.value === catVal) {
-        catSelect.value = opt.value;
-        break;
-      }
-    }
-
-    document.getElementById('editor-heading').textContent = `AGY 생성 초안: ${generatedDraft.title}`;
-    document.querySelector('.nav-tab[data-tab="editor"]').click();
-    updateLivePreview();
-  });
+  if (btnLoad) {
+    btnLoad.addEventListener('click', () => {
+      if (!generatedDraft) return;
+      window.editArticle(generatedDraft.slug);
+    });
+  }
 }
 
 // Build Runner
@@ -431,7 +485,7 @@ function initBuildRunner() {
   btn.addEventListener('click', async () => {
     btn.textContent = '⏳ 빌드 컴파일 중...';
     btn.disabled = true;
-    logs.textContent = '>>> 빌드 요청 전송...\n';
+    logs.textContent = '>>> Astro 정적 빌드(npm run build) 시작...\n';
 
     try {
       const res = await fetch('/api/build', { method: 'POST' });

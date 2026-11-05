@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clock Garden CMS & AGY Studio</title>
+  <title>Clock Garden Studio — 스마트 워크 CMS & AGY 엔진</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
 </head>
@@ -12,24 +12,25 @@
     <!-- Top Header -->
     <header class="cms-header">
       <div class="header-brand">
-        <span class="logo-orb">⏱</span>
+        <span class="logo-orb">⚡</span>
         <div>
           <span class="brand-title">Clock Garden Studio</span>
-          <span class="brand-sub">Editorial CMS & AGY Engine</span>
+          <span class="brand-sub">Smart Work CMS & AGY Engine</span>
         </div>
       </div>
 
       <nav class="cms-nav">
         <button class="nav-tab active" data-tab="dashboard">📊 대시보드</button>
-        <button class="nav-tab" data-tab="articles">📚 아티클 목록</button>
+        <button class="nav-tab" data-tab="articles">📚 가이드 목록</button>
         <button class="nav-tab" data-tab="editor">✍️ 스마트 에디터</button>
-        <button class="nav-tab" data-tab="agy">🤖 AGY 생성센터</button>
+        <button class="nav-tab" data-tab="agy">🤖 AGY 자동화 센터</button>
         <button class="nav-tab" data-tab="build">🚀 빌드 & 검증</button>
       </nav>
 
       <div class="header-right">
+        <button id="btn-header-auto-gen" class="btn btn-accent-glow">⚡ 원클릭 AI 글 생성 & 발행</button>
         <div id="badge-score" class="score-pill">AdSense: 계산 중...</div>
-        <a href="http://localhost:4321" target="_blank" class="preview-site-link">사이트 미리보기 &rarr;</a>
+        <a href="https://www.clockgarden.com" target="_blank" class="preview-site-link">라이브 사이트 &rarr;</a>
       </div>
     </header>
 
@@ -38,21 +39,21 @@
       <!-- 1. DASHBOARD VIEW -->
       <section id="view-dashboard" class="cms-view active">
         <div class="view-header">
-          <h2>저널 현황 및 애드센스 E-E-A-T 검증 센터</h2>
-          <p>고품질 독창적 콘텐츠 규격과 구글 애드센스 승인 가이드라인을 실시간으로 추적합니다.</p>
+          <h2>스마트 워크 지식 아카이브 및 애드센스 준비 현황</h2>
+          <p>고품질 독창적 콘텐츠 규격과 구글 애드센스 승인 가이드라인(E-E-A-T)을 실시간으로 추적합니다.</p>
         </div>
 
         <!-- Metric Cards -->
         <div class="metric-grid">
           <div class="metric-card">
-            <span class="metric-title">발행 아티클 수</span>
+            <span class="metric-title">발행 가이드 수</span>
             <span id="m-articles" class="metric-val">-</span>
             <span class="metric-desc">승인 권장 15편+ 충족</span>
           </div>
           <div class="metric-card">
             <span class="metric-title">총 콘텐츠 텍스트량</span>
             <span id="m-words" class="metric-val">-</span>
-            <span class="metric-desc">학술 및 기구학 심층 본문</span>
+            <span class="metric-desc">실무 수식 및 서식 심층 본문</span>
           </div>
           <div class="metric-card">
             <span class="metric-title">아티클당 평균 분량</span>
@@ -62,7 +63,7 @@
           <div class="metric-card highlight">
             <span class="metric-title">애드센스 승인 준비 지수</span>
             <span id="m-score" class="metric-val">-</span>
-            <span class="metric-desc">E-E-A-T 전문성 및 구조 완결</span>
+            <span class="metric-desc">E-E-A-T 실무 전문성 및 구조 완결</span>
           </div>
         </div>
 
@@ -76,7 +77,7 @@
           </div>
 
           <div class="panel">
-            <h3>카테고리별 칼럼 분포</h3>
+            <h3>4대 핵심 실무 카테고리 분포</h3>
             <div id="category-bars" class="cat-bar-list">
               <!-- Dynamically populated -->
             </div>
@@ -88,10 +89,13 @@
       <section id="view-articles" class="cms-view">
         <div class="view-header-flex">
           <div>
-            <h2>아티클 라이브러리</h2>
-            <p>시계학 저널에 등록된 모든 심층 칼럼을 관리하고 편집합니다.</p>
+            <h2>실무 가이드 라이브러리</h2>
+            <p>클락가든에 등록된 모든 심층 실무 가이드를 관리하고 편집합니다.</p>
           </div>
-          <button id="btn-new-article" class="btn btn-primary">+ 새 아티클 작성</button>
+          <div class="action-group">
+            <button id="btn-quick-gen-articles" class="btn btn-accent-glow">⚡ 원클릭 자동 생성</button>
+            <button id="btn-new-article" class="btn btn-primary">+ 새 가이드 직접 작성</button>
+          </div>
         </div>
 
         <div class="table-card">
@@ -99,10 +103,10 @@
             <input type="text" id="search-input" placeholder="제목, 카테고리, 태그 검색..." class="input-text">
             <select id="category-filter" class="select-box">
               <option value="">모든 카테고리</option>
-              <option value="mechanics">무브먼트 & 메커니즘</option>
-              <option value="history">시간의 과학과 역사</option>
-              <option value="astronomy">천문시계 & 컴플리케이션</option>
-              <option value="horology-care">시계 보존 및 관리 과학</option>
+              <option value="spreadsheet">엑셀 & 스프레드시트</option>
+              <option value="notion">노션 & 생산성 앱</option>
+              <option value="templates">실무 서식 & 템플릿</option>
+              <option value="workflow">워크플로우 & 단축키</option>
             </select>
           </div>
 
@@ -118,7 +122,7 @@
               </tr>
             </thead>
             <tbody id="articles-tbody">
-              <tr><td colspan="6" style="text-align:center;">아티클 목록을 불러오는 중...</td></tr>
+              <tr><td colspan="6" style="text-align:center;">가이드 목록을 불러오는 중...</td></tr>
             </tbody>
           </table>
         </div>
@@ -128,7 +132,7 @@
       <section id="view-editor" class="cms-view">
         <div class="view-header-flex">
           <div>
-            <h2 id="editor-heading">스마트 아티클 에디터</h2>
+            <h2 id="editor-heading">스마트 실무 가이드 에디터</h2>
             <p>메타데이터와 마크다운 본문을 실시간 미리보기 및 SEO 품질 진단과 함께 작성합니다.</p>
           </div>
           <div class="editor-actions">
@@ -141,12 +145,12 @@
         <div class="frontmatter-panel">
           <div class="form-row">
             <div class="form-group flex-2">
-              <label>아티클 제목 (Title)</label>
-              <input type="text" id="ed-title" class="input-text" placeholder="예: 기계식 시계의 심장: 스위스 레버 탈진기">
+              <label>가이드 제목 (Title)</label>
+              <input type="text" id="ed-title" class="input-text" placeholder="예: XLOOKUP 함수 완벽 정복: VLOOKUP의 한계를 넘는 다중 조건">
             </div>
             <div class="form-group flex-1">
               <label>URL 슬러그 (Slug / File ID)</label>
-              <input type="text" id="ed-slug" class="input-text" placeholder="예: swiss-lever-escapement-mechanics">
+              <input type="text" id="ed-slug" class="input-text" placeholder="예: xlookup-vs-vlookup-guide">
             </div>
           </div>
 
@@ -154,15 +158,15 @@
             <div class="form-group flex-1">
               <label>카테고리 (Category)</label>
               <select id="ed-cat" class="select-box">
-                <option value="무브먼트 & 메커니즘|mechanics">무브먼트 & 메커니즘</option>
-                <option value="시간의 과학과 역사|history">시간의 과학과 역사</option>
-                <option value="천문시계 & 컴플리케이션|astronomy">천문시계 & 컴플리케이션</option>
-                <option value="시계 보존 및 관리 과학|horology-care">시계 보존 및 관리 과학</option>
+                <option value="엑셀 & 스프레드시트|spreadsheet">엑셀 & 스프레드시트</option>
+                <option value="노션 & 생산성 앱|notion">노션 & 생산성 앱</option>
+                <option value="실무 서식 & 템플릿|templates">실무 서식 & 템플릿</option>
+                <option value="워크플로우 & 단축키|workflow">워크플로우 & 단축키</option>
               </select>
             </div>
             <div class="form-group flex-1">
               <label>태그 (쉼표로 구분)</label>
-              <input type="text" id="ed-tags" class="input-text" placeholder="탈진기, 기구학, 스위스레버">
+              <input type="text" id="ed-tags" class="input-text" placeholder="엑셀, 수식, XLOOKUP, 업무자동화">
             </div>
             <div class="form-group flex-half">
               <label>읽는 시간(분)</label>
@@ -187,7 +191,7 @@
           <!-- Left: Markdown Source -->
           <div class="editor-pane">
             <div class="pane-header">
-              <span>Markdown 소스</span>
+              <span>Markdown 소스 (수식, 표, 콜아웃)</span>
               <span id="word-counter" class="pane-tag">0자</span>
             </div>
             <textarea id="ed-body" class="code-editor" placeholder="여기에 마크다운 본문을 작성하세요..."></textarea>
@@ -204,42 +208,90 @@
         </div>
       </section>
 
-      <!-- 4. AGY AI STUDIO VIEW -->
+      <!-- 4. AGY AI STUDIO VIEW (FULL AUTOMATION) -->
       <section id="view-agy" class="cms-view">
         <div class="view-header">
-          <h2>AGY 시계학 AI 콘텐츠 생성 엔진</h2>
-          <p>자연어 주제와 키워드를 입력하면, 시계공학 및 계측학에 기반한 2,000자 이상의 고품질 칼럼 초안을 생성합니다.</p>
+          <h2>AGY 완전 자동 AI 콘텐츠 파이프라인</h2>
+          <p>사용자가 작성할 필요 없이, 주제 기획 ➔ 리서치 ➔ 2,500자 심층 원고 ➔ 마크다운 저장을 원클릭으로 완료합니다.</p>
         </div>
 
-        <div class="agy-card">
+        <!-- Hero Card: One-Click Fully Autonomous Pipeline -->
+        <div class="agy-card hero-automation-card">
+          <div class="automation-header">
+            <div class="badge-auto">⚡ 100% 완전 자동화 모드</div>
+            <h3>버튼 하나로 새 가이드 자동 기획 및 즉시 발행</h3>
+            <p>
+              4대 실무 카테고리(스프레드시트, 노션, 서식, 워크플로우) 중 아직 다루지 않은 최적의 검색 수요 주제를 AI가 스스로 발굴하고,
+              실무 수식/비교 표/주의 팁을 포함한 2,500자 이상의 고품질 마크다운 아티클로 자동 작성하여 파일로 저장합니다.
+            </p>
+          </div>
+
+          <div class="btn-wrap">
+            <button id="btn-run-full-auto" class="btn btn-primary btn-super-glow">
+              ⚡ 지금 즉시 새 가이드 1편 완전 자동 생성 & 발행
+            </button>
+          </div>
+
+          <!-- Real-time Progress Animation -->
+          <div id="auto-progress-box" class="progress-box hidden">
+            <div class="progress-steps">
+              <div class="step-item" id="step-1">
+                <span class="step-dot"></span>
+                <span class="step-label">1단계: 최적 실무 주제 자동 선정 & 트렌드 리서치</span>
+              </div>
+              <div class="step-item" id="step-2">
+                <span class="step-dot"></span>
+                <span class="step-label">2단계: 2,500자+ 심층 본문, 수식, 비교 표, 팁 콜아웃 자동 작성</span>
+              </div>
+              <div class="step-item" id="step-3">
+                <span class="step-dot"></span>
+                <span class="step-label">3단계: 마크다운 파일 자동 저장 및 콘텐츠 컬렉션 동기화</span>
+              </div>
+              <div class="step-item" id="step-4">
+                <span class="step-dot"></span>
+                <span class="step-label">4단계: 발행 완료 및 사이트 빌드 대기열 등록</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional: Custom Topic Option -->
+        <div class="agy-card secondary-card">
+          <h4>(선택 사항) 특정 주제를 직접 지정하여 생성하고 싶을 때</h4>
+          <p class="secondary-desc">원하는 특정 주제나 키워드가 있다면 아래에 입력하고 생성할 수 있습니다.</p>
+
           <div class="form-group">
-            <label>연구 주제 / 메커니즘 명칭</label>
-            <input type="text" id="agy-topic" class="input-text" placeholder="예: 세이코 스프링 드라이브(Spring Drive)의 트라이싱크로 레귤레이터 원리">
+            <label>원하는 실무 주제명 (비워두면 AI가 최적 주제 자동 선정)</label>
+            <input type="text" id="agy-topic" class="input-text" placeholder="예: 구글 스프레드시트 IMPORTRANGE 함수로 다른 파일 실시간 동기화하기">
           </div>
 
           <div class="form-row">
             <div class="form-group flex-1">
-              <label>대상 카테고리</label>
+              <label>카테고리</label>
               <select id="agy-cat" class="select-box">
-                <option value="무브먼트 & 메커니즘|mechanics">무브먼트 & 메커니즘</option>
-                <option value="시간의 과학과 역사|history">시간의 과학과 역사</option>
-                <option value="천문시계 & 컴플리케이션|astronomy">천문시계 & 컴플리케이션</option>
-                <option value="시계 보존 및 관리 과학|horology-care">시계 보존 및 관리 과학</option>
+                <option value="spreadsheet">엑셀 & 스프레드시트</option>
+                <option value="notion">노션 & 생산성 앱</option>
+                <option value="templates">실무 서식 & 템플릿</option>
+                <option value="workflow">워크플로우 & 단축키</option>
               </select>
             </div>
             <div class="form-group flex-1">
               <label>핵심 키워드</label>
-              <input type="text" id="agy-keywords" class="input-text" placeholder="스프링드라이브, 수정발진기, 전자기브레이크">
+              <input type="text" id="agy-keywords" class="input-text" placeholder="IMPORTRANGE, 구글시트동기화, 데이터취합">
             </div>
           </div>
 
-          <button id="btn-run-agy" class="btn btn-primary btn-large">⚡ AGY 전문 칼럼 초안 생성</button>
+          <button id="btn-run-custom-agy" class="btn btn-secondary">지정 주제로 맞춤 가이드 생성</button>
         </div>
 
+        <!-- Result Box -->
         <div id="agy-result-box" class="agy-result hidden">
           <div class="result-header">
-            <h3>생성 완료! 에디터로 불러오거나 바로 확인할 수 있습니다.</h3>
-            <button id="btn-load-to-editor" class="btn btn-secondary">에디터로 불러와 편집하기 &rarr;</button>
+            <div>
+              <span class="badge-success">발행 완료!</span>
+              <h3 id="result-title">생성된 아티클 제목</h3>
+            </div>
+            <button id="btn-load-to-editor" class="btn btn-primary">에디터에서 수정하기 &rarr;</button>
           </div>
           <div id="agy-preview" class="agy-preview-body"></div>
         </div>

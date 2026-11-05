@@ -5,24 +5,24 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const categoryDefs = [
     {
-      slug: 'mechanics',
-      name: '무브먼트 & 메커니즘',
-      description: '탈진기(Escapement), 뚜르비옹(Tourbillon), 수정 진동자, 크로노그래프 휠 등 시간을 기계적·물리적으로 분할하고 조율하는 마이크로 기구학을 해부합니다.',
+      slug: 'spreadsheet',
+      name: '엑셀 & 스프레드시트',
+      description: '실무에서 즉시 쓰는 XLOOKUP, INDEX/MATCH, 피벗 테이블, 조건부 서식, 구글 스프레드시트 QUERY 함수 등 데이터 정리와 분석 테크닉을 다룹니다.',
     },
     {
-      slug: 'history',
-      name: '시간의 과학과 역사',
-      description: '고대 물시계와 해시계에서 존 해리슨의 해상 크로노미터, 세슘-133 원자시계와 윤초 폐지에 이르는 3천 년의 시간 계측 혁명사를 탐구합니다.',
+      slug: 'notion',
+      name: '노션 & 생산성 앱',
+      description: '노션 데이터베이스 관계형(Relation)과 롤업(Rollup), 수식 2.0(Formula 2.0), 맞춤형 올인원 대시보드 설계와 생산성 앱 연동 노하우를 정리합니다.',
     },
     {
-      slug: 'astronomy',
-      name: '천문시계 & 컴플리케이션',
-      description: '프라하 천문시계 오를로이, 400년 윤년을 계산하는 퍼페추얼 캘린더, 미닛 리피터의 공(Gong) 음향학, 문페이즈의 59이빨 기어비 역학을 분석합니다.',
+      slug: 'templates',
+      name: '실무 서식 & 템플릿',
+      description: '프로젝트 기획서, 주간 업무일지, 예산안 및 견적서, 회의록 등 실무에서 즉시 복사해 활용할 수 있는 표준 서식 구조와 작성법을 가이드합니다.',
     },
     {
-      slug: 'horology-care',
-      name: '시계 보존 및 관리 과학',
-      description: '시계 자성과 실리콘 헤어스프링 혁신, 합성 루비 베어링의 트라이볼로지(마찰학), 300m 방수의 ISO 6425 규격 및 COSC/METAS 크로노미터 인증 기준을 다룹니다.',
+      slug: 'workflow',
+      name: '워크플로우 & 단축키',
+      description: 'Windows 및 Mac 필수 단축키, 크롬 브라우저 생산성 팁, 반복 업무를 획기적으로 줄여주는 디지털 워크플로우 최적화 루틴을 탐구합니다.',
     },
   ];
 
@@ -43,7 +43,7 @@ const { categoryInfo, articles } = Astro.props;
 ---
 
 <BaseLayout
-  title={`${categoryInfo.name} — 시계학 전문 저널`}
+  title={`${categoryInfo.name} — 스마트 워크 & 실무 도구 가이드`}
   description={categoryInfo.description}
   path={`/category/${categoryInfo.slug}/`}
   locale="ko"
@@ -57,7 +57,7 @@ const { categoryInfo, articles } = Astro.props;
         </li>
         <li class="separator">/</li>
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a itemprop="item" href="/articles/"><span itemprop="name">저널</span></a>
+          <a itemprop="item" href="/articles/"><span itemprop="name">전체 가이드</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <li class="separator">/</li>
@@ -69,7 +69,7 @@ const { categoryInfo, articles } = Astro.props;
     </nav>
 
     <header class="page-header">
-      <span class="category-badge">주제별 칼럼 아카이브</span>
+      <span class="category-badge">실무 테마 아카이브</span>
       <h1 class="page-title">{categoryInfo.name}</h1>
       <p class="page-subtitle">{categoryInfo.description}</p>
     </header>
@@ -98,7 +98,7 @@ const { categoryInfo, articles } = Astro.props;
               <time datetime={article.data.pubDate} class="pub-date">{article.data.pubDate}</time>
             </div>
             <a href={`/articles/${article.id}/`} class="read-more-link" aria-label={`${article.data.title} 전문 읽기`}>
-              읽기 &rarr;
+              가이드 보기 &rarr;
             </a>
           </div>
         </article>
@@ -109,150 +109,172 @@ const { categoryInfo, articles } = Astro.props;
 
 <style>
   .content-container {
-    max-width: 1180px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 5rem;
   }
+
   .breadcrumb {
     margin-bottom: 2rem;
-    font-size: 0.88rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
   }
+
   .breadcrumb ol {
+    display: flex;
+    align-items: center;
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
-    color: var(--muted);
   }
+
   .breadcrumb a {
-    color: var(--muted);
+    color: var(--color-text-muted);
     text-decoration: none;
+    transition: color 0.15s ease;
   }
+
   .breadcrumb a:hover {
-    color: var(--accent);
+    color: var(--color-accent);
   }
-  .breadcrumb .separator {
-    color: var(--line);
+
+  .separator {
+    color: var(--color-border);
   }
+
   .page-header {
-    text-align: center;
-    max-width: 820px;
-    margin: 0 auto 3.5rem;
+    margin-bottom: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
   }
+
   .category-badge {
     display: inline-block;
-    padding: 0.35rem 0.85rem;
-    font-size: 0.8rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--accent);
-    background: var(--accent-soft);
-    border-radius: 999px;
-    margin-bottom: 1rem;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
   }
+
   .page-title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.25;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
     margin: 0 0 1rem;
-    color: var(--text);
+    color: var(--color-text);
   }
+
   .page-subtitle {
-    font-size: 1.15rem;
-    line-height: 1.65;
-    color: var(--muted);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 760px;
     margin: 0;
   }
+
   .articles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
   }
+
   .article-card {
+    background: var(--color-bg-card, var(--color-bg-alt));
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.75rem;
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: transform 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
+
   .article-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-color: var(--color-accent);
   }
+
   .card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-    font-size: 0.82rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
   }
+
   .card-cat {
-    color: var(--accent);
     font-weight: 600;
+    color: var(--color-accent);
   }
-  .read-time {
-    color: var(--muted);
-  }
+
   .card-title {
-    font-size: 1.32rem;
-    font-weight: 700;
-    line-height: 1.38;
-    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 0.875rem;
   }
+
   .card-title a {
-    color: var(--text);
+    color: var(--color-text);
     text-decoration: none;
-    transition: color 0.15s;
+    transition: color 0.15s ease;
   }
+
   .card-title a:hover {
-    color: var(--accent);
+    color: var(--color-accent);
   }
+
   .card-desc {
-    font-size: 0.95rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
-    color: var(--muted);
-    margin: 0 0 1.75rem;
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
     flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
   .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line);
-    font-size: 0.85rem;
+    font-size: 0.8125rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
   }
+
   .author-info {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
   }
+
   .author-name {
-    font-weight: 600;
-    color: var(--text);
+    font-weight: 500;
+    color: var(--color-text);
   }
+
   .pub-date {
-    color: var(--muted);
-    font-size: 0.8rem;
+    color: var(--color-text-muted);
   }
+
   .read-more-link {
-    color: var(--accent);
     font-weight: 600;
+    color: var(--color-accent);
     text-decoration: none;
-    font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: gap 0.15s ease;
   }
+
   .read-more-link:hover {
-    text-decoration: underline;
+    gap: 0.5rem;
   }
 </style>

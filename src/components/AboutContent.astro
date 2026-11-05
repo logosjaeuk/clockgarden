@@ -4,149 +4,201 @@ const prefix = ko ? '/ko' : '';
 ---
 
 <article class="content-page">
-  <p class="eyebrow">{ko ? '연구진 및 에디토리얼 소개' : 'Editorial & Horology Research Collective'}</p>
+  <p class="eyebrow">{ko ? '연구진 및 에디토리얼 소개' : 'Editorial & Productivity Research Collective'}</p>
   <h1>{ko ? '클락가든(Clock Garden) 소개' : 'About Clock Garden'}</h1>
   
   <p class="lead-text">
     {
       ko
-        ? '클락가든(Clock Garden)은 시계학(Horology), 정밀 시간 계측 공학(Metrology), 천문 시계 기구학의 역사와 기술을 심층 연구하고 대중에게 신뢰할 수 있는 학술 지식을 전달하는 독립 디지털 저널입니다.'
-        : 'Clock Garden is an independent horological journal and academic research archive dedicated to the science of chronometry, astronomical complications, and mechanical movement kinematics.'
+        ? '클락가든(Clock Garden)은 직장인, 프리랜서, 지식 근로자의 가장 귀중한 자원인 "시간(Clock)"을 아끼고 효율적인 업무 환경의 "정원(Garden)"을 가꿀 수 있도록 돕는 독립 스마트 워크 & 생산성 연구 저널입니다.'
+        : 'Clock Garden is an independent digital productivity journal and smart work research collective dedicated to helping professionals optimize their most valuable asset—time—through actionable guides on spreadsheets, Notion, templates, and digital workflows.'
     }
   </p>
 
-  <h2>{ko ? '연구 사명 및 에디토리얼 목표' : 'Our Mission & Editorial Scope'}</h2>
+  <h2>{ko ? '발행 목적 및 에디토리얼 원칙' : 'Our Mission & Editorial Standards'}</h2>
   <p>
     {
       ko
-        ? '인류의 문명 발전사는 곧 시간을 더 잘게 쪼개고, 더 정밀하게 측정하기 위한 끊임없는 투쟁의 역사였습니다. 고대 해시계와 물시계의 태양시 관측에서 시작하여, 18세기 대항해 시대를 연 존 해리슨의 해상 크로노미터, 20세기 스위스 시계 산업을 뒤흔든 쿼츠 혁명, 그리고 현대 GPS 위성과 초고속 네트워크를 지탱하는 세슘-133 원자시계에 이르기까지 시간의 과학은 모든 기술 문명의 주춧돌입니다.'
-        : 'The history of human civilization is a relentless pursuit of subdividing time into finer, more predictable fractions. From ancient sundials and clepsydrae to John Harrison’s maritime chronometer, the quartz revolution, and the cesium atomic clock anchoring modern GPS, the metrology of time remains foundational to all engineering.'
+        ? '현대 비즈니스 환경에서는 매일 수많은 데이터와 문서, 협업 도구가 쏟아집니다. 그러나 많은 직장인들이 비효율적인 수작업, 복잡하게 얽힌 수식 오류, 정리되지 않은 문서 서식 때문에 본질적인 기획과 의사결정에 써야 할 소중한 시간을 낭비하고 있습니다.'
+        : 'Modern workplaces are flooded with fragmented data, documents, and tools. Too many knowledge workers lose critical hours wrestling with broken formulas, disorganized databases, and repetitive manual routines.'
     }
   </p>
   <p>
     {
       ko
-        ? '클락가든은 상업적 광고 홍보글이나 단순 상품 소개를 지양하고, 기계식 무브먼트의 미시역학(탈진기, 뚜르비옹, 등시성), 복합 컴플리케이션(퍼페추얼 캘린더, 미닛 리피터, 문페이즈), 그리고 시간 표준화(협정세계시 UTC, 윤초, 철도 표준시)의 과학적 원리를 독자들에게 가장 명료하고 정확하게 전달하는 것을 사명으로 합니다.'
-        : 'We reject generic sponsored summaries in favor of exhaustive, peer-reviewed engineering analyses covering movement micro-mechanics (escapements, tourbillons, isochronism), high complications (perpetual calendars, minute repeaters), and global timekeeping standards (UTC, leap seconds, atomic clocks).'
+        ? '클락가든은 단순한 이론이나 뜬구름 잡는 조언을 지양하고, 현업에서 지금 당장 복사해 적용할 수 있는 실전 엑셀 수식, 노션 데이터베이스 모델링, 표준 실무 서식, OS 및 브라우저 단축키 꿀팁을 가장 명료하고 체계적으로 검증하여 전달합니다.'
+        : 'We deliver field-tested, step-by-step guides, verified formulas, database architectures, and time-saving workflow blueprints that professionals can immediately copy, adapt, and deploy.'
     }
   </p>
 
-  <h2>{ko ? '연구진 및 편집 자문단' : 'Research Collective & Credentials'}</h2>
+  <h2>{ko ? '연구진 및 집필 전문 분야' : 'Research Team & Specializations'}</h2>
   <div class="credentials-box">
     <div class="credential-item">
-      <h3>{ko ? '시계공학 및 정밀계측 연구팀' : 'Horological Mechanics Division'}</h3>
+      <h3>{ko ? '스프레드시트 & 데이터 분석 연구팀' : 'Spreadsheet & Data Analysis Division'}</h3>
       <p>
         {
           ko
-            ? '기계식 무브먼트 기구학, 밸런스 휠 동역학, 기어 트레인 마찰학(Tribology), 스위스 공식 크로노미터(COSC/METAS) 규격 분석을 전담합니다.'
-            : 'Focuses on mechanical movement kinematics, balance wheel dynamics, gear train tribology, and Swiss chronometer testing standards (COSC/METAS).'
+            ? '엑셀 및 구글 스프레드시트의 XLOOKUP, INDEX/MATCH, QUERY, ARRAYFORMULA, 피벗 테이블 및 데이터 정제 테크닉을 연구하고 실무 최적화 수식을 검증합니다.'
+            : 'Researches and benchmarks advanced Excel and Google Sheets functions, multi-criteria lookups, dynamic arrays, and automated query pipelines.'
         }
       </p>
     </div>
     <div class="credential-item">
-      <h3>{ko ? '천문시계 및 고전 메커니즘 큐레이터' : 'Astronomical Complications Team'}</h3>
+      <h3>{ko ? '노션 & 워크스페이스 아키텍트' : 'Notion & Workspace Architecture Team'}</h3>
       <p>
         {
           ko
-            ? '프라하 천문시계 오를로이, 아스트롤라베 평사도법, 400년 윤년 기어비 수학 및 소네리 음향학을 학술 문헌을 통해 고증합니다.'
-            : 'Researches historical astronomical clocks (e.g., Prague Orloj), astrolabe stereographic projection, 400-year leap gear ratios, and strike chiming acoustics.'
+            ? '노션 데이터베이스의 관계형(Relation) 모델링, 롤업(Rollup), 수식 2.0(Formula 2.0) 및 올인원 생산성 대시보드 구조를 설계하고 템플릿화합니다.'
+            : 'Designs robust relational database models, advanced Formula 2.0 expressions, and modular dashboards for agile teams and solo operators.'
         }
       </p>
     </div>
     <div class="credential-item">
-      <h3>{ko ? '시간 계측사 및 표준화 연구팀' : 'Metrology & Time Standards Team'}</h3>
+      <h3>{ko ? '실무 서식 & 비즈니스 문서화 팀' : 'Business Templates & Documentation Team'}</h3>
       <p>
         {
           ko
-            ? '국제도량형총회(CGPM)의 초(second) 정의 역사, 세슘-133 원자시계 전이 주파수 물리, IERS 윤초 폐지 결의안 및 천문역학을 연구합니다.'
-            : 'Researches CGPM second definitions, cesium-133 atomic clock transitions, IERS leap second resolutions, and celestial mechanics.'
+            ? '프로젝트 기획서, 주간 업무보고, 예산 견적서, 회의록 등 기업 실무에서 검증된 표준 서식 체계와 작성 가이드라인을 개발합니다.'
+            : 'Develops standardized templates for project charters, weekly operational logs, budget estimates, and decision minutes.'
+        }
+      </p>
+    </div>
+    <div class="credential-item">
+      <h3>{ko ? '워크플로우 & 단축키 자동화 팀' : 'Workflow & Automation Specialists'}</h3>
+      <p>
+        {
+          ko
+            ? 'Windows 및 macOS 생산성 단축키, 브라우저 탭 관리, 반복 업무를 단축하는 디지털 루틴 최적화 솔루션을 발굴합니다.'
+            : 'Curates cross-platform shortcut systems, browser productivity extensions, and repetitive-task reduction routines.'
         }
       </p>
     </div>
   </div>
 
-  <h2>{ko ? '참조 표준 및 교차 검증 기관' : 'Reference Standards & Citations'}</h2>
+  <h2>{ko ? '콘텐츠 신뢰성 및 사실 확인 원칙' : 'Content Integrity & Fact-Checking'}</h2>
   <p>
     {
       ko
-        ? '본 저널의 모든 기술 분석은 다음 국제 공인 표준 및 1차 학술 자료를 근거로 작성됩니다:'
-        : 'Our publications strictly reference international primary metrological standards:'
+        ? '본 저널에 게시되는 모든 수식, 단축키, 서식 템플릿은 연구팀이 최신 버전의 소프트웨어(Microsoft 365, Google Workspace, Notion 최신 빌드)에서 직접 테스트하고 검증한 후 발행됩니다. 오류 발견 시 24시간 이내에 수정 버전을 공지합니다.'
+        : 'Every formula, shortcut matrix, and template is physically verified against the latest builds of Microsoft 365, Google Workspace, and Notion before publication. Errors are corrected within 24 hours of notification.'
     }
   </p>
-  <ul>
-    <li><strong>BIPM / CGPM:</strong> 국제도량형국 및 국제도량형총회 1초 정의 기술 결의안</li>
-    <li><strong>COSC (ISO 3159):</strong> 스위스 공식 크로노미터 검정 협회 손목시계 정밀도 규격</li>
-    <li><strong>METAS N001:</strong> 스위스 연방 계량청 마스터 크로노미터 인증 규격</li>
-    <li><strong>ISO 6425:</strong> 국제표준화기구 다이버 시계 신뢰성 및 방수 규격</li>
-    <li><strong>IERS:</strong> 국제지구자전국 지구 자전 파라미터 및 윤초 공보 (Bulletin C)</li>
-  </ul>
 
-  <h2>{ko ? '편집 및 팩트체크 정책' : 'Editorial Integrity & Corrections'}</h2>
-  <p>
-    {
-      ko
-        ? '클락가든은 사실 확인과 투명성을 최우선 가치로 삼습니다. 기술적 오류나 학술적 보완 사항이 있는 경우 신속하게 재검증을 수행하고 정오표를 공개합니다. 상세한 편집 원칙은 아래 정책 문서에서 확인하실 수 있습니다.'
-        : 'We uphold rigorous fact-checking and transparency. Technical corrections are promptly investigated and recorded. Read our complete policies below.'
-    }
-  </p>
-  <p>
-    <a href={`${prefix}/editorial-policy/`} class="policy-link">
-      {ko ? '편집 및 팩트체크 원칙 전문 보기 →' : 'Read our full Editorial & Fact-Checking Policy &rarr;'}
+  <div class="cta-box">
+    <p>
+      {ko ? '실무 가이드에 대한 문의사항이나 피드백이 있으신가요?' : 'Have feedback or a specific workplace challenge to solve?'}
+    </p>
+    <a href={`${prefix}/contact/`} class="cta-button">
+      {ko ? '연구팀에 문의하기 &rarr;' : 'Contact Research Team &rarr;'}
     </a>
-  </p>
-
-  <h2>{ko ? '문의 및 제보' : 'Contact Us'}</h2>
-  <p>
-    {
-      ko
-        ? '학술적 제언, 인용 문의, 오류 정정 제보는 언제든 환영합니다.'
-        : 'We welcome scholarly feedback, corrections, and research inquiries at any time.'
-    }
-  </p>
-  <p>
-    - Email: <a href="mailto:contact@clockgarden.com">contact@clockgarden.com</a><br />
-    - Online Inquiries: <a href={`${prefix}/contact/`}>{ko ? '온라인 문의 양식' : 'Contact Form'}</a>
-  </p>
+  </div>
 </article>
 
 <style>
-  .lead-text {
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: var(--text);
-    margin-bottom: 2rem;
+  .content-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    line-height: 1.8;
+    color: var(--color-text);
   }
+
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 1.5rem;
+  }
+
+  .lead-text {
+    font-size: 1.1875rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-muted);
+  }
+
   .credentials-box {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0 2.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
   }
+
+  @media (min-width: 640px) {
+    .credentials-box {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   .credential-item {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 1.5rem;
+    background: var(--color-bg-card, var(--color-bg-alt));
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.25rem;
   }
+
   .credential-item h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.05rem;
-    color: var(--accent);
+    color: var(--color-text);
   }
+
   .credential-item p {
-    margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.9375rem;
     line-height: 1.6;
-    color: var(--muted);
+    margin: 0;
   }
-  .policy-link {
+
+  .cta-box {
+    margin-top: 3.5rem;
+    padding: 2rem;
+    background: var(--color-bg-card, var(--color-bg-alt));
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .cta-button {
     display: inline-block;
-    color: var(--accent);
-    font-weight: 600;
+    background: var(--color-accent);
+    color: #fff;
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
     text-decoration: none;
+    font-weight: 600;
     margin-top: 0.5rem;
+    transition: opacity 0.15s ease;
   }
-  .policy-link:hover {
-    text-decoration: underline;
+
+  .cta-button:hover {
+    opacity: 0.9;
   }
 </style>

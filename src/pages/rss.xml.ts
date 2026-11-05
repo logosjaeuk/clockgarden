@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${siteConfig.name} — 시계학 저널</title>
+    <title>${siteConfig.name} — 스마트 워크 & 실무 도구 가이드</title>
     <link>${base.href}</link>
     <description>${siteConfig.description}</description>
     <language>ko</language>
