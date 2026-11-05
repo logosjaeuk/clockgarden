@@ -4,63 +4,75 @@ import { siteConfig } from '../config';
 ---
 
 <BaseLayout
-  title="Privacy Policy – Transparent Data & Cookies Notice"
-  description={`How ${siteConfig.name} handles reader preferences, local storage, advertising cookies, and analytics.`}
+  title="개인정보 처리방침 – 투명한 데이터 및 쿠키 안내"
+  description={`${siteConfig.name}의 독자 환경설정, 로컬 스토리지, 애드센스 광고 쿠키 및 서버 보안 정책에 대한 안내입니다.`}
   path="/privacy/"
+  locale="ko"
 >
   <article class="content-page">
-    <p class="eyebrow">Publication Policy</p>
-    <h1>Privacy Policy</h1>
+    <p class="eyebrow">저널 운영 정책</p>
+    <h1>개인정보 처리방침</h1>
 
     <p>
-      Last updated: November 2026. At {siteConfig.name}, we believe in transparent, privacy-first practices.
-      We do not require user accounts, logins, passwords, or personal profiles to read our productivity and smart work guides.
+      최종 개정일: 2026년 11월 5일. {siteConfig.name}(이하 "저널")은 독자의 개인정보 보호와 데이터 투명성을 핵심 원칙으로 준수합니다.
+      본 저널의 스마트 워크, 스프레드시트, 노션, 실무 서식 및 자동화 가이드 칼럼을 열람하기 위해 회원가입, 계정 생성, 로그인, 비밀번호 등록 등의 개인 식별 정보를 일절 요구하지 않습니다.
     </p>
 
-    <h2>Local Storage and Reading Preferences</h2>
+    <h2>1. 로컬 스토리지 및 열람 환경설정</h2>
     <p>
-      Your site preferences—specifically light or dark theme selection—are stored exclusively in your browser's
-      <code>localStorage</code>. No personal identifying information is stored or transmitted to external servers.
+      독자의 라이트 모드 / 다크 모드 테마 선택값은 오직 방문자의 웹 브라우저 내부 <code>localStorage</code>에만 저장됩니다.
+      이 정보는 어떠한 외부 서버로도 전송되지 않으며, 독자가 브라우저 캐시나 사이트 데이터를 삭제할 경우 즉시 초기화됩니다.
     </p>
 
-    <h2>Advertising and Cookies</h2>
+    <h2>2. 구글 애드센스(Google AdSense) 및 광고 쿠키 공시</h2>
     <p>
-      To help support the ongoing research and hosting of our scholarly publications, {siteConfig.name} works with
-      third-party advertising partners, including <strong>Google AdSense</strong>.
+      클락가든은 양질의 독립 실무 가이드 발행과 웹사이트 호스팅 인프라를 유지하기 위해 <strong>Google AdSense</strong>를 포함한 제3자 광고 파트너를 이용합니다.
     </p>
     <ul>
       <li>
-        Third-party vendors, including Google, use cookies to serve ads based on a user's prior
-        visits to this website or other websites on the Internet.
+        Google을 포함한 제3자 공급업체는 독자가 당사 웹사이트 또는 다른 웹사이트를 방문한 기록을 바탕으로 쿠키(Cookie)를 사용하여 광고를 게재합니다.
       </li>
       <li>
-        Google's use of advertising cookies enables it and its partners to serve ads to our readers
-        based on their visit to our site and/or other sites on the Internet.
+        Google은 광고 쿠키를 사용하여 사용자의 본 사이트 및 인터넷 상의 다른 사이트 방문 기록을 바탕으로 맞춤형 또는 비맞춤형 광고를 제공할 수 있습니다.
       </li>
       <li>
-        <strong>Your Choices & Opt-Out:</strong> Readers may opt out of personalized advertising at any time
-        by visiting
-        <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer"
-          >Google Ads Settings</a
-        >. Alternatively, you can opt out of third-party vendors' use of cookies for personalized
-        advertising by visiting
-        <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer"
-          >www.aboutads.info</a
-        >.
+        <strong>개인 맞춤 광고 거부(Opt-Out):</strong> 독자는 언제든지 <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google 광고 설정</a>을 방문하여 맞춤설정 광고를 비활성화할 수 있습니다. 또한 <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>를 방문하여 제3자 공급업체의 맞춤 광고 쿠키 사용을 전면 차단할 수 있습니다.
       </li>
     </ul>
 
-    <h2>Server Logs and Hosting</h2>
+    <h2>3. 서버 보안 로그 및 호스팅</h2>
     <p>
-      Our pages are hosted through Cloudflare global content delivery network. When you access any page, standard
-      HTTP request headers (such as IP address, user-agent, requested URL, and timestamp) are processed in real-time
-      to route traffic securely, prevent DDoS attacks, and enforce security policies.
+      본 사이트는 Cloudflare의 전역 엣지 네트워크를 통해 서비스됩니다. 페이지 요청 시 악의적인 DDoS 공격 차단 및 웹 보안 규정 준수를 위해 표준 HTTP 요청 헤더(접속 IP 주소, 요청 경로, User-Agent, 접속 일시)가 실시간으로 처리될 수 있습니다. 이 로그는 보안 및 트래픽 분석 목적으로만 임시 보관됩니다.
     </p>
 
-    <h2>Contact and Questions</h2>
+    <h2>4. 문의 및 피드백 창구</h2>
     <p>
-      If you have questions regarding this Privacy Policy or our editorial practices, please contact us at:
-      <a href="mailto:privacy@clockgarden.com">privacy@clockgarden.com</a>.
+      본 개인정보 처리방침 또는 저널 운영과 관련한 모든 질문과 권리 행사는 아래 공식 창구로 접수해 주시기 바랍니다:<br />
+      - 담당 이메일: <a href="mailto:privacy@clockgarden.com">privacy@clockgarden.com</a> 또는 <a href="mailto:jacho0227@gmail.com">jacho0227@gmail.com</a><br />
+      - 온라인 문의: <a href="/contact/">문의 및 피드백 페이지</a>
     </p>
   </article>
 </BaseLayout>
+
+<style>
+  .content-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    line-height: 1.8;
+  }
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  h1 { font-size: 2.25rem; font-weight: 700; margin: 0 0 1.5rem; letter-spacing: -0.03em; }
+  h2 { font-size: 1.375rem; font-weight: 600; margin: 2.5rem 0 0.75rem; color: var(--text); }
+  p { margin: 0 0 1rem; color: var(--text-muted); }
+  ul { margin: 0 0 1.5rem; padding-left: 1.5rem; color: var(--text-muted); }
+  li { margin-bottom: 0.5rem; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+  code { background: var(--bg-alt); padding: 2px 6px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.875rem; }
+</style>

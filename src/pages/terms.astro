@@ -4,46 +4,68 @@ import { siteConfig } from '../config';
 ---
 
 <BaseLayout
-  title="Terms of Service – Publication Guidelines"
-  description={`Terms and conditions governing the access and use of ${siteConfig.name}'s smart work guides and productivity content.`}
+  title="이용약관 – 저널 이용 및 인용 규정"
+  description={`${siteConfig.name}의 스마트 워크 및 실무 가이드 콘텐츠 이용, 지적재산권, 인용 가이드라인에 관한 약관입니다.`}
   path="/terms/"
+  locale="ko"
 >
   <article class="content-page">
-    <p class="eyebrow">Publication Guidelines</p>
-    <h1>Terms of Service</h1>
+    <p class="eyebrow">저널 이용 규정</p>
+    <h1>이용약관 (Terms of Service)</h1>
 
     <p>
-      Last updated: November 2026. By accessing and reading {siteConfig.name} (the "Publication"), you agree
-      to comply with and be bound by the following terms and conditions.
+      최종 개정 및 시행일: 2026년 11월 5일. {siteConfig.name}(이하 "저널")을 방문하고 콘텐츠를 열람함으로써 독자는 본 약관의 모든 조항에 동의하게 됩니다.
     </p>
 
-    <h2>1. Intellectual Property & Citation Rights</h2>
+    <h2>1. 지적재산권 및 인용 가이드라인</h2>
     <p>
-      All original guides, formula breakdowns, database models, templates, and workflow routines published on {siteConfig.name} are the intellectual property of Clock Garden unless otherwise indicated.
+      {siteConfig.name}에 게재된 모든 독창적인 실무 가이드, 수식 해설, 노션 데이터베이스 모델링 아키텍처, 템플릿 서식은 클락가든 연구팀의 고유한 지적 자산입니다.
     </p>
     <p>
-      Citation and practical implementation in individual work or team workflows are freely permitted. Commercial redistribution of raw guides without attribution is prohibited.
-    </p>
-
-    <h2>2. Informational & Practical Purpose</h2>
-    <p>
-      The technical and workflow analyses on this site are published for educational and professional productivity purposes. While our researchers strive for meticulous accuracy and verify guides against official software documentation (e.g., Microsoft 365, Google Workspace, Notion), software features and shortcuts may vary based on OS updates and regional configurations.
+      독자가 개인 업무나 사내 실무 프로세스 개선을 위해 가이드의 수식과 서식을 복사하여 실무에 적용하는 것은 전면 허용되며 장려됩니다. 단, 출처 명시 없는 무단 전재, 전문 크롤링 및 상업적 재판매는 금지됩니다.
     </p>
 
-    <h2>3. External Links & Third-Party Services</h2>
+    <h2>2. 실무 정보의 성격 및 면책 조항</h2>
     <p>
-      Our articles may link to official software documentations, vendor repositories, and productivity tools. We are not responsible for the content, privacy policies, or availability of external third-party sites.
+      본 저널의 칼럼은 지식 근로자의 업무 생산성 향상을 돕기 위한 실전 가이드입니다. 연구팀은 Microsoft 365, Google Workspace, Notion 등의 최신 공식 빌드 환경에서 수식과 기능을 철저히 교차 검증한 후 발행합니다.
+    </p>
+    <p>
+      다만, 소프트웨어 버전 업데이트, 사용자의 고유 OS 환경이나 보안 설정에 따라 일부 인터페이스나 단축키 동작에 차이가 발생할 수 있으며, 이로 인한 간접적 손해에 대해 저널은 법적 책임을 지지 않습니다.
     </p>
 
-    <h2>4. Amendments</h2>
+    <h2>3. 외부 링크 및 제3자 도구 고지</h2>
     <p>
-      We reserve the right to revise these Terms of Service at any time. Changes become effective immediately upon posting to this page.
+      본 저널의 아티클에는 공식 소프트웨어 개발사 웹사이트, 확장 프로그램 스토어, 참고 오픈소스 저장소 링크가 포함될 수 있습니다. 당사는 외부 제3자 사이트의 콘텐츠, 보안성, 개인정보 정책에 대해 관여하지 않으며 책임을 지지 않습니다.
     </p>
 
-    <h2>5. Inquiries</h2>
+    <h2>4. 약관의 개정</h2>
     <p>
-      For syndication requests, rights clearance, or questions regarding these Terms, please contact us at:
-      <a href="mailto:editorial@clockgarden.com">editorial@clockgarden.com</a>.
+      본 약관은 관련 법령 개정 및 저널 운영 방침에 따라 개정될 수 있으며, 개정된 약관은 본 페이지에 공지됨으로써 효력이 발생합니다.
+    </p>
+
+    <h2>5. 문의처</h2>
+    <p>
+      콘텐츠 제휴, 라이선스 문의, 약관 관련 질문은 <a href="mailto:editorial@clockgarden.com">editorial@clockgarden.com</a> 또는 <a href="/contact/">문의 창구</a>로 접수해주시기 바랍니다.
     </p>
   </article>
 </BaseLayout>
+
+<style>
+  .content-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+    line-height: 1.8;
+  }
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  h1 { font-size: 2.25rem; font-weight: 700; margin: 0 0 1.5rem; letter-spacing: -0.03em; }
+  h2 { font-size: 1.375rem; font-weight: 600; margin: 2.5rem 0 0.75rem; color: var(--text); }
+  p { margin: 0 0 1rem; color: var(--text-muted); }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+</style>
