@@ -17,13 +17,6 @@ export const GET: APIRoute = async ({ site }) => {
     '/contact/',
     '/terms/',
     '/privacy/',
-    '/server-time/',
-    '/clock/',
-    '/world-clock/',
-    '/stopwatch/',
-    '/timer/',
-    '/alarm/',
-    '/time-zone-converter/',
   ];
 
   const categoryRoutes = categories.map((cat) => `/category/${cat}/`);

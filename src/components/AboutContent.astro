@@ -10,8 +10,8 @@ const prefix = ko ? '/ko' : '';
   <p class="lead-text">
     {
       ko
-        ? '클락가든(Clock Garden)은 시계학(Horology), 정밀 시간 계측 공학(Metrology), 천문 시계 기구학의 역사와 기술을 심층 연구하는 독립 디지털 저널이자, 순수 웹 브라우저 기반의 무설치 정밀 시간 측정 도구를 개발하는 디지털 계측 연구 프로젝트입니다.'
-        : 'Clock Garden is an independent horological journal and digital laboratory dedicated to the science of chronometry, astronomical complications, mechanical movements, and browser-native precision time instruments.'
+        ? '클락가든(Clock Garden)은 시계학(Horology), 정밀 시간 계측 공학(Metrology), 천문 시계 기구학의 역사와 기술을 심층 연구하고 대중에게 신뢰할 수 있는 학술 지식을 전달하는 독립 디지털 저널입니다.'
+        : 'Clock Garden is an independent horological journal and academic research archive dedicated to the science of chronometry, astronomical complications, and mechanical movement kinematics.'
     }
   </p>
 
@@ -54,12 +54,12 @@ const prefix = ko ? '/ko' : '';
       </p>
     </div>
     <div class="credential-item">
-      <h3>{ko ? '웹 계측 및 알고리즘 엔지니어링팀' : 'Web Metrology Engineering'}</h3>
+      <h3>{ko ? '시간 계측사 및 표준화 연구팀' : 'Metrology & Time Standards Team'}</h3>
       <p>
         {
           ko
-            ? '브라우저 High Resolution Time API(performance.now()), 단조 시계(Monotonic Clock), 네트워크 시간 동기화(NTP), ICS 표준 캘린더 알고리즘을 개발·유지보수합니다.'
-            : 'Maintains browser High Resolution Time implementations, monotonic timers, network time protocol estimators, and RFC 5545 calendar generators.'
+            ? '국제도량형총회(CGPM)의 초(second) 정의 역사, 세슘-133 원자시계 전이 주파수 물리, IERS 윤초 폐지 결의안 및 천문역학을 연구합니다.'
+            : 'Researches CGPM second definitions, cesium-133 atomic clock transitions, IERS leap second resolutions, and celestial mechanics.'
         }
       </p>
     </div>
@@ -81,15 +81,6 @@ const prefix = ko ? '/ko' : '';
     <li><strong>IERS:</strong> 국제지구자전국 지구 자전 파라미터 및 윤초 공보 (Bulletin C)</li>
   </ul>
 
-  <h2>{ko ? '시간 도구의 작동 방식과 개인정보 보호' : 'Browser Utilities & Privacy'}</h2>
-  <p>
-    {
-      ko
-        ? '클락가든의 웹 기반 시간 도구(디지털 시계, 스톱워치, 타이머, 세계 시계)는 사용자 기기의 로컬 브라우저 샌드박스 내부에서만 실행됩니다. 어떠한 개인 식별 정보나 계정도 요구하지 않으며, 모든 설정값은 사용자의 브라우저 로컬 저장소에만 남습니다.'
-        : 'Our web time utilities run strictly in your browser’s local client sandbox. We do not require accounts or harvest personal identifiers; user preferences remain exclusively within your device’s local storage.'
-    }
-  </p>
-
   <h2>{ko ? '편집 및 팩트체크 정책' : 'Editorial Integrity & Corrections'}</h2>
   <p>
     {
@@ -99,28 +90,28 @@ const prefix = ko ? '/ko' : '';
     }
   </p>
   <p>
-    <a href={prefix + '/editorial-policy/'} class="policy-link">
-      {ko ? '클락가든 편집 및 팩트체크 원칙 전문 보기 &rarr;' : 'Read our full Editorial & Fact-Checking Policy &rarr;'}
+    <a href={`${prefix}/editorial-policy/`} class="policy-link">
+      {ko ? '편집 및 팩트체크 원칙 전문 보기 →' : 'Read our full Editorial & Fact-Checking Policy &rarr;'}
     </a>
   </p>
 
-  <h2>{ko ? '문의 및 학술 제보' : 'Contact Us'}</h2>
+  <h2>{ko ? '문의 및 제보' : 'Contact Us'}</h2>
   <p>
     {
       ko
-        ? '기사 내용에 대한 제언, 기술적 오류 수정 요청, 학술 자문 제보는 언제든 환영합니다.'
+        ? '학술적 제언, 인용 문의, 오류 정정 제보는 언제든 환영합니다.'
         : 'We welcome scholarly feedback, corrections, and research inquiries at any time.'
     }
   </p>
   <p>
-    - {ko ? '연구팀 이메일:' : 'Email:'} <a href="mailto:editorial@clockgarden.com">editorial@clockgarden.com</a><br />
-    - {ko ? '온라인 문의 창구:' : 'Online Inquiries:'} <a href={prefix + '/contact/'}>{ko ? '문의 페이지 바로가기' : 'Contact Form'}</a>
+    - Email: <a href="mailto:contact@clockgarden.com">contact@clockgarden.com</a><br />
+    - Online Inquiries: <a href={`${prefix}/contact/`}>{ko ? '온라인 문의 양식' : 'Contact Form'}</a>
   </p>
 </article>
 
 <style>
   .lead-text {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     color: var(--text);
     margin-bottom: 2rem;
@@ -129,29 +120,31 @@ const prefix = ko ? '/ko' : '';
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    margin: 2rem 0;
+    margin: 1.5rem 0 2.5rem;
   }
   .credential-item {
-    background: var(--surface-solid);
+    background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 1.5rem;
   }
   .credential-item h3 {
-    font-size: 1.1rem;
-    color: var(--accent-strong);
     margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    color: var(--accent);
   }
   .credential-item p {
-    font-size: 0.92rem;
-    line-height: 1.55;
-    color: var(--muted);
     margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
   }
   .policy-link {
-    font-weight: 700;
+    display: inline-block;
     color: var(--accent);
+    font-weight: 600;
     text-decoration: none;
+    margin-top: 0.5rem;
   }
   .policy-link:hover {
     text-decoration: underline;

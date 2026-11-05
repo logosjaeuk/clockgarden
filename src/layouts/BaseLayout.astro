@@ -8,7 +8,6 @@ interface Props {
   description: string;
   locale?: Locale;
   path: string;
-  tool?: boolean;
   article?: {
     publishedTime: string;
     modifiedTime?: string | undefined;
@@ -19,7 +18,7 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, locale = 'ko', path, tool = false, article, noindex = false } = Astro.props;
+const { title, description, locale = 'ko', path, article, noindex = false } = Astro.props;
 const fullTitle = `${title} | ${siteConfig.name}`;
 const text = copy[locale];
 const canonicalPath = pathFor(locale, path);
@@ -54,17 +53,6 @@ const structuredData = article
         '@id': canonical.href,
       },
     }
-  : tool
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      name: fullTitle,
-      applicationCategory: 'UtilitiesApplication',
-      operatingSystem: 'Any',
-      isAccessibleForFree: true,
-      url: canonical.href,
-      description,
-    }
   : {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
@@ -87,6 +75,7 @@ const structuredData = article
       } catch {}
     </script>
 
+    <!-- Google AdSense Verification & Ad Engine -->
     <meta name="google-adsense-account" content="ca-pub-9708700594020227" />
     {
       adsConfig.state === ADS_ENABLED && !noindex && (
@@ -202,14 +191,6 @@ const structuredData = article
           {locale === 'ko' ? '보존과학' : 'Care & Science'}
         </a>
 
-        <a href={pathFor(locale, '/clock/')} aria-current={path === '/clock/' ? 'page' : undefined}>
-          {text.nav.clock}
-        </a>
-
-        <a href={pathFor(locale, '/world-clock/')} aria-current={path === '/world-clock/' ? 'page' : undefined}>
-          {text.nav.world}
-        </a>
-
         <a href={pathFor(locale, '/about/')} aria-current={path === '/about/' ? 'page' : undefined}>
           {locale === 'ko' ? '연구진 소개' : 'About'}
         </a>
@@ -247,7 +228,11 @@ const structuredData = article
             <span class="brand-mark" aria-hidden="true"></span>
             <span class="brand-title">{siteConfig.name}</span>
           </a>
-          <p class="footer-desc">{text.footer}</p>
+          <p class="footer-desc">
+            {locale === 'ko'
+              ? '클락가든은 시계학(Horology), 정밀 계측 공학, 그리고 시간의 역사를 심층 탐구하는 독립 연구 저널입니다.'
+              : 'Clock Garden is an independent journal dedicated to horology, chronometry, and the science of time measurement.'}
+          </p>
           <p class="copyright">
             {`© ${new Date().getFullYear()} ${siteConfig.name}.`}
             {locale === 'ko' ? '모든 권리 보유.' : 'All rights reserved.'}
@@ -266,23 +251,17 @@ const structuredData = article
         </div>
 
         <div class="footer-col">
-          <p class="footer-heading">{text.toolsLabel}</p>
+          <p class="footer-heading">{locale === 'ko' ? '연구소 및 에디토리얼' : 'Editorial & Research'}</p>
           <ul class="footer-links">
-            <li><a href={pathFor(locale, '/clock/')}>{text.nav.clock}</a></li>
-            <li><a href={pathFor(locale, '/world-clock/')}>{text.nav.world}</a></li>
-            <li><a href={pathFor(locale, '/stopwatch/')}>{text.nav.stopwatch}</a></li>
-            <li><a href={pathFor(locale, '/timer/')}>{text.nav.timer}</a></li>
-            <li><a href={pathFor(locale, '/alarm/')}>{text.nav.alarm}</a></li>
-            <li><a href={pathFor(locale, '/server-time/')}>{text.nav.serverTime}</a></li>
+            <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
+            <li><a href={pathFor(locale, '/editorial-policy/')}>{locale === 'ko' ? '편집 및 팩트체크 원칙' : 'Editorial Policy'}</a></li>
+            <li><a href={pathFor(locale, '/contact/')}>{text.contact}</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <p class="footer-heading">{text.legalLabel}</p>
           <ul class="footer-links">
-            <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
-            <li><a href={pathFor(locale, '/editorial-policy/')}>{locale === 'ko' ? '편집 및 팩트체크 원칙' : 'Editorial Policy'}</a></li>
-            <li><a href={pathFor(locale, '/contact/')}>{text.contact}</a></li>
             <li><a href={pathFor(locale, '/privacy/')}>{text.privacy}</a></li>
             <li><a href={pathFor(locale, '/terms/')}>{text.terms}</a></li>
             <li><a href="/rss.xml">RSS Feed</a></li>

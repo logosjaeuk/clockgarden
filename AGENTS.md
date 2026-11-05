@@ -1,3 +1,10 @@
-# Repository instructions
+# Clock Garden — Horology Journal & Chronometry Lab
 
-For Living Clock scene additions or changes, read `LIVING_CLOCK_GUIDE.md` first. It is the self-contained scene contract, file map, registration example, design rules, asset provenance, and validation workflow. Keep it synchronized when changing the shared scene contract. Do not repeat a whole-site audit for an ordinary new scene.
+This repository contains the authoritative digital journal and research archive for Clock Garden (`clockgarden.com`).
+
+## Architecture
+- Framework: Astro 7 Content Layer (SSG)
+- Content Collections: `src/content/articles/*.md`
+- Categories: `mechanics`, `history`, `astronomy`, `horology-care`
+- Local CMS: `cms/server.mjs` (port 3333, `npm run cms`)
+- Deployment: Cloudflare Pages (`npm run build`, output: `dist`)
