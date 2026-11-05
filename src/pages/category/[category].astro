@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const categoryDefs = [
+    {
+      slug: 'mechanics',
+      name: '무브먼트 & 메커니즘',
+      description: '탈진기(Escapement), 뚜르비옹(Tourbillon), 수정 진동자, 크로노그래프 휠 등 시간을 기계적·물리적으로 분할하고 조율하는 마이크로 기구학을 해부합니다.',
+    },
+    {
+      slug: 'history',
+      name: '시간의 과학과 역사',
+      description: '고대 물시계와 해시계에서 존 해리슨의 해상 크로노미터, 세슘-133 원자시계와 윤초 폐지에 이르는 3천 년의 시간 계측 혁명사를 탐구합니다.',
+    },
+    {
+      slug: 'astronomy',
+      name: '천문시계 & 컴플리케이션',
+      description: '프라하 천문시계 오를로이, 400년 윤년을 계산하는 퍼페추얼 캘린더, 미닛 리피터의 공(Gong) 음향학, 문페이즈의 59이빨 기어비 역학을 분석합니다.',
+    },
+    {
+      slug: 'horology-care',
+      name: '시계 보존 및 관리 과학',
+      description: '시계 자성과 실리콘 헤어스프링 혁신, 합성 루비 베어링의 트라이볼로지(마찰학), 300m 방수의 ISO 6425 규격 및 COSC/METAS 크로노미터 인증 기준을 다룹니다.',
+    },
+  ];
+
+  const allArticles = await getCollection('articles');
+
+  return categoryDefs.map((cat) => ({
+    params: { category: cat.slug },
+    props: {
+      categoryInfo: cat,
+      articles: allArticles
+        .filter((a) => a.data.categorySlug === cat.slug)
+        .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()),
+    },
+  }));
+}
+
+const { categoryInfo, articles } = Astro.props;
+---
+
+<BaseLayout
+  title={`${categoryInfo.name} — 시계학 전문 저널`}
+  description={categoryInfo.description}
+  path={`/category/${categoryInfo.slug}/`}
+  locale="ko"
+>
+  <div class="content-container">
+    <nav class="breadcrumb" aria-label="탐색 경로">
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="/"><span itemprop="name">홈</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li class="separator">/</li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="/articles/"><span itemprop="name">저널</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <li class="separator">/</li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">{categoryInfo.name}</span>
+          <meta itemprop="position" content="3" />
+        </li>
+      </ol>
+    </nav>
+
+    <header class="page-header">
+      <span class="category-badge">주제별 칼럼 아카이브</span>
+      <h1 class="page-title">{categoryInfo.name}</h1>
+      <p class="page-subtitle">{categoryInfo.description}</p>
+    </header>
+
+    <div class="articles-grid">
+      {articles.map((article) => (
+        <article class="article-card">
+          <div class="card-meta">
+            <span class="card-cat">{article.data.category}</span>
+            <span class="read-time">{article.data.readTime}분 분량</span>
+          </div>
+
+          <h2 class="card-title">
+            <a href={`/articles/${article.id}/`}>
+              {article.data.title}
+            </a>
+          </h2>
+
+          <p class="card-desc">
+            {article.data.description}
+          </p>
+
+          <div class="card-footer">
+            <div class="author-info">
+              <span class="author-name">{article.data.author}</span>
+              <time datetime={article.data.pubDate} class="pub-date">{article.data.pubDate}</time>
+            </div>
+            <a href={`/articles/${article.id}/`} class="read-more-link" aria-label={`${article.data.title} 전문 읽기`}>
+              읽기 &rarr;
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .content-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+  .breadcrumb {
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+  }
+  .breadcrumb ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+  }
+  .breadcrumb a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--accent);
+  }
+  .breadcrumb .separator {
+    color: var(--line);
+  }
+  .page-header {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto 3.5rem;
+  }
+  .category-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin: 0 0 1rem;
+    color: var(--text);
+  }
+  .page-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+  }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .article-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.82rem;
+  }
+  .card-cat {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .read-time {
+    color: var(--muted);
+  }
+  .card-title {
+    font-size: 1.32rem;
+    font-weight: 700;
+    line-height: 1.38;
+    margin: 0 0 1rem;
+  }
+  .card-title a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .card-title a:hover {
+    color: var(--accent);
+  }
+  .card-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 1.75rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+  }
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .author-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .pub-date {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .read-more-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  .read-more-link:hover {
+    text-decoration: underline;
+  }
+</style>

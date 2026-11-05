@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock Garden CMS & AGY Studio</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="cms-shell">
+    <!-- Top Header -->
+    <header class="cms-header">
+      <div class="header-brand">
+        <span class="logo-orb">⏱</span>
+        <div>
+          <span class="brand-title">Clock Garden Studio</span>
+          <span class="brand-sub">Editorial CMS & AGY Engine</span>
+        </div>
+      </div>
+
+      <nav class="cms-nav">
+        <button class="nav-tab active" data-tab="dashboard">📊 대시보드</button>
+        <button class="nav-tab" data-tab="articles">📚 아티클 목록</button>
+        <button class="nav-tab" data-tab="editor">✍️ 스마트 에디터</button>
+        <button class="nav-tab" data-tab="agy">🤖 AGY 생성센터</button>
+        <button class="nav-tab" data-tab="build">🚀 빌드 & 검증</button>
+      </nav>
+
+      <div class="header-right">
+        <div id="badge-score" class="score-pill">AdSense: 계산 중...</div>
+        <a href="http://localhost:4321" target="_blank" class="preview-site-link">사이트 미리보기 &rarr;</a>
+      </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main class="cms-main">
+      <!-- 1. DASHBOARD VIEW -->
+      <section id="view-dashboard" class="cms-view active">
+        <div class="view-header">
+          <h2>저널 현황 및 애드센스 E-E-A-T 검증 센터</h2>
+          <p>고품질 독창적 콘텐츠 규격과 구글 애드센스 승인 가이드라인을 실시간으로 추적합니다.</p>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="metric-grid">
+          <div class="metric-card">
+            <span class="metric-title">발행 아티클 수</span>
+            <span id="m-articles" class="metric-val">-</span>
+            <span class="metric-desc">승인 권장 15편+ 충족</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">총 콘텐츠 텍스트량</span>
+            <span id="m-words" class="metric-val">-</span>
+            <span class="metric-desc">학술 및 기구학 심층 본문</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">아티클당 평균 분량</span>
+            <span id="m-avg" class="metric-val">-</span>
+            <span class="metric-desc">권장 1,500자 이상 유지</span>
+          </div>
+          <div class="metric-card highlight">
+            <span class="metric-title">애드센스 승인 준비 지수</span>
+            <span id="m-score" class="metric-val">-</span>
+            <span class="metric-desc">E-E-A-T 전문성 및 구조 완결</span>
+          </div>
+        </div>
+
+        <!-- AdSense Criteria Checklist -->
+        <div class="dashboard-split">
+          <div class="panel">
+            <h3>구글 애드센스 고품질 평가 기준표 (Scorecard)</h3>
+            <ul id="criteria-list" class="checklist">
+              <li>로딩 중...</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>카테고리별 칼럼 분포</h3>
+            <div id="category-bars" class="cat-bar-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ARTICLES LIST VIEW -->
+      <section id="view-articles" class="cms-view">
+        <div class="view-header-flex">
+          <div>
+            <h2>아티클 라이브러리</h2>
+            <p>시계학 저널에 등록된 모든 심층 칼럼을 관리하고 편집합니다.</p>
+          </div>
+          <button id="btn-new-article" class="btn btn-primary">+ 새 아티클 작성</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <input type="text" id="search-input" placeholder="제목, 카테고리, 태그 검색..." class="input-text">
+            <select id="category-filter" class="select-box">
+              <option value="">모든 카테고리</option>
+              <option value="mechanics">무브먼트 & 메커니즘</option>
+              <option value="history">시간의 과학과 역사</option>
+              <option value="astronomy">천문시계 & 컴플리케이션</option>
+              <option value="horology-care">시계 보존 및 관리 과학</option>
+            </select>
+          </div>
+
+          <table class="cms-table">
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>카테고리</th>
+                <th>작성자</th>
+                <th>글자 수</th>
+                <th>발행일</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="articles-tbody">
+              <tr><td colspan="6" style="text-align:center;">아티클 목록을 불러오는 중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. ARTICLE STUDIO EDITOR VIEW -->
+      <section id="view-editor" class="cms-view">
+        <div class="view-header-flex">
+          <div>
+            <h2 id="editor-heading">스마트 아티클 에디터</h2>
+            <p>메타데이터와 마크다운 본문을 실시간 미리보기 및 SEO 품질 진단과 함께 작성합니다.</p>
+          </div>
+          <div class="editor-actions">
+            <button id="btn-audit-article" class="btn btn-secondary">🔍 AGY 품질 진단</button>
+            <button id="btn-save-article" class="btn btn-primary">💾 저장하기 (Save)</button>
+          </div>
+        </div>
+
+        <!-- Frontmatter Inputs Grid -->
+        <div class="frontmatter-panel">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label>아티클 제목 (Title)</label>
+              <input type="text" id="ed-title" class="input-text" placeholder="예: 기계식 시계의 심장: 스위스 레버 탈진기">
+            </div>
+            <div class="form-group flex-1">
+              <label>URL 슬러그 (Slug / File ID)</label>
+              <input type="text" id="ed-slug" class="input-text" placeholder="예: swiss-lever-escapement-mechanics">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>카테고리 (Category)</label>
+              <select id="ed-cat" class="select-box">
+                <option value="무브먼트 & 메커니즘|mechanics">무브먼트 & 메커니즘</option>
+                <option value="시간의 과학과 역사|history">시간의 과학과 역사</option>
+                <option value="천문시계 & 컴플리케이션|astronomy">천문시계 & 컴플리케이션</option>
+                <option value="시계 보존 및 관리 과학|horology-care">시계 보존 및 관리 과학</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>태그 (쉼표로 구분)</label>
+              <input type="text" id="ed-tags" class="input-text" placeholder="탈진기, 기구학, 스위스레버">
+            </div>
+            <div class="form-group flex-half">
+              <label>읽는 시간(분)</label>
+              <input type="number" id="ed-readtime" class="input-text" value="8">
+            </div>
+            <div class="form-group flex-half">
+              <label>추천 여부</label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="ed-featured"> Featured
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>SEO 메타 디스크립션 (Description)</label>
+            <textarea id="ed-desc" class="input-textarea" rows="2" placeholder="구글 검색 결과에 표시될 80~160자 요약문"></textarea>
+          </div>
+        </div>
+
+        <!-- Split Editor / Preview Layout -->
+        <div class="editor-split">
+          <!-- Left: Markdown Source -->
+          <div class="editor-pane">
+            <div class="pane-header">
+              <span>Markdown 소스</span>
+              <span id="word-counter" class="pane-tag">0자</span>
+            </div>
+            <textarea id="ed-body" class="code-editor" placeholder="여기에 마크다운 본문을 작성하세요..."></textarea>
+          </div>
+
+          <!-- Right: Rendered HTML & Audit -->
+          <div class="preview-pane">
+            <div class="pane-header">
+              <span>실시간 렌더링 미리보기</span>
+              <span id="audit-tag" class="pane-tag pass">E-E-A-T 검증 대기</span>
+            </div>
+            <div id="preview-output" class="preview-content"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. AGY AI STUDIO VIEW -->
+      <section id="view-agy" class="cms-view">
+        <div class="view-header">
+          <h2>AGY 시계학 AI 콘텐츠 생성 엔진</h2>
+          <p>자연어 주제와 키워드를 입력하면, 시계공학 및 계측학에 기반한 2,000자 이상의 고품질 칼럼 초안을 생성합니다.</p>
+        </div>
+
+        <div class="agy-card">
+          <div class="form-group">
+            <label>연구 주제 / 메커니즘 명칭</label>
+            <input type="text" id="agy-topic" class="input-text" placeholder="예: 세이코 스프링 드라이브(Spring Drive)의 트라이싱크로 레귤레이터 원리">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>대상 카테고리</label>
+              <select id="agy-cat" class="select-box">
+                <option value="무브먼트 & 메커니즘|mechanics">무브먼트 & 메커니즘</option>
+                <option value="시간의 과학과 역사|history">시간의 과학과 역사</option>
+                <option value="천문시계 & 컴플리케이션|astronomy">천문시계 & 컴플리케이션</option>
+                <option value="시계 보존 및 관리 과학|horology-care">시계 보존 및 관리 과학</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>핵심 키워드</label>
+              <input type="text" id="agy-keywords" class="input-text" placeholder="스프링드라이브, 수정발진기, 전자기브레이크">
+            </div>
+          </div>
+
+          <button id="btn-run-agy" class="btn btn-primary btn-large">⚡ AGY 전문 칼럼 초안 생성</button>
+        </div>
+
+        <div id="agy-result-box" class="agy-result hidden">
+          <div class="result-header">
+            <h3>생성 완료! 에디터로 불러오거나 바로 확인할 수 있습니다.</h3>
+            <button id="btn-load-to-editor" class="btn btn-secondary">에디터로 불러와 편집하기 &rarr;</button>
+          </div>
+          <div id="agy-preview" class="agy-preview-body"></div>
+        </div>
+      </section>
+
+      <!-- 5. BUILD & VERIFY VIEW -->
+      <section id="view-build" class="cms-view">
+        <div class="view-header-flex">
+          <div>
+            <h2>생산 빌드 & Cloudflare 배포 검증</h2>
+            <p>모든 아티클과 정적 페이지를 Astro 컴파일러로 검증하고 dist/ 정적 산출물을 생성합니다.</p>
+          </div>
+          <button id="btn-trigger-build" class="btn btn-primary">⚡ npm run build 실행</button>
+        </div>
+
+        <div class="terminal-card">
+          <div class="terminal-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">Astro Build Console</span>
+          </div>
+          <pre id="build-logs" class="terminal-content">여기에 빌드 로그가 실시간 출력됩니다. 'npm run build 실행' 버튼을 누르세요.</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

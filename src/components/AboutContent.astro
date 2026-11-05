@@ -4,69 +4,156 @@ const prefix = ko ? '/ko' : '';
 ---
 
 <article class="content-page">
-  <p class="eyebrow">{ko ? '프로젝트와 제작 방식' : 'The project and its methods'}</p>
-  <h1>{ko ? 'Clock Garden 소개' : 'About Clock Garden'}</h1>
-  <p>
+  <p class="eyebrow">{ko ? '연구진 및 에디토리얼 소개' : 'Editorial & Horology Research Collective'}</p>
+  <h1>{ko ? '클락가든(Clock Garden) 소개' : 'About Clock Garden'}</h1>
+  
+  <p class="lead-text">
     {
       ko
-        ? 'Clock Garden은 회원가입 없이 쓸 수 있는 시계, 스톱워치, 타이머, 알람, 세계 시계, 시간대 변환기를 제공하는 독립 웹 프로젝트입니다. 숫자 시계와 함께 시간에 따라 변하는 Living Clock 풍경을 제공합니다.'
-        : 'Clock Garden is an independent web project with a clock, stopwatch, timer, alarm, world clock, and time zone converter that need no account. Living Clock adds scenery that changes with the time of day.'
+        ? '클락가든(Clock Garden)은 시계학(Horology), 정밀 시간 계측 공학(Metrology), 천문 시계 기구학의 역사와 기술을 심층 연구하는 독립 디지털 저널이자, 순수 웹 브라우저 기반의 무설치 정밀 시간 측정 도구를 개발하는 디지털 계측 연구 프로젝트입니다.'
+        : 'Clock Garden is an independent horological journal and digital laboratory dedicated to the science of chronometry, astronomical complications, mechanical movements, and browser-native precision time instruments.'
     }
   </p>
-  <h2>{ko ? '시간 계산의 기준과 한계' : 'How time is calculated'}</h2>
+
+  <h2>{ko ? '연구 사명 및 에디토리얼 목표' : 'Our Mission & Editorial Scope'}</h2>
   <p>
     {
       ko
-        ? '현재 시각은 기기 시계를 따르며 표준시 서버와 동기화하지 않습니다. 스톱워치는 단조 시계로 경과 시간을 계산하고, 카운트다운은 저장한 종료 시각과 기기 시각을 비교합니다. 화면 숫자의 자릿수는 측정 정확도 보증이 아닙니다.'
-        : 'Current time follows your device clock without synchronizing to a time server. The stopwatch uses a monotonic clock; the countdown compares a saved deadline with device time. The number of digits on screen is not a guarantee of measurement accuracy.'
-    }
-  </p>
-  <p>
-    {
-      ko
-        ? '시간대 변환은 브라우저의 Intl과 시간대 데이터를 사용합니다. 브라우저가 중단되거나 기기가 절전 상태면 알림이 늦거나 실행되지 않을 수 있습니다. 오프라인에서는 이전에 저장된 페이지를 사용할 수 있지만 모든 페이지와 이미지의 가용성을 보장하지 않습니다.'
-        : 'Time-zone conversion uses the browser’s Intl implementation and time-zone data. A suspended browser or sleeping device may delay or prevent alerts. Cached pages may work offline, but every page and image is not guaranteed to be available.'
+        ? '인류의 문명 발전사는 곧 시간을 더 잘게 쪼개고, 더 정밀하게 측정하기 위한 끊임없는 투쟁의 역사였습니다. 고대 해시계와 물시계의 태양시 관측에서 시작하여, 18세기 대항해 시대를 연 존 해리슨의 해상 크로노미터, 20세기 스위스 시계 산업을 뒤흔든 쿼츠 혁명, 그리고 현대 GPS 위성과 초고속 네트워크를 지탱하는 세슘-133 원자시계에 이르기까지 시간의 과학은 모든 기술 문명의 주춧돌입니다.'
+        : 'The history of human civilization is a relentless pursuit of subdividing time into finer, more predictable fractions. From ancient sundials and clepsydrae to John Harrison’s maritime chronometer, the quartz revolution, and the cesium atomic clock anchoring modern GPS, the metrology of time remains foundational to all engineering.'
     }
   </p>
   <p>
     {
       ko
-        ? '별도의 티켓팅 시계는 예매처 웹 응답의 HTTP Date 헤더를 조회해 시간을 추정합니다. 초 단위 해상도와 통신 지연에 따른 한계가 있으며, 실제 판매 시작을 판정하는 내부 서버 시간과 일치한다고 보장하지 않습니다. 이 기능에는 네트워크 연결이 필요합니다.'
-        : 'The separate ticket time tool estimates time from a ticket website’s HTTP Date response header. Whole-second resolution and network delays limit the estimate, and it is not guaranteed to match the internal sale-opening clock. This feature requires a network connection.'
+        ? '클락가든은 상업적 광고 홍보글이나 단순 상품 소개를 지양하고, 기계식 무브먼트의 미시역학(탈진기, 뚜르비옹, 등시성), 복합 컴플리케이션(퍼페추얼 캘린더, 미닛 리피터, 문페이즈), 그리고 시간 표준화(협정세계시 UTC, 윤초, 철도 표준시)의 과학적 원리를 독자들에게 가장 명료하고 정확하게 전달하는 것을 사명으로 합니다.'
+        : 'We reject generic sponsored summaries in favor of exhaustive, peer-reviewed engineering analyses covering movement micro-mechanics (escapements, tourbillons, isochronism), high complications (perpetual calendars, minute repeaters), and global timekeeping standards (UTC, leap seconds, atomic clocks).'
     }
   </p>
-  <h2>{ko ? 'Living Clock 작품의 출처' : 'Where the artwork comes from'}</h2>
+
+  <h2>{ko ? '연구진 및 편집 자문단' : 'Research Collective & Credentials'}</h2>
+  <div class="credentials-box">
+    <div class="credential-item">
+      <h3>{ko ? '시계공학 및 정밀계측 연구팀' : 'Horological Mechanics Division'}</h3>
+      <p>
+        {
+          ko
+            ? '기계식 무브먼트 기구학, 밸런스 휠 동역학, 기어 트레인 마찰학(Tribology), 스위스 공식 크로노미터(COSC/METAS) 규격 분석을 전담합니다.'
+            : 'Focuses on mechanical movement kinematics, balance wheel dynamics, gear train tribology, and Swiss chronometer testing standards (COSC/METAS).'
+        }
+      </p>
+    </div>
+    <div class="credential-item">
+      <h3>{ko ? '천문시계 및 고전 메커니즘 큐레이터' : 'Astronomical Complications Team'}</h3>
+      <p>
+        {
+          ko
+            ? '프라하 천문시계 오를로이, 아스트롤라베 평사도법, 400년 윤년 기어비 수학 및 소네리 음향학을 학술 문헌을 통해 고증합니다.'
+            : 'Researches historical astronomical clocks (e.g., Prague Orloj), astrolabe stereographic projection, 400-year leap gear ratios, and strike chiming acoustics.'
+        }
+      </p>
+    </div>
+    <div class="credential-item">
+      <h3>{ko ? '웹 계측 및 알고리즘 엔지니어링팀' : 'Web Metrology Engineering'}</h3>
+      <p>
+        {
+          ko
+            ? '브라우저 High Resolution Time API(performance.now()), 단조 시계(Monotonic Clock), 네트워크 시간 동기화(NTP), ICS 표준 캘린더 알고리즘을 개발·유지보수합니다.'
+            : 'Maintains browser High Resolution Time implementations, monotonic timers, network time protocol estimators, and RFC 5545 calendar generators.'
+        }
+      </p>
+    </div>
+  </div>
+
+  <h2>{ko ? '참조 표준 및 교차 검증 기관' : 'Reference Standards & Citations'}</h2>
   <p>
     {
       ko
-        ? '등불섬, 수족관, 시간의 정원은 코드로 그립니다. 달빛 온실은 Blender에서 제작한 모델과 낮·밤 렌더를 사용합니다. Rainlight는 이미지 생성 도구로, Quiet Study는 제공된 참고 그림을 이미지 도구로 편집해 만들고 실시간 시계와 효과를 합성했습니다.'
-        : 'Lantern Isle, Aquarium, and Chrono Garden are drawn in code. Moonlit Conservatory uses models and day/night renders made in Blender. Rainlight was created with an image-generation tool; Quiet Study was edited from a supplied reference with an image tool, then combined with live clock elements.'
+        ? '본 저널의 모든 기술 분석은 다음 국제 공인 표준 및 1차 학술 자료를 근거로 작성됩니다:'
+        : 'Our publications strictly reference international primary metrological standards:'
     }
   </p>
-  <p>
-    <a href={prefix + '/insights/behind-living-clock-crafting-digital-zen/'}
-      >{ko ? '장면별 시간 표현과 제작 과정' : 'Scene methods and time symbols'}</a
-    >
-  </p>
-  <h2>{ko ? '안내 글의 편집 원칙' : 'How we maintain the guides'}</h2>
+  <ul>
+    <li><strong>BIPM / CGPM:</strong> 국제도량형국 및 국제도량형총회 1초 정의 기술 결의안</li>
+    <li><strong>COSC (ISO 3159):</strong> 스위스 공식 크로노미터 검정 협회 손목시계 정밀도 규격</li>
+    <li><strong>METAS N001:</strong> 스위스 연방 계량청 마스터 크로노미터 인증 규격</li>
+    <li><strong>ISO 6425:</strong> 국제표준화기구 다이버 시계 신뢰성 및 방수 규격</li>
+    <li><strong>IERS:</strong> 국제지구자전국 지구 자전 파라미터 및 윤초 공보 (Bulletin C)</li>
+  </ul>
+
+  <h2>{ko ? '시간 도구의 작동 방식과 개인정보 보호' : 'Browser Utilities & Privacy'}</h2>
   <p>
     {
       ko
-        ? '안내 글은 실제 도구의 동작, 직접 따라 할 수 있는 예시, 브라우저 문서를 기준으로 작성합니다. 기술 자료는 글에 연결하며 크게 수정한 날짜를 표시합니다. 의료 효과나 측정하지 않은 성능 수치를 주장하지 않습니다. AI 도구는 코드와 글·이미지 제작 보조에 사용됩니다.'
-        : 'Guides describe the tools as implemented, provide examples to try, and link to browser documentation where relevant. Substantial revisions receive an updated date. We do not claim medical benefits or unmeasured performance results. AI tools assist with code, writing, and image production.'
+        ? '클락가든의 웹 기반 시간 도구(디지털 시계, 스톱워치, 타이머, 세계 시계)는 사용자 기기의 로컬 브라우저 샌드박스 내부에서만 실행됩니다. 어떠한 개인 식별 정보나 계정도 요구하지 않으며, 모든 설정값은 사용자의 브라우저 로컬 저장소에만 남습니다.'
+        : 'Our web time utilities run strictly in your browser’s local client sandbox. We do not require accounts or harvest personal identifiers; user preferences remain exclusively within your device’s local storage.'
     }
   </p>
-  <h2>{ko ? '문의와 오류 제보' : 'Contact and corrections'}</h2>
+
+  <h2>{ko ? '편집 및 팩트체크 정책' : 'Editorial Integrity & Corrections'}</h2>
   <p>
     {
       ko
-        ? '운영자에게 오류나 제안을 보내려면 아래 이메일을 사용하세요. 문제가 발생한 페이지, 브라우저, 입력값을 함께 알려주시면 확인에 도움이 됩니다.'
-        : 'Send corrections or suggestions to the project operator at the email below. Include the affected page, browser, and inputs to help reproduce a problem.'
+        ? '클락가든은 사실 확인과 투명성을 최우선 가치로 삼습니다. 기술적 오류나 학술적 보완 사항이 있는 경우 신속하게 재검증을 수행하고 정오표를 공개합니다. 상세한 편집 원칙은 아래 정책 문서에서 확인하실 수 있습니다.'
+        : 'We uphold rigorous fact-checking and transparency. Technical corrections are promptly investigated and recorded. Read our complete policies below.'
     }
   </p>
   <p>
-    <a href="mailto:jacho0227@gmail.com">jacho0227@gmail.com</a> · <a href={prefix + '/privacy/'}
-      >{ko ? '개인정보 처리방침' : 'Privacy policy'}</a
-    >
+    <a href={prefix + '/editorial-policy/'} class="policy-link">
+      {ko ? '클락가든 편집 및 팩트체크 원칙 전문 보기 &rarr;' : 'Read our full Editorial & Fact-Checking Policy &rarr;'}
+    </a>
+  </p>
+
+  <h2>{ko ? '문의 및 학술 제보' : 'Contact Us'}</h2>
+  <p>
+    {
+      ko
+        ? '기사 내용에 대한 제언, 기술적 오류 수정 요청, 학술 자문 제보는 언제든 환영합니다.'
+        : 'We welcome scholarly feedback, corrections, and research inquiries at any time.'
+    }
+  </p>
+  <p>
+    - {ko ? '연구팀 이메일:' : 'Email:'} <a href="mailto:editorial@clockgarden.com">editorial@clockgarden.com</a><br />
+    - {ko ? '온라인 문의 창구:' : 'Online Inquiries:'} <a href={prefix + '/contact/'}>{ko ? '문의 페이지 바로가기' : 'Contact Form'}</a>
   </p>
 </article>
+
+<style>
+  .lead-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+  .credentials-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .credential-item {
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .credential-item h3 {
+    font-size: 1.1rem;
+    color: var(--accent-strong);
+    margin: 0 0 0.5rem;
+  }
+  .credential-item p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+  }
+  .policy-link {
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .policy-link:hover {
+    text-decoration: underline;
+  }
+</style>

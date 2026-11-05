@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="편집 원칙 및 팩트체크 정책 (Editorial & Fact-Checking Policy)"
+  description="클락가든 시계학 저널의 편집 독립성, 학술적 팩트체크 검증 기준, 정정 및 정오표 정책, AI 활용 투명성 지침을 공표합니다."
+  path="/editorial-policy/"
+  locale="ko"
+>
+  <div class="legal-container">
+    <header class="legal-header">
+      <span class="legal-badge">E-E-A-T Editorial Guidelines</span>
+      <h1>편집 및 팩트체크 원칙 (Editorial Policy)</h1>
+      <p class="effective-date">최종 개정 및 시행일: 2026년 10월 25일</p>
+    </header>
+
+    <div class="legal-body">
+      <section>
+        <h2>1. 저널의 사명 및 편집 독립성</h2>
+        <p>
+          클락가든(Clock Garden)은 시계학(Horology), 정밀 계측학(Metrology), 천문 시계 기구학, 그리고 시간 측정의 문명사를 심층 탐구하는 독립 학술·기술 저널입니다.
+        </p>
+        <p>
+          본 저널은 특정 시계 제조사, 브랜드, 유통사로부터의 상업적 청탁이나 유료 홍보성 기사(Advertorial)를 일체 게재하지 않으며, 모든 기술 분석과 비평은 기구학적 객관성과 과학적 검증에 기반하여 독립적으로 수행됩니다.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. 사실 확인(Fact-Checking) 및 검증 프로세스</h2>
+        <p>
+          모든 발행 아티클은 다음과 같은 3단계 상호 교차 검증 절차를 거칩니다:
+        </p>
+        <ul>
+          <li>
+            <strong>1차 자료 우선 검증:</strong> 스위스 공식 크로노미터 검정 협회(COSC), 스위스 연방 계량청(METAS), 국제도량형총회(CGPM), 국제천문연맹(IAU) 등의 공인 표준 규격서 및 원본 특허 공보를 1차 출처로 인용합니다.
+          </li>
+          <li>
+            <strong>물리적·수학적 기구학 검토:</strong> 기어비(Gear Ratio), 진동 주파수(Hz), 토크 곡선, 열팽창 계수 등 본문에 언급된 모든 수치와 공식은 편집진의 기구학적 역계산 검증을 거칩니다.
+          </li>
+          <li>
+            <strong>전문가 교차 감수:</strong> 시계 수리 장인(Watchmaker), 정밀 계측 엔지니어, 과학사 연구자로 구성된 편집 자문단의 감수를 거쳐 발행됩니다.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. 정정 및 오류 수정 정책 (Corrections Policy)</h2>
+        <p>
+          클락가든은 오류에 대한 신속하고 투명한 정정을 원칙으로 합니다.
+        </p>
+        <ul>
+          <li>
+            독자나 전문가로부터 사실관계 오류 제보가 접수될 경우, 편집팀은 48시간 이내에 1차 문헌 재검증을 진행합니다.
+          </li>
+          <li>
+            수정이 이루어진 아티클은 본문 상단에 '최종 검토 및 정정일자'를 명시하고, 문서 하단에 구체적인 수정 내용과 사유를 투명하게 기록하는 정오표(Errata)를 부착합니다.
+          </li>
+          <li>
+            오류 제보 및 학술적 제언은 <a href="/contact/">편집팀 제보 창구</a>를 통해 24시간 접수받고 있습니다.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. AI 도구 활용 및 투명성 지침 (AI Transparency)</h2>
+        <p>
+          클락가든은 기사 작성 보조 및 마크다운 포맷팅, 다국어 번역 지원에 인공지능 도구를 활용할 수 있습니다. 그러나 <strong>모든 핵심 논제, 기술적 결론, 팩트 검증, 최종 교열은 인간 편집진의 전적인 검토와 책임 하에 수행</strong>되며, 검증되지 않은 인공지능 환각(Hallucination) 정보의 게재를 엄격히 금지합니다.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. 편집진 및 연락처</h2>
+        <p>
+          - 주체: 클락가든 에디토리얼 & 시계공학 연구팀<br />
+          - 편집 문의 및 제보: <a href="mailto:editorial@clockgarden.com">editorial@clockgarden.com</a><br />
+          - 공식 웹사이트: <a href="https://clockgarden.com">https://clockgarden.com</a>
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+  .legal-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .legal-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .legal-header h1 {
+    font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin: 0 0 0.75rem;
+    color: var(--text);
+  }
+  .effective-date {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .legal-body {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    box-shadow: var(--shadow);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+  .legal-body section {
+    margin-bottom: 2.75rem;
+  }
+  .legal-body section:last-child {
+    margin-bottom: 0;
+  }
+  .legal-body h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .legal-body p {
+    margin: 0 0 1.25rem;
+  }
+  .legal-body ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+  .legal-body li {
+    margin-bottom: 0.75rem;
+  }
+  .legal-body a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .legal-body a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -9,19 +9,52 @@ interface Props {
   locale?: Locale;
   path: string;
   tool?: boolean;
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string | undefined;
+    author: string;
+    section: string;
+    tags: string[];
+  };
   noindex?: boolean;
 }
 
-const { title, description, locale = 'en', path, tool = false, noindex = false } = Astro.props;
+const { title, description, locale = 'ko', path, tool = false, article, noindex = false } = Astro.props;
 const fullTitle = `${title} | ${siteConfig.name}`;
 const text = copy[locale];
 const canonicalPath = pathFor(locale, path);
-const canonical = new URL(canonicalPath, Astro.site);
-const english = new URL(pathFor('en', path), Astro.site);
+const canonical = new URL(canonicalPath, Astro.site || 'https://clockgarden.com');
+const english = new URL(pathFor('en', path), Astro.site || 'https://clockgarden.com');
 const alternateLocale = locale === 'en' ? 'ko' : 'en';
 const alternatePath = pathFor(alternateLocale, noindex ? '/' : path);
 
-const structuredData = tool
+const structuredData = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      description,
+      author: {
+        '@type': 'Person',
+        name: article.author,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: siteConfig.name,
+        url: (Astro.site || 'https://clockgarden.com').toString(),
+        logo: {
+          '@type': 'ImageObject',
+          url: new URL('/icon.svg', Astro.site || 'https://clockgarden.com').href,
+        },
+      },
+      datePublished: article.publishedTime,
+      dateModified: article.modifiedTime || article.publishedTime,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonical.href,
+      },
+    }
+  : tool
   ? {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
@@ -32,7 +65,13 @@ const structuredData = tool
       url: canonical.href,
       description,
     }
-  : null;
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: siteConfig.name,
+      url: (Astro.site || 'https://clockgarden.com').toString(),
+      description: siteConfig.description,
+    };
 ---
 
 <!doctype html>
@@ -61,23 +100,31 @@ const structuredData = tool
     }
 
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-
     <meta name="theme-color" content="#f4f4ef" media="(prefers-color-scheme: light)" />
-
     <meta name="theme-color" content="#10110f" media="(prefers-color-scheme: dark)" />
-
     <meta name="description" content={description} />
-
     <meta
       name="robots"
       content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'}
     />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
+
+    {article && (
+      <>
+        <meta property="article:published_time" content={article.publishedTime} />
+        {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+        <meta property="article:author" content={article.author} />
+        <meta property="article:section" content={article.section} />
+        {article.tags.map((tag) => (
+          <meta property="article:tag" content={tag} />
+        ))}
+      </>
+    )}
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={fullTitle} />
@@ -97,7 +144,7 @@ const structuredData = tool
           <link
             rel="alternate"
             hreflang={language}
-            href={new URL(pathFor(language, path), Astro.site)}
+            href={new URL(pathFor(language, path), Astro.site || 'https://clockgarden.com')}
           />
         ))
     }
@@ -106,6 +153,7 @@ const structuredData = tool
 
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.name} RSS Feed`} href="/rss.xml" />
 
     <title>{fullTitle}</title>
 
@@ -130,55 +178,40 @@ const structuredData = tool
         aria-label={`${siteConfig.name} ${locale === 'ko' ? '홈' : 'home'}`}
       >
         <span class="brand-mark" aria-hidden="true"></span>
-        {siteConfig.name}
+        <span class="brand-title">{siteConfig.name}</span>
       </a>
 
       <nav aria-label={locale === 'ko' ? '기본 메뉴' : 'Primary navigation'}>
+        <a href={pathFor(locale, '/articles/')} aria-current={path.startsWith('/articles/') ? 'page' : undefined}>
+          {locale === 'ko' ? '매거진' : 'Magazine'}
+        </a>
+
+        <a href={pathFor(locale, '/category/mechanics/')} aria-current={path === '/category/mechanics/' ? 'page' : undefined}>
+          {locale === 'ko' ? '무브먼트' : 'Mechanics'}
+        </a>
+
+        <a href={pathFor(locale, '/category/history/')} aria-current={path === '/category/history/' ? 'page' : undefined}>
+          {locale === 'ko' ? '시간의 역사' : 'History'}
+        </a>
+
+        <a href={pathFor(locale, '/category/astronomy/')} aria-current={path === '/category/astronomy/' ? 'page' : undefined}>
+          {locale === 'ko' ? '천문시계' : 'Astronomy'}
+        </a>
+
+        <a href={pathFor(locale, '/category/horology-care/')} aria-current={path === '/category/horology-care/' ? 'page' : undefined}>
+          {locale === 'ko' ? '보존과학' : 'Care & Science'}
+        </a>
+
         <a href={pathFor(locale, '/clock/')} aria-current={path === '/clock/' ? 'page' : undefined}>
           {text.nav.clock}
         </a>
 
-        <a
-          href={pathFor(locale, '/stopwatch/')}
-          aria-current={path === '/stopwatch/' ? 'page' : undefined}
-        >
-          {text.nav.stopwatch}
-        </a>
-
-        <a href={pathFor(locale, '/timer/')} aria-current={path === '/timer/' ? 'page' : undefined}>
-          {text.nav.timer}
-        </a>
-
-        <a href={pathFor(locale, '/alarm/')} aria-current={path === '/alarm/' ? 'page' : undefined}>
-          {text.nav.alarm}
-        </a>
-
-        <a
-          href={pathFor(locale, '/world-clock/')}
-          aria-current={path === '/world-clock/' ? 'page' : undefined}
-        >
+        <a href={pathFor(locale, '/world-clock/')} aria-current={path === '/world-clock/' ? 'page' : undefined}>
           {text.nav.world}
         </a>
 
-        <a
-          href={pathFor(locale, '/time-zone-converter/')}
-          aria-current={path === '/time-zone-converter/' ? 'page' : undefined}
-        >
-          {text.nav.converter}
-        </a>
-
-        <a
-          href={pathFor(locale, '/server-time/')}
-          aria-current={path === '/server-time/' ? 'page' : undefined}
-        >
-          {text.nav.serverTime}
-        </a>
-
-        <a
-          href={pathFor(locale, '/insights/')}
-          aria-current={path.startsWith('/insights/') ? 'page' : undefined}
-        >
-          {text.nav.insights}
+        <a href={pathFor(locale, '/about/')} aria-current={path === '/about/' ? 'page' : undefined}>
+          {locale === 'ko' ? '연구진 소개' : 'About'}
         </a>
       </nav>
 
@@ -200,16 +233,6 @@ const structuredData = tool
     </header>
 
     <main id="main">
-      <noscript>
-        <p class="tool-note">
-          {
-            locale === 'ko'
-              ? '시간 도구를 실행하려면 JavaScript를 켜세요. 사용 안내는 아래에서 읽을 수 있습니다.'
-              : 'Enable JavaScript to run the time tools. You can still read the guides below.'
-          }
-        </p>
-      </noscript>
-
       <slot />
     </main>
 
@@ -222,7 +245,7 @@ const structuredData = tool
             aria-label={`${siteConfig.name} ${locale === 'ko' ? '홈' : 'home'}`}
           >
             <span class="brand-mark" aria-hidden="true"></span>
-            {siteConfig.name}
+            <span class="brand-title">{siteConfig.name}</span>
           </a>
           <p class="footer-desc">{text.footer}</p>
           <p class="copyright">
@@ -232,14 +255,24 @@ const structuredData = tool
         </div>
 
         <div class="footer-col">
+          <p class="footer-heading">{locale === 'ko' ? '주제별 아카이브' : 'Categories'}</p>
+          <ul class="footer-links">
+            <li><a href={pathFor(locale, '/articles/')}>{locale === 'ko' ? '전체 아티클 읽기' : 'All Articles'}</a></li>
+            <li><a href={pathFor(locale, '/category/mechanics/')}>{locale === 'ko' ? '무브먼트 & 메커니즘' : 'Mechanics & Movements'}</a></li>
+            <li><a href={pathFor(locale, '/category/history/')}>{locale === 'ko' ? '시간의 과학과 역사' : 'History & Metrology'}</a></li>
+            <li><a href={pathFor(locale, '/category/astronomy/')}>{locale === 'ko' ? '천문시계 & 컴플리케이션' : 'Astronomical & Complications'}</a></li>
+            <li><a href={pathFor(locale, '/category/horology-care/')}>{locale === 'ko' ? '시계 보존 및 관리 과학' : 'Conservation & Science'}</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
           <p class="footer-heading">{text.toolsLabel}</p>
           <ul class="footer-links">
             <li><a href={pathFor(locale, '/clock/')}>{text.nav.clock}</a></li>
+            <li><a href={pathFor(locale, '/world-clock/')}>{text.nav.world}</a></li>
             <li><a href={pathFor(locale, '/stopwatch/')}>{text.nav.stopwatch}</a></li>
             <li><a href={pathFor(locale, '/timer/')}>{text.nav.timer}</a></li>
             <li><a href={pathFor(locale, '/alarm/')}>{text.nav.alarm}</a></li>
-            <li><a href={pathFor(locale, '/world-clock/')}>{text.nav.world}</a></li>
-            <li><a href={pathFor(locale, '/time-zone-converter/')}>{text.nav.converter}</a></li>
             <li><a href={pathFor(locale, '/server-time/')}>{text.nav.serverTime}</a></li>
           </ul>
         </div>
@@ -247,11 +280,13 @@ const structuredData = tool
         <div class="footer-col">
           <p class="footer-heading">{text.legalLabel}</p>
           <ul class="footer-links">
-            <li><a href={pathFor(locale, '/insights/')}>{text.insights}</a></li>
             <li><a href={pathFor(locale, '/about/')}>{text.about}</a></li>
+            <li><a href={pathFor(locale, '/editorial-policy/')}>{locale === 'ko' ? '편집 및 팩트체크 원칙' : 'Editorial Policy'}</a></li>
             <li><a href={pathFor(locale, '/contact/')}>{text.contact}</a></li>
-            <li><a href={pathFor(locale, '/terms/')}>{text.terms}</a></li>
             <li><a href={pathFor(locale, '/privacy/')}>{text.privacy}</a></li>
+            <li><a href={pathFor(locale, '/terms/')}>{text.terms}</a></li>
+            <li><a href="/rss.xml">RSS Feed</a></li>
+            <li><a href="/sitemap.xml">XML Sitemap</a></li>
           </ul>
         </div>
       </div>

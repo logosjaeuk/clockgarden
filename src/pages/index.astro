@@ -1,24 +1,733 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ClockTool from '../components/ClockTool.astro';
-import HomeGuide from '../components/HomeGuide.astro';
-import ToolCards from '../components/ToolCards.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const sortedArticles = articles.sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const featuredArticle = sortedArticles.find((a) => a.data.featured) || sortedArticles[0];
+if (!featuredArticle) {
+  throw new Error('No articles found in collection');
+}
+const recentArticles = sortedArticles.filter((a) => a.id !== featuredArticle.id).slice(0, 6);
+
+const categories = [
+  {
+    slug: 'mechanics',
+    title: '무브먼트 & 메커니즘',
+    desc: '탈진기, 뚜르비옹, 쿼츠 진동자, 크로노그래프 등 기구학의 정수',
+    count: sortedArticles.filter(a => a.data.categorySlug === 'mechanics').length,
+  },
+  {
+    slug: 'history',
+    title: '시간의 과학과 역사',
+    desc: '물시계와 해시계에서 해상 크로노미터, 세슘 원자시계와 윤초 폐지까지',
+    count: sortedArticles.filter(a => a.data.categorySlug === 'history').length,
+  },
+  {
+    slug: 'astronomy',
+    title: '천문시계 & 컴플리케이션',
+    desc: '프라하 천문시계, 퍼페추얼 캘린더, 미닛 리피터, 문페이즈 기어비 수학',
+    count: sortedArticles.filter(a => a.data.categorySlug === 'astronomy').length,
+  },
+  {
+    slug: 'horology-care',
+    title: '시계 보존 및 관리 과학',
+    desc: '항자성 실리콘 스프링, 루비 베어링 마찰학, 300m 방수와 COSC/METAS 인증',
+    count: sortedArticles.filter(a => a.data.categorySlug === 'horology-care').length,
+  },
+];
 ---
 
 <BaseLayout
-  title="Current Local Time with Seconds and Time Tools"
-  description="See your device's current time with seconds, explore Living Clock scenes, or use a stopwatch, countdown, alarm and time zone converter. No account needed."
+  title="클락가든 — 시계학 저널 & 정밀 시간 계측 연구소"
+  description="탈진기 미시역학, 뚜르비옹 기구학, 해상 크로노미터, 원자시계, 천문시계 컴플리케이션 등 시계공학과 시간 계측 과학을 심층 탐구하는 전문 디지털 저널입니다."
   path="/"
-  tool
+  locale="ko"
 >
-  <div class="hero-section">
-    <ClockTool locale="en" heading="Current local time" />
-    <ToolCards locale="en" />
+  <div class="home-container">
+    <!-- Live Time Ticker Bar -->
+    <section class="ticker-banner" aria-label="실시간 정밀 시간대">
+      <div class="ticker-inner">
+        <span class="ticker-pulse" aria-hidden="true"></span>
+        <span class="ticker-label">UTC 정밀 계측 표준시:</span>
+        <span id="live-utc-time" class="ticker-value">00:00:00 UTC</span>
+        <span class="ticker-sep">|</span>
+        <span class="ticker-label">한국 표준시 (KST):</span>
+        <span id="live-kst-time" class="ticker-value">00:00:00 KST</span>
+      </div>
+    </section>
+
+    <!-- Magazine Hero / Featured Article -->
+    <section class="hero-section">
+      <div class="hero-badge">Featured Editorial · 커버 스토리</div>
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-cat">{featuredArticle.data.category}</span>
+          <h1 class="hero-title">
+            <a href={`/articles/${featuredArticle.id}/`}>
+              {featuredArticle.data.title}
+            </a>
+          </h1>
+          <p class="hero-lead">
+            {featuredArticle.data.description}
+          </p>
+          <div class="hero-byline">
+            <span class="hero-author">{featuredArticle.data.author} ({featuredArticle.data.authorRole})</span>
+            <span class="hero-meta">{featuredArticle.data.pubDate} · {featuredArticle.data.readTime}분 완독</span>
+          </div>
+          <div class="hero-actions">
+            <a href={`/articles/${featuredArticle.id}/`} class="btn-primary">
+              전문 분석 읽기 &rarr;
+            </a>
+            <a href="/articles/" class="btn-secondary">
+              전체 아카이브 ({sortedArticles.length}편)
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="horology-visual-box">
+            <div class="balance-wheel-anim" aria-hidden="true">
+              <div class="pivot-dot"></div>
+              <div class="wheel-rim"></div>
+              <div class="spoke spoke-1"></div>
+              <div class="spoke spoke-2"></div>
+              <div class="hairspring-coil"></div>
+            </div>
+            <div class="visual-caption">
+              <span class="caption-title">Mechanical Isochronism</span>
+              <span class="caption-sub">초당 8진동 (28,800 vph) 기계식 밸런스 휠 기구학 모델</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Pillars Category Grid -->
+    <section class="categories-section">
+      <div class="section-header">
+        <span class="sub-heading">Four Research Pillars</span>
+        <h2 class="section-title">시계학 4대 핵심 연구 분야</h2>
+        <p class="section-desc">시계를 이루는 물리적 메커니즘부터 역사적 패러다임 전환과 첨단 보존과학까지 분류별로 탐구합니다.</p>
+      </div>
+
+      <div class="categories-grid">
+        {categories.map((cat) => (
+          <a href={`/category/${cat.slug}/`} class="cat-card">
+            <div class="cat-card-header">
+              <span class="cat-count">{cat.count}편의 칼럼</span>
+              <span class="cat-arrow">&rarr;</span>
+            </div>
+            <h3 class="cat-title">{cat.title}</h3>
+            <p class="cat-desc">{cat.desc}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Recent Deep-Dive Articles Grid -->
+    <section class="recent-section">
+      <div class="section-header-row">
+        <div>
+          <span class="sub-heading">Latest Investigations</span>
+          <h2 class="section-title">최신 심층 연구 칼럼</h2>
+        </div>
+        <a href="/articles/" class="view-all-link">전체 칼럼 보기 &rarr;</a>
+      </div>
+
+      <div class="articles-grid">
+        {recentArticles.map((article) => (
+          <article class="article-card">
+            <div class="card-meta">
+              <a href={`/category/${article.data.categorySlug}/`} class="card-cat">
+                {article.data.category}
+              </a>
+              <span class="read-time">{article.data.readTime}분 읽기</span>
+            </div>
+
+            <h3 class="card-title">
+              <a href={`/articles/${article.id}/`}>
+                {article.data.title}
+              </a>
+            </h3>
+
+            <p class="card-desc">
+              {article.data.description}
+            </p>
+
+            <div class="card-footer">
+              <span class="card-author">{article.data.author}</span>
+              <time datetime={article.data.pubDate} class="card-date">{article.data.pubDate}</time>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Precision Tools Showcase -->
+    <section class="tools-showcase">
+      <div class="section-header">
+        <span class="sub-heading">Browser Instruments</span>
+        <h2 class="section-title">웹 브라우저 기반 정밀 시간 계측 도구</h2>
+        <p class="section-desc">별도의 설치나 계정 없이 브라우저 단독으로 실행되는 클락가든의 고정밀 시간 측정 유틸리티 제품군입니다.</p>
+      </div>
+
+      <div class="tools-grid">
+        <a href="/clock/" class="tool-card">
+          <div class="tool-icon">⏱</div>
+          <h3>디지털 & 리빙 시계</h3>
+          <p>밀리초 단위의 정밀 디지털 시계와 시간대에 따라 예술적으로 변화하는 리빙 클락</p>
+        </a>
+
+        <a href="/world-clock/" class="tool-card">
+          <div class="tool-icon">🌐</div>
+          <h3>세계 시계 및 회의 조율</h3>
+          <p>전 세계 주요 도시의 시차와 서머타임(DST)을 시각적으로 비교하고 캘린더 파일(ICS) 내보내기</p>
+        </a>
+
+        <a href="/server-time/" class="tool-card">
+          <div class="tool-icon">🎯</div>
+          <h3>서버 시각 (티켓팅) 측정</h3>
+          <p>인터파크, 멜론티켓 등 주요 예매 서버의 응답 헤더 시각을 0.01초 단위로 실시간 추적</p>
+        </a>
+
+        <a href="/stopwatch/" class="tool-card">
+          <div class="tool-icon">⚡</div>
+          <h3>정밀 랩타임 스톱워치</h3>
+          <p>백그라운드 탭에서도 밀리지 않는 고해상도 타이머 기반의 구간 기록 스톱워치</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial Trust & E-E-A-T Mission Statement -->
+    <section class="trust-section">
+      <div class="trust-content">
+        <span class="sub-heading">Editorial Standards & Independence</span>
+        <h2>클락가든의 학술적 사명과 팩트체크 원칙</h2>
+        <p>
+          클락가든(Clock Garden)은 단순한 제품 리뷰나 광고성 콘텐츠를 배제하고, 시계학(Horology)의 물리적 기구학, 시간 계측학(Metrology), 천문학적 역학을 독립적으로 연구하고 기록하는 지식 아카이브입니다.
+        </p>
+        <p>
+          모든 칼럼은 공인된 특허 문서, 학술 문헌(스위스 공식 크로노미터 검정 협회 COSC, 국제도량형국 BIPM 등), 실제 무브먼트 분해 실측 데이터를 토대로 작성되며, 엄격한 교차 검증을 거칩니다.
+        </p>
+        <div class="trust-links">
+          <a href="/about/">연구진 및 에디토리얼 소개 &rarr;</a>
+          <a href="/editorial-policy/">편집 및 정정 정책 &rarr;</a>
+          <a href="/contact/">오류 제보 및 학술 문의 &rarr;</a>
+        </div>
+      </div>
+    </section>
   </div>
-
-  <HomeGuide locale="en" />
-
-  <script>
-    import '../scripts/tools';
-  </script>
 </BaseLayout>
+
+<script>
+  function updateLiveTicker() {
+    const now = new Date();
+    const utcEl = document.getElementById('live-utc-time');
+    const kstEl = document.getElementById('live-kst-time');
+
+    if (utcEl) {
+      const utcHours = String(now.getUTCHours()).padStart(2, '0');
+      const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
+      const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
+      utcEl.textContent = `${utcHours}:${utcMinutes}:${utcSeconds} UTC`;
+    }
+
+    if (kstEl) {
+      // KST is UTC + 9
+      const kst = new Date(now.getTime() + 9 * 3600000);
+      const kstHours = String(kst.getUTCHours()).padStart(2, '0');
+      const kstMinutes = String(kst.getUTCMinutes()).padStart(2, '0');
+      const kstSeconds = String(kst.getUTCSeconds()).padStart(2, '0');
+      kstEl.textContent = `${kstHours}:${kstMinutes}:${kstSeconds} KST`;
+    }
+  }
+
+  updateLiveTicker();
+  setInterval(updateLiveTicker, 1000);
+</script>
+
+<style>
+  .home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 6rem;
+  }
+  .ticker-banner {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.65rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 0.86rem;
+    display: inline-block;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  }
+  .ticker-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+  .ticker-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .ticker-label {
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .ticker-value {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .ticker-sep {
+    color: var(--line);
+  }
+  .hero-section {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    box-shadow: var(--shadow);
+    margin-bottom: 5rem;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      display: none;
+    }
+  }
+  .hero-cat {
+    display: block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+  .hero-title {
+    font-size: clamp(2.1rem, 4vw, 2.95rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.22;
+    margin: 0 0 1.25rem;
+  }
+  .hero-title a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .hero-title a:hover {
+    color: var(--accent);
+  }
+  .hero-lead {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 0 1.75rem;
+  }
+  .hero-byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding: 1rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2rem;
+  }
+  .hero-author {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover {
+    background: var(--accent-strong);
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+  }
+  .horology-visual-box {
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .balance-wheel-anim {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 1.5rem;
+  }
+  .wheel-rim {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 6px solid var(--accent);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08);
+    animation: oscillate 0.5s ease-in-out infinite alternate;
+  }
+  @keyframes oscillate {
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(35deg); }
+  }
+  .spoke {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: var(--accent);
+    transform-origin: center;
+    animation: oscillate 0.5s ease-in-out infinite alternate;
+  }
+  .spoke-2 {
+    transform: rotate(90deg);
+  }
+  .pivot-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    background: #ef4444;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .visual-caption .caption-title {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .visual-caption .caption-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .sub-heading {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin: 0 0 0.75rem;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 680px;
+    margin: 0;
+  }
+  .categories-section {
+    margin-bottom: 5rem;
+  }
+  .categories-section .section-header {
+    margin-bottom: 2.5rem;
+  }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    text-decoration: none;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .cat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+  .cat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .cat-count {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+  .cat-arrow {
+    color: var(--muted);
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+  }
+  .cat-card:hover .cat-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+  .cat-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.65rem;
+  }
+  .cat-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .recent-section {
+    margin-bottom: 5rem;
+  }
+  .section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+  }
+  .view-all-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 2rem;
+  }
+  .article-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.85rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .article-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    font-size: 0.82rem;
+  }
+  .card-cat {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .read-time {
+    color: var(--muted);
+  }
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 0.85rem;
+  }
+  .card-title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--accent);
+  }
+  .card-desc {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+  }
+  .card-author {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .card-date {
+    color: var(--muted);
+  }
+  .tools-showcase {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: 5rem;
+  }
+  .tools-showcase .section-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+  }
+  .tool-card {
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .tool-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .tool-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+  .tool-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.5rem;
+  }
+  .tool-card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+  .trust-section {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 3rem;
+  }
+  .trust-content {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .trust-content h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--accent-strong);
+    margin: 0 0 1.25rem;
+  }
+  .trust-content p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin: 0 0 1.25rem;
+  }
+  .trust-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+  }
+  .trust-links a {
+    color: var(--accent-strong);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .trust-links a:hover {
+    text-decoration: underline;
+  }
+</style>
